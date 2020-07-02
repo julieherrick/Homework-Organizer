@@ -55,7 +55,6 @@ Upload your assignments, the estimated time you think it will take to complete t
 * Login
    * User can log in/out using facebook 
    * User can create a new account
-   * ...
 * Assignments List
    * User can view a list of assignments
    * User can add a new assignment
