@@ -31,17 +31,18 @@ Upload your assignments, the estimated time you think it will take to complete t
 * User can log in/out using facebook [would this use facebook SDK?]
 * User can create a new account
 * User can add a new assignment
-* User can add due date
+* User can add a class and due date to assignment
 * User can view a list of all assignments
 * Users can view assignment due dates on calendar
 * User can switch between tabs of a list of assignments and a calendar
 * User can swipe to delete assignments
-* [something using the camera]
+* User can add subtasks to their assignments
+* User can check off subtasks and progress bar will reflect completion status
+* User can attatch photograph to assignments
 * ...
 
 **Optional Nice-to-have Stories**
 
-* User can input the progress they have made in their homework (eg. 75% completed)
 * User can view their profile
 * User can input their classes on their profile
 * User can group assignments by class 
@@ -63,6 +64,9 @@ Upload your assignments, the estimated time you think it will take to complete t
 * Add Assignment
    * User can add new assignment
    * User can add due date
+   
+* Assignment Detail
+   * user can view the details of the assignment
 
 * Calendar
     * User can view assignment due dates on calendar
@@ -80,6 +84,9 @@ Upload your assignments, the estimated time you think it will take to complete t
     => Assignment List
 * Assignment List
     => Add Assignment
+    => Assignment details
+* Assignment Details
+    => Assignment List
 * Add Assignment
     => Assignment List
 * Calendar View
@@ -87,6 +94,7 @@ Upload your assignments, the estimated time you think it will take to complete t
 
 ## Wireframes
 [Add picture of your hand sketched wireframes in this section]
+<a href='https://postimg.cc/06J0cJVZ' target='_blank'><img src='https://i.postimg.cc/06J0cJVZ/IMG-3435.jpg' border='0' alt='IMG-3435'/></a>
 <img src="YOUR_WIREFRAME_IMAGE_URL" width=600>
 
 ### [BONUS] Digital Wireframes & Mockups
