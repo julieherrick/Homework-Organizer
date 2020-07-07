@@ -93,8 +93,6 @@ Upload your assignments, the estimated time you think it will take to complete t
     => none
 
 ## Wireframes
-[Add picture of your hand sketched wireframes in this section]
-<a href='https://postimg.cc/jwtnPWmD' target='_blank'><img src='https://i.postimg.cc/06J0cJVZ/IMG-3435.jpg' border='0' alt='IMG-3435'/></a>
 <img src="https://i.postimg.cc/vB67Rfvt/IMG-3435.jpg" width=600>
 
 ### [BONUS] Digital Wireframes & Mockups
