@@ -87,7 +87,7 @@ Upload your assignments, the estimated time you think it will take to complete t
     => Assignment details
 * Assignment Details
     => Assignment List
-* Add Assignment
+* Create Assignment
     => Assignment List
 * Calendar View
     => none
@@ -111,7 +111,8 @@ Upload your assignments, the estimated time you think it will take to complete t
  | class         | String   | The name of the class the assignment is for |
  | due_date      | DateTime | The date the assignment is due |
  | tasks         | Array    | An array of subtasks |
- | Progress      |Number    | Based on the number of subtasks stores the proportion completed |
+ | Progress      | Number   | Based on the number of subtasks stores the proportion completed |
+ | completed     | Boolean  | Stores if the task is completed |
  | image         | File     | User can attach image |
  
  #### Subtask
@@ -123,6 +124,29 @@ Upload your assignments, the estimated time you think it will take to complete t
 
 
 ### Networking
-- [Add list of network requests by screen ]
+- Assignment List Screen
+  - (Read/GET) Query all assignments where user is author
+    ```objective c
+    PFQuery *query = [PFQuery queryWithClassName:@"Assignment"];
+    [query whereKey:@"author" equalTo: currentuser];
+    query.order(byDescending: "createdAt");
+ 
+    [query findObjectsInBackgroundWithBlock:^(NSArray *assignments, NSError *error) {
+      if (assignments != nil) {
+          NSLog(@"Succesfully retrieved assignments");
+          // TODO: Something with assignments
+      } else {
+          NSLog(@"%@", error.localizedDescription);
+      }
+    }];
+    ```
+  - (Update/PUT) Mark assignment as completed
+  - (Delete) Delete assignment
+- Create Assignment Screen
+  - (Create/POST) Create new Assignment
+- Assignment Detials Screen
+  - (Update/PUT) Edit assignment details
+  
+
 - [Create basic snippets for each Parse network request]
 - [OPTIONAL: List endpoints if using existing API such as Yelp]
