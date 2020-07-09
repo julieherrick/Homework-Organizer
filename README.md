@@ -102,7 +102,26 @@ Upload your assignments, the estimated time you think it will take to complete t
 ## Schema 
 [This section will be completed in Unit 9]
 ### Models
-[Add table of models]
+#### Assignment
+ | Property      | Type     | Description |
+ | ------------- | -------- | ------------|
+ | objectId      | String   | Unique id for the user assignment (default field) |
+ | author        | Pointer to User | Author of assignment |
+ | title         | String   | Name of the assignment |
+ | class         | String   | The name of the class the assignment is for |
+ | due_date      | DateTime | The date the assignment is due |
+ | tasks         | Array    | An array of subtasks |
+ | Progress      |Number    | Based on the number of subtasks stores the proportion completed |
+ | image         | File     | User can attach image |
+ 
+ #### Subtask
+  | Property      | Type     | Description |
+  | ------------- | -------- | ------------|
+  | objectId      | String   | Unique id for the user subtask (default field) |
+  | description   | String   | Description of subtask |
+  | completed     | Boolean  | Stores if the task has been completed |
+
+
 ### Networking
 - [Add list of network requests by screen ]
 - [Create basic snippets for each Parse network request]
