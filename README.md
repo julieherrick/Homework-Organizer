@@ -124,6 +124,7 @@ Upload your assignments, the estimated time you think it will take to complete t
 
 
 ### Networking
+#### List of network requests by screen
 - Assignment List Screen
   - (Read/GET) Query all assignments where user is author
     ```objective c
@@ -143,10 +144,16 @@ Upload your assignments, the estimated time you think it will take to complete t
   - (Update/PUT) Mark assignment as completed
   - (Delete) Delete assignment
 - Create Assignment Screen
-  - (Create/POST) Create new Assignment
+  - (Create/ADD) Create new Assignment
 - Assignment Detials Screen
   - (Update/PUT) Edit assignment details
   
+  #### Network Request Actions
+     CRUD    | HTTP Verb | Example
+   ----------|-----------|------------
+    Create   | `ADD`     | Creating a new assignment
+    Read     | `GET`     | Fetch assignments from user
+    Update   | `PUT`     | Update assignment information
+    Delete   | `DELETE`  | Delete an assignment
 
-- [Create basic snippets for each Parse network request]
 - [OPTIONAL: List endpoints if using existing API such as Yelp]
