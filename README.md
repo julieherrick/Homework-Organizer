@@ -43,6 +43,7 @@ Upload your assignments, the estimated time you think it will take to complete t
 
 **Optional Nice-to-have Stories**
 
+* User can view what assignments are due when they click the day on the calendar
 * User can view their profile
 * User can input their classes on their profile
 * User can group assignments by class 
