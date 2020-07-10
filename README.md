@@ -96,11 +96,11 @@ Upload your assignments, the estimated time you think it will take to complete t
 <img src="https://i.postimg.cc/vB67Rfvt/IMG-3435.jpg" width=600>
 
 ### [BONUS] Digital Wireframes & Mockups
+<img src="https://i.postimg.cc/fLp8w4xK/Screen-Shot-2020-07-10-at-1-19-39-AM.png" width=1000>
 
 ### [BONUS] Interactive Prototype
 
 ## Schema 
-[This section will be completed in Unit 9]
 ### Models
 #### Assignment
  | Property      | Type     | Description |
