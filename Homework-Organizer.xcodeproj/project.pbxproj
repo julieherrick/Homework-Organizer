@@ -16,6 +16,12 @@
 		799F0B6024BCCBA900FAECC6 /* main.m in Sources */ = {isa = PBXBuildFile; fileRef = 799F0B5F24BCCBA900FAECC6 /* main.m */; };
 		799F0B6A24BCCBA900FAECC6 /* Homework_OrganizerTests.m in Sources */ = {isa = PBXBuildFile; fileRef = 799F0B6924BCCBA900FAECC6 /* Homework_OrganizerTests.m */; };
 		799F0B7524BCCBA900FAECC6 /* Homework_OrganizerUITests.m in Sources */ = {isa = PBXBuildFile; fileRef = 799F0B7424BCCBA900FAECC6 /* Homework_OrganizerUITests.m */; };
+		799F0B8824BCCF0F00FAECC6 /* LoginViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 799F0B8724BCCF0F00FAECC6 /* LoginViewController.m */; };
+		799F0B8B24BCCF2100FAECC6 /* DetailsViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 799F0B8A24BCCF2100FAECC6 /* DetailsViewController.m */; };
+		799F0B8E24BCCF3900FAECC6 /* AssignmentListViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 799F0B8D24BCCF3900FAECC6 /* AssignmentListViewController.m */; };
+		799F0B9124BCCF4500FAECC6 /* CreateViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 799F0B9024BCCF4500FAECC6 /* CreateViewController.m */; };
+		79CF669224BCD063007729B9 /* CalendarViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 79CF669124BCD063007729B9 /* CalendarViewController.m */; };
+		79CF669524BCD52F007729B9 /* AssignmentListCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 79CF669424BCD52F007729B9 /* AssignmentListCell.m */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -54,6 +60,18 @@
 		799F0B7024BCCBA900FAECC6 /* Homework-OrganizerUITests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = "Homework-OrganizerUITests.xctest"; sourceTree = BUILT_PRODUCTS_DIR; };
 		799F0B7424BCCBA900FAECC6 /* Homework_OrganizerUITests.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = Homework_OrganizerUITests.m; sourceTree = "<group>"; };
 		799F0B7624BCCBA900FAECC6 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+		799F0B8624BCCF0F00FAECC6 /* LoginViewController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = LoginViewController.h; sourceTree = "<group>"; };
+		799F0B8724BCCF0F00FAECC6 /* LoginViewController.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = LoginViewController.m; sourceTree = "<group>"; };
+		799F0B8924BCCF2100FAECC6 /* DetailsViewController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = DetailsViewController.h; sourceTree = "<group>"; };
+		799F0B8A24BCCF2100FAECC6 /* DetailsViewController.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = DetailsViewController.m; sourceTree = "<group>"; };
+		799F0B8C24BCCF3900FAECC6 /* AssignmentListViewController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = AssignmentListViewController.h; sourceTree = "<group>"; };
+		799F0B8D24BCCF3900FAECC6 /* AssignmentListViewController.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = AssignmentListViewController.m; sourceTree = "<group>"; };
+		799F0B8F24BCCF4500FAECC6 /* CreateViewController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = CreateViewController.h; sourceTree = "<group>"; };
+		799F0B9024BCCF4500FAECC6 /* CreateViewController.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = CreateViewController.m; sourceTree = "<group>"; };
+		79CF669024BCD063007729B9 /* CalendarViewController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = CalendarViewController.h; sourceTree = "<group>"; };
+		79CF669124BCD063007729B9 /* CalendarViewController.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = CalendarViewController.m; sourceTree = "<group>"; };
+		79CF669324BCD52F007729B9 /* AssignmentListCell.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = AssignmentListCell.h; sourceTree = "<group>"; };
+		79CF669424BCD52F007729B9 /* AssignmentListCell.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = AssignmentListCell.m; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -104,6 +122,9 @@
 		799F0B4C24BCCBA700FAECC6 /* Homework-Organizer */ = {
 			isa = PBXGroup;
 			children = (
+				799F0B8524BCCEEC00FAECC6 /* Models */,
+				799F0B8324BCCED400FAECC6 /* Views */,
+				799F0B8224BCCEC000FAECC6 /* View Controllers */,
 				799F0B4D24BCCBA700FAECC6 /* AppDelegate.h */,
 				799F0B4E24BCCBA700FAECC6 /* AppDelegate.m */,
 				799F0B5024BCCBA700FAECC6 /* SceneDelegate.h */,
@@ -135,6 +156,39 @@
 				799F0B7624BCCBA900FAECC6 /* Info.plist */,
 			);
 			path = "Homework-OrganizerUITests";
+			sourceTree = "<group>";
+		};
+		799F0B8224BCCEC000FAECC6 /* View Controllers */ = {
+			isa = PBXGroup;
+			children = (
+				799F0B8624BCCF0F00FAECC6 /* LoginViewController.h */,
+				799F0B8724BCCF0F00FAECC6 /* LoginViewController.m */,
+				799F0B8924BCCF2100FAECC6 /* DetailsViewController.h */,
+				799F0B8A24BCCF2100FAECC6 /* DetailsViewController.m */,
+				799F0B8C24BCCF3900FAECC6 /* AssignmentListViewController.h */,
+				799F0B8D24BCCF3900FAECC6 /* AssignmentListViewController.m */,
+				799F0B8F24BCCF4500FAECC6 /* CreateViewController.h */,
+				799F0B9024BCCF4500FAECC6 /* CreateViewController.m */,
+				79CF669024BCD063007729B9 /* CalendarViewController.h */,
+				79CF669124BCD063007729B9 /* CalendarViewController.m */,
+			);
+			path = "View Controllers";
+			sourceTree = "<group>";
+		};
+		799F0B8324BCCED400FAECC6 /* Views */ = {
+			isa = PBXGroup;
+			children = (
+				79CF669324BCD52F007729B9 /* AssignmentListCell.h */,
+				79CF669424BCD52F007729B9 /* AssignmentListCell.m */,
+			);
+			path = Views;
+			sourceTree = "<group>";
+		};
+		799F0B8524BCCEEC00FAECC6 /* Models */ = {
+			isa = PBXGroup;
+			children = (
+			);
+			path = Models;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -267,10 +321,16 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				79CF669524BCD52F007729B9 /* AssignmentListCell.m in Sources */,
 				799F0B5524BCCBA700FAECC6 /* ViewController.m in Sources */,
+				79CF669224BCD063007729B9 /* CalendarViewController.m in Sources */,
 				799F0B4F24BCCBA700FAECC6 /* AppDelegate.m in Sources */,
+				799F0B8E24BCCF3900FAECC6 /* AssignmentListViewController.m in Sources */,
 				799F0B6024BCCBA900FAECC6 /* main.m in Sources */,
+				799F0B9124BCCF4500FAECC6 /* CreateViewController.m in Sources */,
+				799F0B8B24BCCF2100FAECC6 /* DetailsViewController.m in Sources */,
 				799F0B5224BCCBA700FAECC6 /* SceneDelegate.m in Sources */,
+				799F0B8824BCCF0F00FAECC6 /* LoginViewController.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
