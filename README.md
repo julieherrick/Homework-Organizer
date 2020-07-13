@@ -20,7 +20,7 @@ Upload your assignments, the estimated time you think it will take to complete t
 - **Story:** Allows users to keep track of their homework assignments to help them finish on time
 - **Market:** Students
 - **Habit:** Homework is very frequent so I think it would be habit forming to check when your assignments are due
-- **Scope:** Store assignment progress and give notfications close to the due date
+- **Scope:** User can store an organized list of their assignments to have a single location to keep track of their school work
 
 ## Product Spec
 
