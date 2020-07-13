@@ -7,10 +7,14 @@
 //
 
 #import <UIKit/UIKit.h>
+#import "Assignment.h"
+
 
 NS_ASSUME_NONNULL_BEGIN
 
 @interface CreateViewController : UIViewController
+
+@property (strong, nonatomic) Assignment *assignment;
 
 @end
 

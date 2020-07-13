@@ -108,6 +108,16 @@
                     <view key="view" contentMode="scaleToFill" id="Cm3-Ze-RkY">
                         <rect key="frame" x="0.0" y="0.0" width="414" height="896"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <subviews>
+                            <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="Y4B-lA-qzs">
+                                <rect key="frame" x="180" y="345" width="54" height="30"/>
+                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                <state key="normal" title="subtask"/>
+                                <connections>
+                                    <action selector="onSubtask:" destination="fgl-vY-0jj" eventType="touchUpInside" id="gnT-te-tpA"/>
+                                </connections>
+                            </button>
+                        </subviews>
                         <color key="backgroundColor" systemColor="systemBackgroundColor" cocoaTouchSystemColor="whiteColor"/>
                         <viewLayoutGuide key="safeArea" id="oNw-am-pSE"/>
                     </view>
@@ -236,8 +246,7 @@
         </scene>
     </scenes>
     <inferredMetricsTieBreakers>
-        <segue reference="pFR-Dl-wQV"/>
-        <segue reference="8X7-OR-T3Q"/>
+        <segue reference="NaP-Hb-jnh"/>
     </inferredMetricsTieBreakers>
     <resources>
         <image name="calendar" catalog="system" width="128" height="106"/>

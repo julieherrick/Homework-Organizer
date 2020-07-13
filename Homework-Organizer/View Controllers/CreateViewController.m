@@ -23,7 +23,7 @@
 }
 
 - (IBAction)onAdd:(id)sender {
-    
+    // test to see if assignment is created
     [Assignment  createNewAssignment:@"Title" withClassName:@"Class Name" withDueDate:[NSDate date] withCompletion:^(BOOL succeeded, NSError * _Nullable error) {
         if (succeeded) {
             NSLog(@"The assignment was saved!");
@@ -33,18 +33,24 @@
 //            [self alertError:error.localizedDescription];
         }
     }];
-   /*
-    [Post postUserImage:self.imageToPost.image withCaption:self.captionToPost.text withCompletion:^(BOOL succeeded, NSError * _Nullable error) {
-                if (succeeded) {
-                    [self backToFeed];
-                    NSLog(@"The post was shared!");
-                    
-                } else {
-    //                NSLog(@"Problem saving post: %@", error.localizedDescription);
-                    [self alertError:error.localizedDescription];
+}
+- (IBAction)onSubtask:(id)sender {
+    Subtask *newTask = [Subtask new];
+    newTask.text = @"task text";
+    [newTask saveInBackgroundWithBlock:^(BOOL succeeded, NSError * _Nullable error) {
+        if(succeeded){
+            NSLog(@"success");
+            PFRelation *relation = [self.assignment relationForKey:@"Subtask"];
+            [relation addObject:newTask];
+            [self.assignment saveInBackgroundWithBlock:^(BOOL succeeded, NSError * _Nullable error) {
+                if(succeeded){
+                    NSLog(@"success");
                 }
             }];
-    */
+        } else {
+            NSLog(@"subtask not updated");
+        }
+    }];
 }
 
 /*
