@@ -7,6 +7,9 @@
 //
 
 #import "CreateViewController.h"
+#import "Assignment.h"
+#import "Subtask.h"
+#import <Parse/Parse.h>
 
 @interface CreateViewController ()
 
@@ -17,6 +20,31 @@
 - (void)viewDidLoad {
     [super viewDidLoad];
     // Do any additional setup after loading the view.
+}
+
+- (IBAction)onAdd:(id)sender {
+    
+    [Assignment  createNewAssignment:@"Title" withClassName:@"Class Name" withDueDate:[NSDate date] withCompletion:^(BOOL succeeded, NSError * _Nullable error) {
+        if (succeeded) {
+            NSLog(@"The assignment was saved!");
+            
+        } else {
+            NSLog(@"Problem saving assignment: %@", error.localizedDescription);
+//            [self alertError:error.localizedDescription];
+        }
+    }];
+   /*
+    [Post postUserImage:self.imageToPost.image withCaption:self.captionToPost.text withCompletion:^(BOOL succeeded, NSError * _Nullable error) {
+                if (succeeded) {
+                    [self backToFeed];
+                    NSLog(@"The post was shared!");
+                    
+                } else {
+    //                NSLog(@"Problem saving post: %@", error.localizedDescription);
+                    [self alertError:error.localizedDescription];
+                }
+            }];
+    */
 }
 
 /*
