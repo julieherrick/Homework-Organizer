@@ -122,6 +122,13 @@ Upload your assignments, the estimated time you think it will take to complete t
   | objectId      | String   | Unique id for the user subtask (default field) |
   | description   | String   | Description of subtask |
   | completed     | Boolean  | Stores if the task has been completed |
+  
+   
+ #### User
+  | Property      | Type     | Description |
+  | ------------- | -------- | ------------|
+  | objectId      | String   | Unique id for the user assignment (default field) |
+  | username      | String   | unique username for the user's account |
 
 
 ### Networking
