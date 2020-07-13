@@ -28,10 +28,9 @@ Upload your assignments, the estimated time you think it will take to complete t
 
 **Required Must-have Stories**
 
-* User can log in/out using facebook [would this use facebook SDK?]
+* User can log in/out using facebook [use facebook SDK]
 * User can create a new account
 * User can add a new assignment
-* User can add a class and due date to assignment
 * User can view a list of all assignments
 * Users can view assignment due dates on calendar
 * User can switch between tabs of a list of assignments and a calendar
