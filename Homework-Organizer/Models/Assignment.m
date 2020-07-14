@@ -14,7 +14,7 @@
 @dynamic userID;
 //@dynamic author;
 @dynamic title;
-@dynamic className;
+@dynamic classKey;
 @dynamic dueDate;
 @dynamic progress;
 @dynamic completed;
@@ -29,7 +29,7 @@
     Assignment *newAssignment = [Assignment new];
 //    newAssignment.author = [PFUser currentUser];
     newAssignment.title = title;
-    newAssignment.className = className;
+    newAssignment.classKey = className;
     newAssignment.dueDate = dueDate;
     newAssignment.progress = @(0);
 //    newAssignment.completed = false;

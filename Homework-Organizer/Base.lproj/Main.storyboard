@@ -117,6 +117,14 @@
                                     <action selector="onSubtask:" destination="fgl-vY-0jj" eventType="touchUpInside" id="gnT-te-tpA"/>
                                 </connections>
                             </button>
+                            <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="khp-4F-5Xa">
+                                <rect key="frame" x="167" y="264" width="81" height="30"/>
+                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                <state key="normal" title="Assignment"/>
+                                <connections>
+                                    <action selector="onAdd:" destination="fgl-vY-0jj" eventType="touchUpInside" id="jk2-aq-qzM"/>
+                                </connections>
+                            </button>
                         </subviews>
                         <color key="backgroundColor" systemColor="systemBackgroundColor" cocoaTouchSystemColor="whiteColor"/>
                         <viewLayoutGuide key="safeArea" id="oNw-am-pSE"/>
@@ -127,11 +135,7 @@
                                 <segue destination="ORk-UW-J0f" kind="presentation" id="8X7-OR-T3Q"/>
                             </connections>
                         </barButtonItem>
-                        <barButtonItem key="rightBarButtonItem" title="Add" id="0IB-87-gGc">
-                            <connections>
-                                <action selector="onAdd:" destination="fgl-vY-0jj" id="4zk-TF-eZX"/>
-                            </connections>
-                        </barButtonItem>
+                        <barButtonItem key="rightBarButtonItem" title="Add" id="0IB-87-gGc"/>
                     </navigationItem>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="YmU-UO-lH5" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>

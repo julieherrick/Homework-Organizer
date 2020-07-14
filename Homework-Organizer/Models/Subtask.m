@@ -14,7 +14,7 @@
 @dynamic completed;
 
 + (nonnull NSString *)parseClassName {
-    return @"Sutask";
+    return @"Subtask";
 }
 
 @end

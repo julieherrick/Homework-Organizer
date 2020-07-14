@@ -18,7 +18,7 @@ NS_ASSUME_NONNULL_BEGIN
 //@property (nonatomic, strong) PFUser *author;
 
 @property (nonatomic, strong) NSString *title;
-@property (nonatomic, strong) NSString *className;
+@property (nonatomic, strong) NSString *classKey;
 @property (nonatomic, strong) NSDate *dueDate;
 @property (nonatomic, strong) NSNumber *progress;
 @property (nonatomic) BOOL *completed;

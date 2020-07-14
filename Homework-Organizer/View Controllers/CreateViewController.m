@@ -13,6 +13,9 @@
 
 @interface CreateViewController ()
 
+@property (strong, nonatomic) Assignment *assignment;
+@property (strong, nonatomic) NSMutableArray *subtasks;
+
 @end
 
 @implementation CreateViewController
@@ -24,7 +27,7 @@
 
 - (IBAction)onAdd:(id)sender {
     // test to see if assignment is created
-    [Assignment  createNewAssignment:@"Title" withClassName:@"Class Name" withDueDate:[NSDate date] withCompletion:^(BOOL succeeded, NSError * _Nullable error) {
+    [Assignment  createNewAssignment: @"New Title" withClassName: @"new class!" withDueDate:[NSDate date] withCompletion:^(BOOL succeeded, NSError * _Nullable error) {
         if (succeeded) {
             NSLog(@"The assignment was saved!");
             
@@ -35,8 +38,24 @@
     }];
 }
 - (IBAction)onSubtask:(id)sender {
+    PFQuery *query = [PFQuery queryWithClassName:@"Assignment"];
+    [query orderByDescending:@"createdAt"];
+    query.limit = 1;
+
+    [query findObjectsInBackgroundWithBlock:^(NSArray<Assignment *> * _Nullable assignments, NSError * _Nullable error) {
+        if (assignments) {
+            // do something with the data fetched
+            self.assignment = assignments[0];
+//            NSLog(@"%@", self.assignment.title);
+        }
+    }];
+//    [query getFirstObjectInBackgroundWithBlock:^(PFObject * _Nullable newestAssignment, NSError * _Nullable error) {
+//        self.assignment = (Assignment *) newestAssignment;
+////        NSLog(@"%@", newestAssignment.title);
+//    }];
+    
     Subtask *newTask = [Subtask new];
-    newTask.text = @"task text";
+    newTask.text = @"Updated test task";
     [newTask saveInBackgroundWithBlock:^(BOOL succeeded, NSError * _Nullable error) {
         if(succeeded){
             NSLog(@"success");
