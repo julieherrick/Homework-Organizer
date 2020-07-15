@@ -26,7 +26,12 @@
     _assignment = assignment;
     self.titleLabel.text = assignment.title;
     self.classLabel.text = assignment.classKey;
-    self.dueDateLabel.text = assignment.dueDate.shortTimeAgoSinceNow;
+//    self.dueDateLabel.text = assignment.dueDate.timeAgoSinceNow;
+    NSDateFormatter *formatter = [[NSDateFormatter alloc] init];
+    [formatter setDateFormat:@"MMM d, yyyy"];
+    NSString *dateString = [NSString stringWithFormat: @"%@", [formatter stringFromDate:assignment.dueDate]];
+    self.dueDateLabel.text = [dateString substringToIndex:[dateString length]-6];
+    
 }
 
 @end

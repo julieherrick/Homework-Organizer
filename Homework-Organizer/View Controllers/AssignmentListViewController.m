@@ -61,6 +61,10 @@
      return self.assignments.count;
  }
  
+- (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath {
+    NSLog(@"Selected row number: %ld", (long)indexPath.row);
+    [tableView deselectRowAtIndexPath:indexPath animated:YES];
+}
 
 
 /*

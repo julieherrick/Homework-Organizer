@@ -138,16 +138,22 @@
                                 <fontDescription key="fontDescription" type="system" pointSize="26"/>
                                 <textInputTraits key="textInputTraits"/>
                             </textField>
-                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="Date picker to be added later" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="dpw-Qf-CCg">
-                                <rect key="frame" x="28" y="283" width="366" height="46"/>
+                            <textField opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="left" contentVerticalAlignment="center" borderStyle="roundedRect" textAlignment="center" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="Whu-xa-oc6">
+                                <rect key="frame" x="28" y="270" width="366" height="34"/>
                                 <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
-                                <fontDescription key="fontDescription" type="system" pointSize="26"/>
-                                <nil key="textColor"/>
-                                <nil key="highlightedColor"/>
-                            </label>
+                                <fontDescription key="fontDescription" type="system" pointSize="14"/>
+                                <textInputTraits key="textInputTraits"/>
+                                <connections>
+                                    <action selector="onDateChange:" destination="fgl-vY-0jj" eventType="editingDidEnd" id="eNm-e8-31O"/>
+                                </connections>
+                            </textField>
                         </subviews>
                         <color key="backgroundColor" systemColor="systemBackgroundColor" cocoaTouchSystemColor="whiteColor"/>
+                        <gestureRecognizers/>
                         <viewLayoutGuide key="safeArea" id="oNw-am-pSE"/>
+                        <connections>
+                            <outletCollection property="gestureRecognizers" destination="4lJ-dO-cKN" appends="YES" id="J5i-cv-qfi"/>
+                        </connections>
                     </view>
                     <navigationItem key="navigationItem" title="New Assignment" id="JUS-xV-zwH">
                         <barButtonItem key="leftBarButtonItem" title="Cancel" id="WtR-uf-vpu">
@@ -163,11 +169,17 @@
                     </navigationItem>
                     <connections>
                         <outlet property="classField" destination="hj8-1p-5ZW" id="whF-GU-bHK"/>
+                        <outlet property="dueDateField" destination="Whu-xa-oc6" id="nlo-00-oEv"/>
                         <outlet property="titleField" destination="T98-Mx-RLw" id="y9H-WB-3IF"/>
                         <segue destination="Owi-Kv-JuN" kind="show" identifier="next" id="9rc-Is-a5h"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="YmU-UO-lH5" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
+                <tapGestureRecognizer id="4lJ-dO-cKN">
+                    <connections>
+                        <action selector="onTap:" destination="fgl-vY-0jj" id="gmc-BV-Z1H"/>
+                    </connections>
+                </tapGestureRecognizer>
             </objects>
             <point key="canvasLocation" x="3942.0289855072465" y="870.53571428571422"/>
         </scene>
@@ -354,7 +366,7 @@
         </scene>
     </scenes>
     <inferredMetricsTieBreakers>
-        <segue reference="UqS-tm-Sx6"/>
+        <segue reference="8X7-OR-T3Q"/>
     </inferredMetricsTieBreakers>
     <resources>
         <image name="calendar" catalog="system" width="128" height="106"/>
