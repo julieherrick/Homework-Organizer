@@ -74,13 +74,15 @@
 - (void)prepareForSegue:(UIStoryboardSegue *)segue sender:(id)sender {
     // Get the new view controller using [segue destinationViewController].
     // Pass the selected object to the new view controller.
-    AssignmentListCell *tappedCell = sender;
-    NSIndexPath *indexPath = [self.tableView indexPathForCell:tappedCell];
-    Assignment *assignment = self.assignments[indexPath.row];
-    DetailsViewController *detailsViewController = [segue destinationViewController];
-    detailsViewController.assignment = assignment;
-    
-    NSLog(@"Tapping on an assignment!");
+     if(![sender isKindOfClass:[UIBarButtonItem class]]) {
+        AssignmentListCell *tappedCell = sender;
+        NSIndexPath *indexPath = [self.tableView indexPathForCell:tappedCell];
+        Assignment *assignment = self.assignments[indexPath.row];
+        DetailsViewController *detailsViewController = [segue destinationViewController];
+        detailsViewController.assignment = assignment;
+        
+        NSLog(@"Tapping on an assignment!");
+     }
 }
 
 

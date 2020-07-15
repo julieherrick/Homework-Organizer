@@ -10,11 +10,12 @@
 
 @implementation Subtask
 
-@dynamic text;
+@dynamic subtaskText;
 @dynamic completed;
 
 + (nonnull NSString *)parseClassName {
     return @"Subtask";
 }
+
 
 @end

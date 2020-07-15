@@ -7,11 +7,16 @@
 //
 
 #import "DetailsViewController.h"
+#import "Subtask.h"
+#import "SubtaskCell.h"
 
-@interface DetailsViewController ()
+@interface DetailsViewController () <UITableViewDelegate, UITableViewDataSource>
 @property (weak, nonatomic) IBOutlet UILabel *titleLabel;
 @property (weak, nonatomic) IBOutlet UILabel *classLabel;
 @property (weak, nonatomic) IBOutlet UILabel *dueDateLabel;
+@property (weak, nonatomic) IBOutlet UITableView *tableView;
+
+@property (nonatomic, strong) NSMutableArray *subtasks;
 
 @end
 
@@ -20,7 +25,29 @@
 - (void)viewDidLoad {
     [super viewDidLoad];
     // Do any additional setup after loading the view.
+    self.tableView.dataSource = self;
+    self.tableView.delegate = self;
+    
+    [self fetchSubtasks];
     [self loadAssignment];
+}
+
+-(void)fetchSubtasks {
+    PFRelation *relation = [self.assignment relationForKey:@"Subtask"];
+    PFQuery *query = [relation query];
+    [query orderByAscending:@"createdAt"];
+//    [query includeKey:@"author"];
+    query.limit = 20;
+    [query findObjectsInBackgroundWithBlock:^(NSArray* _Nullable subtasks, NSError * _Nullable error) {
+        if (subtasks) {
+            self.subtasks = (NSMutableArray *) subtasks;;
+//            NSLog(@"%@", self.subtasks);
+            [self.tableView reloadData];
+        } else {
+            // handle error
+            NSLog(@"%@", error.localizedDescription);
+        }
+    }];
 }
 
 -(void)loadAssignment {
@@ -32,6 +59,24 @@
     self.dueDateLabel.text = [NSString stringWithFormat: @"%@", [formatter stringFromDate:self.assignment.dueDate]];
     
     
+}
+
+- (nonnull UITableViewCell *)tableView:(nonnull UITableView *)tableView cellForRowAtIndexPath:(nonnull NSIndexPath *)indexPath {
+     SubtaskCell *cell = [tableView dequeueReusableCellWithIdentifier:@"SubtaskCell"];
+     Subtask *subtask = self.subtasks[indexPath.row];
+     
+     cell.subtask = subtask;
+     
+     return cell;
+ }
+
+ - (NSInteger)tableView:(nonnull UITableView *)tableView numberOfRowsInSection:(NSInteger)section {
+     return self.subtasks.count;
+ }
+ 
+- (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath {
+    NSLog(@"Selected row number: %ld", (long)indexPath.row);
+    [tableView deselectRowAtIndexPath:indexPath animated:YES];
 }
 
 /*

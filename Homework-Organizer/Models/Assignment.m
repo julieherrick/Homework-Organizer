@@ -35,7 +35,7 @@
     newAssignment.dueDate = dueDate;
     newAssignment.progress = @(0);
     newAssignment.totalSubtasks = @(0);
-//    newAssignment.completed = NO;
+    newAssignment.completed = NO;
     newAssignment.creationComplete = NO;
     newAssignment.image = [self getPFFileFromImage:image];
     [newAssignment saveInBackgroundWithBlock: completion];

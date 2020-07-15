@@ -39,7 +39,7 @@
 - (IBAction)onNewSubtask:(id)sender {
     
     Subtask *newTask = [Subtask new];
-    newTask.text = self.taskField.text;
+    newTask.subtaskText = self.taskField.text;
     [newTask saveInBackgroundWithBlock:^(BOOL succeeded, NSError * _Nullable error) {
         if(succeeded){
             PFRelation *relation = [self.assignment relationForKey:@"Subtask"];
