@@ -7,9 +7,9 @@
 //
 
 #import "AssignmentListViewController.h"
-//#import "Assignment.h"
 #import "AssignmentListCell.h"
 #import <Parse/Parse.h>
+#import "DetailsViewController.h"
 
 @interface AssignmentListViewController () <UITableViewDelegate, UITableViewDataSource>
 
@@ -67,14 +67,21 @@
 }
 
 
-/*
+
 #pragma mark - Navigation
 
 // In a storyboard-based application, you will often want to do a little preparation before navigation
 - (void)prepareForSegue:(UIStoryboardSegue *)segue sender:(id)sender {
     // Get the new view controller using [segue destinationViewController].
     // Pass the selected object to the new view controller.
+    AssignmentListCell *tappedCell = sender;
+    NSIndexPath *indexPath = [self.tableView indexPathForCell:tappedCell];
+    Assignment *assignment = self.assignments[indexPath.row];
+    DetailsViewController *detailsViewController = [segue destinationViewController];
+    detailsViewController.assignment = assignment;
+    
+    NSLog(@"Tapping on an assignment!");
 }
-*/
+
 
 @end
