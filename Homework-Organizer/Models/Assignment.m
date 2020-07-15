@@ -27,7 +27,7 @@
 }
 
 
-+ (void) createNewAssignment: ( NSString * _Nullable )title withClassName: ( NSString * _Nullable )className withDueDate: ( NSDate * _Nullable )dueDate withCompletion: (PFBooleanResultBlock  _Nullable)completion {
++ (void) createNewAssignment: ( NSString * _Nullable )title withClassName: ( NSString * _Nullable )className withDueDate: ( NSDate * _Nullable )dueDate withImage: ( UIImage * _Nullable )image withCompletion: (PFBooleanResultBlock  _Nullable)completion {
     Assignment *newAssignment = [Assignment new];
 //    newAssignment.author = [PFUser currentUser];
     newAssignment.title = title;
@@ -37,7 +37,7 @@
     newAssignment.totalSubtasks = @(0);
 //    newAssignment.completed = NO;
     newAssignment.creationComplete = NO;
-//    newAssignment.image = [self getPFFileFromImage:image];
+    newAssignment.image = [self getPFFileFromImage:image];
     [newAssignment saveInBackgroundWithBlock: completion];
 }
 + (PFFileObject *)getPFFileFromImage: (UIImage * _Nullable)image {

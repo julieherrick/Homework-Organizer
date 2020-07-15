@@ -26,7 +26,7 @@ NS_ASSUME_NONNULL_BEGIN
 @property (nonatomic) BOOL creationComplete;
 @property (nonatomic, strong) NSNumber *totalSubtasks;
 
-+ (void) createNewAssignment: ( NSString * _Nullable )title withClassName: ( NSString * _Nullable )className withDueDate: ( NSDate * _Nullable )dueDate withCompletion: (PFBooleanResultBlock  _Nullable)completion;
++ (void) createNewAssignment: ( NSString * _Nullable )title withClassName: ( NSString * _Nullable )className withDueDate: ( NSDate * _Nullable )dueDate withImage:( UIImage * _Nullable )image withCompletion: (PFBooleanResultBlock  _Nullable)completion;
 
 @end
 

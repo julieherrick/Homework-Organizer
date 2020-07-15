@@ -9,6 +9,9 @@
 #import "DetailsViewController.h"
 
 @interface DetailsViewController ()
+@property (weak, nonatomic) IBOutlet UILabel *titleLabel;
+@property (weak, nonatomic) IBOutlet UILabel *classLabel;
+@property (weak, nonatomic) IBOutlet UILabel *dueDateLabel;
 
 @end
 
@@ -17,6 +20,18 @@
 - (void)viewDidLoad {
     [super viewDidLoad];
     // Do any additional setup after loading the view.
+    [self loadAssignment];
+}
+
+-(void)loadAssignment {
+    self.titleLabel.text = self.assignment.title;
+    self.classLabel.text = self.assignment.classKey;
+    NSDateFormatter *formatter = [[NSDateFormatter alloc] init];
+    [formatter setDateFormat:@"MMM d, h:mm a"];
+//    NSString *dateString = [NSString stringWithFormat: @"%@", [formatter stringFromDate:self.assignment.dueDate]];
+    self.dueDateLabel.text = [NSString stringWithFormat: @"%@", [formatter stringFromDate:self.assignment.dueDate]];
+    
+    
 }
 
 /*
