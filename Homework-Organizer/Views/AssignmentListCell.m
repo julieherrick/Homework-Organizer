@@ -7,6 +7,7 @@
 //
 
 #import "AssignmentListCell.h"
+#import "DateTools.h"
 
 @implementation AssignmentListCell
 
@@ -19,6 +20,13 @@
     [super setSelected:selected animated:animated];
 
     // Configure the view for the selected state
+}
+
+- (void)setAssignment:(Assignment *)assignment {
+    _assignment = assignment;
+    self.titleLabel.text = assignment.title;
+    self.classLabel.text = assignment.classKey;
+    self.dueDateLabel.text = assignment.dueDate.shortTimeAgoSinceNow;
 }
 
 @end

@@ -13,7 +13,7 @@ NS_ASSUME_NONNULL_BEGIN
 @interface Subtask : PFObject<PFSubclassing>
 
 @property (nonatomic, strong) NSString *text; // subtask text
-@property (nonatomic) BOOL *completed;
+@property (nonatomic) BOOL completed;
 
 
 @end

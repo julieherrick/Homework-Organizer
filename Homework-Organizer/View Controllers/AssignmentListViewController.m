@@ -7,8 +7,14 @@
 //
 
 #import "AssignmentListViewController.h"
+//#import "Assignment.h"
+#import "AssignmentListCell.h"
+#import <Parse/Parse.h>
 
-@interface AssignmentListViewController ()
+@interface AssignmentListViewController () <UITableViewDelegate, UITableViewDataSource>
+
+@property (strong, nonatomic) NSMutableArray *assignments;
+@property (weak, nonatomic) IBOutlet UITableView *tableView;
 
 @end
 
@@ -16,8 +22,46 @@
 
 - (void)viewDidLoad {
     [super viewDidLoad];
-    // Do any additional setup after loading the view.
+    
+    self.tableView.dataSource = self;
+    self.tableView.delegate = self;
+    
+    [self fetchAssignments];
+    
 }
+
+- (void)fetchAssignments {
+    PFQuery *assignmentQuery = [PFQuery queryWithClassName:@"Assignment"];
+    [assignmentQuery orderByAscending:@"dueDate"];
+    [assignmentQuery whereKey:@"creationComplete" equalTo: @YES];
+    assignmentQuery.limit = 20;
+    
+    [assignmentQuery findObjectsInBackgroundWithBlock:^(NSArray<Assignment *>* _Nullable assignments, NSError * _Nullable error) {
+        if (assignments) {
+            self.assignments = (NSMutableArray *) assignments;
+             [self.tableView reloadData];
+        } else {
+            NSLog(@"%@", error.localizedDescription);
+        }
+    }];
+    
+}
+
+
+ - (nonnull UITableViewCell *)tableView:(nonnull UITableView *)tableView cellForRowAtIndexPath:(nonnull NSIndexPath *)indexPath {
+     AssignmentListCell *cell = [tableView dequeueReusableCellWithIdentifier:@"AssignmentListCell"];
+     Assignment *assignment = self.assignments[indexPath.row];
+     
+     cell.assignment = assignment;
+     
+     return cell;
+ }
+
+ - (NSInteger)tableView:(nonnull UITableView *)tableView numberOfRowsInSection:(NSInteger)section {
+     return self.assignments.count;
+ }
+ 
+
 
 /*
 #pragma mark - Navigation

@@ -7,10 +7,19 @@
 //
 
 #import <UIKit/UIKit.h>
+#import "Assignment.h"
 
 NS_ASSUME_NONNULL_BEGIN
 
 @interface AssignmentListCell : UITableViewCell
+
+@property (weak, nonatomic) Assignment *assignment;
+@property (weak, nonatomic) IBOutlet UILabel *titleLabel;
+@property (weak, nonatomic) IBOutlet UILabel *classLabel;
+@property (weak, nonatomic) IBOutlet UILabel *dueDateLabel;
+
+
+
 
 @end
 
