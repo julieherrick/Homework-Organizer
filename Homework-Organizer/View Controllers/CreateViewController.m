@@ -48,6 +48,13 @@
 // creates assignment
 - (IBAction)onNext:(id)sender {
     // test to see if assignment is created
+    if ([self.titleField.text isEqual:@""] || [self.dueDateField.text  isEqual: @""]) {
+        if ([self.titleField.text isEqual:@""]) {
+            [self alertError:@"Title is required"];
+        } else {
+            [self alertError:@"Due Date required"];
+        }
+    } else {
     [Assignment  createNewAssignment:self.titleField.text withClassName:self.classField.text withDueDate:self.datePicker.date withImage:self.attachedImage.image withCompletion:^(BOOL succeeded, NSError * _Nullable error) {
         if (succeeded) {
             NSLog(@"The assignment was saved!");
@@ -57,7 +64,7 @@
             NSLog(@"Problem saving assignment: %@", error.localizedDescription);
 //            [self alertError:error.localizedDescription];
         }
-    }];
+    }];}
 }
 
 - (IBAction)onPhotoSelect:(id)sender {
@@ -105,6 +112,20 @@
     return newImage;
 }
 
+- (void)alertError:(NSString *)errorMessage {
+    UIAlertController *alert = [UIAlertController alertControllerWithTitle:@"Error" message:errorMessage preferredStyle:(UIAlertControllerStyleAlert)];
+    
+    // create an OK action
+    UIAlertAction *okAction = [UIAlertAction actionWithTitle:@"OK" style:UIAlertActionStyleDefault handler:^(UIAlertAction * _Nonnull action) {
+        // closes to let the user fill the fields
+    }];
+    // add the OK action to the alert controller
+    [alert addAction:okAction];
+    
+    [self presentViewController:alert animated:YES completion:^{
+        // optional code for what happens after the alert controller has finished presenting
+    }];
+}
 
 /*
 #pragma mark - Navigation
