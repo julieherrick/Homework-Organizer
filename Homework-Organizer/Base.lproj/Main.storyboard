@@ -186,7 +186,7 @@
         <!--Add Subtasks-->
         <scene sceneID="LDl-4P-QG6">
             <objects>
-                <viewController modalPresentationStyle="fullScreen" id="Owi-Kv-JuN" customClass="AddSubtasksViewController" sceneMemberID="viewController">
+                <viewController modalPresentationStyle="fullScreen" id="Owi-Kv-JuN" customClass="CreateSubtaskViewController" sceneMemberID="viewController">
                     <view key="view" contentMode="scaleToFill" id="B75-9U-FUi">
                         <rect key="frame" x="0.0" y="0.0" width="414" height="896"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
@@ -243,7 +243,7 @@
                     <navigationItem key="navigationItem" title="Add Subtasks" id="FXy-e4-WaC">
                         <barButtonItem key="rightBarButtonItem" title="Create" id="exo-0S-oSl">
                             <connections>
-                                <action selector="onCompletion:" destination="Owi-Kv-JuN" id="TR7-1L-6QO"/>
+                                <action selector="onCompletion:" destination="Owi-Kv-JuN" id="Pi5-6d-bI9"/>
                             </connections>
                         </barButtonItem>
                     </navigationItem>
@@ -366,7 +366,7 @@
         </scene>
     </scenes>
     <inferredMetricsTieBreakers>
-        <segue reference="8X7-OR-T3Q"/>
+        <segue reference="UqS-tm-Sx6"/>
     </inferredMetricsTieBreakers>
     <resources>
         <image name="calendar" catalog="system" width="128" height="106"/>

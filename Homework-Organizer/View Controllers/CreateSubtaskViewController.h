@@ -1,8 +1,8 @@
 //
-//  AddSubtasksViewController.h
+//  CreateSubtaskViewController.h
 //  Homework-Organizer
 //
-//  Created by Julie Herrick on 7/14/20.
+//  Created by Julie Herrick on 7/15/20.
 //  Copyright © 2020 Julie Herrick. All rights reserved.
 //
 
@@ -10,7 +10,7 @@
 
 NS_ASSUME_NONNULL_BEGIN
 
-@interface AddSubtasksViewController : UIViewController
+@interface CreateSubtaskViewController : UIViewController
 
 @end
 

@@ -8,7 +8,7 @@
 
 /* Begin PBXBuildFile section */
 		4484C676D0B2100F7308267F /* Pods_Homework_OrganizerTests.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 11F8A8F604EACD577B865828 /* Pods_Homework_OrganizerTests.framework */; };
-		7932F23F24BE32480067241A /* AddSubtasksViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 7932F23E24BE32480067241A /* AddSubtasksViewController.m */; };
+		7932F24224BF67250067241A /* CreateSubtaskViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 7932F24124BF67250067241A /* CreateSubtaskViewController.m */; };
 		799F0B4F24BCCBA700FAECC6 /* AppDelegate.m in Sources */ = {isa = PBXBuildFile; fileRef = 799F0B4E24BCCBA700FAECC6 /* AppDelegate.m */; };
 		799F0B5224BCCBA700FAECC6 /* SceneDelegate.m in Sources */ = {isa = PBXBuildFile; fileRef = 799F0B5124BCCBA700FAECC6 /* SceneDelegate.m */; };
 		799F0B5824BCCBA700FAECC6 /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 799F0B5624BCCBA700FAECC6 /* Main.storyboard */; };
@@ -50,8 +50,8 @@
 		10E73D98D67B78703D73A582 /* Pods_Homework_Organizer.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_Homework_Organizer.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		11F8A8F604EACD577B865828 /* Pods_Homework_OrganizerTests.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_Homework_OrganizerTests.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		663374155023BDA3D32591F7 /* Pods-Homework-OrganizerTests.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Homework-OrganizerTests.debug.xcconfig"; path = "Target Support Files/Pods-Homework-OrganizerTests/Pods-Homework-OrganizerTests.debug.xcconfig"; sourceTree = "<group>"; };
-		7932F23D24BE32480067241A /* AddSubtasksViewController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = AddSubtasksViewController.h; sourceTree = "<group>"; };
-		7932F23E24BE32480067241A /* AddSubtasksViewController.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = AddSubtasksViewController.m; sourceTree = "<group>"; };
+		7932F24024BF67250067241A /* CreateSubtaskViewController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = CreateSubtaskViewController.h; sourceTree = "<group>"; };
+		7932F24124BF67250067241A /* CreateSubtaskViewController.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = CreateSubtaskViewController.m; sourceTree = "<group>"; };
 		799F0B4A24BCCBA700FAECC6 /* Homework-Organizer.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = "Homework-Organizer.app"; sourceTree = BUILT_PRODUCTS_DIR; };
 		799F0B4D24BCCBA700FAECC6 /* AppDelegate.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = AppDelegate.h; sourceTree = "<group>"; };
 		799F0B4E24BCCBA700FAECC6 /* AppDelegate.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = AppDelegate.m; sourceTree = "<group>"; };
@@ -192,8 +192,8 @@
 				799F0B9024BCCF4500FAECC6 /* CreateViewController.m */,
 				79CF669024BCD063007729B9 /* CalendarViewController.h */,
 				79CF669124BCD063007729B9 /* CalendarViewController.m */,
-				7932F23D24BE32480067241A /* AddSubtasksViewController.h */,
-				7932F23E24BE32480067241A /* AddSubtasksViewController.m */,
+				7932F24024BF67250067241A /* CreateSubtaskViewController.h */,
+				7932F24124BF67250067241A /* CreateSubtaskViewController.m */,
 			);
 			path = "View Controllers";
 			sourceTree = "<group>";
@@ -481,9 +481,9 @@
 			files = (
 				79CF669824BCE4EA007729B9 /* Assignment.m in Sources */,
 				79CF669524BCD52F007729B9 /* AssignmentListCell.m in Sources */,
+				7932F24224BF67250067241A /* CreateSubtaskViewController.m in Sources */,
 				79CF669224BCD063007729B9 /* CalendarViewController.m in Sources */,
 				79CF669B24BCF7F4007729B9 /* Subtask.m in Sources */,
-				7932F23F24BE32480067241A /* AddSubtasksViewController.m in Sources */,
 				799F0B4F24BCCBA700FAECC6 /* AppDelegate.m in Sources */,
 				799F0B8E24BCCF3900FAECC6 /* AssignmentListViewController.m in Sources */,
 				799F0B6024BCCBA900FAECC6 /* main.m in Sources */,
