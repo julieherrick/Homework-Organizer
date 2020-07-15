@@ -10,11 +10,14 @@
 #import "Assignment.h"
 #import "Subtask.h"
 #import <Parse/Parse.h>
+#import "DateTools.h"
 
 @interface CreateViewController ()
 
-@property (strong, nonatomic) Assignment *assignment;
-@property (strong, nonatomic) NSMutableArray *subtasks;
+@property (weak, nonatomic) IBOutlet UITextField *titleField;
+@property (weak, nonatomic) IBOutlet UITextField *classField;
+@property (weak, nonatomic) IBOutlet UITextField *dueDateField;
+
 
 @end
 
@@ -23,13 +26,31 @@
 - (void)viewDidLoad {
     [super viewDidLoad];
     // Do any additional setup after loading the view.
+    self.datePicker = [[UIDatePicker alloc] init];
+    self.datePicker.datePickerMode = UIDatePickerModeDateAndTime;
+    [self.dueDateField setInputView:self.datePicker];
+//    [self showSelectedDate];
+
+}
+- (IBAction)onTap:(id)sender {
+    [self.view endEditing:YES];
 }
 
-- (IBAction)onAdd:(id)sender {
+- (IBAction)onDateChange:(id)sender {
+    NSDateFormatter *formatter = [[NSDateFormatter alloc] init];
+    [formatter setDateFormat:@"MMM d, h:mm a"];
+    self.dueDateField.text = [NSString stringWithFormat: @"%@", [formatter stringFromDate:self.datePicker.date]];
+    [self.dueDateField resignFirstResponder];
+}
+
+
+// creates assignment
+- (IBAction)onNext:(id)sender {
     // test to see if assignment is created
-    [Assignment  createNewAssignment: @"New Title" withClassName: @"new class!" withDueDate:[NSDate date] withCompletion:^(BOOL succeeded, NSError * _Nullable error) {
+    [Assignment  createNewAssignment:self.titleField.text withClassName:self.classField.text withDueDate:self.datePicker.date withCompletion:^(BOOL succeeded, NSError * _Nullable error) {
         if (succeeded) {
             NSLog(@"The assignment was saved!");
+            [self performSegueWithIdentifier:@"next" sender:nil];
             
         } else {
             NSLog(@"Problem saving assignment: %@", error.localizedDescription);
@@ -37,40 +58,7 @@
         }
     }];
 }
-- (IBAction)onSubtask:(id)sender {
-    PFQuery *query = [PFQuery queryWithClassName:@"Assignment"];
-    [query orderByDescending:@"createdAt"];
-    query.limit = 1;
 
-    [query findObjectsInBackgroundWithBlock:^(NSArray<Assignment *> * _Nullable assignments, NSError * _Nullable error) {
-        if (assignments) {
-            // do something with the data fetched
-            self.assignment = assignments[0];
-//            NSLog(@"%@", self.assignment.title);
-        }
-    }];
-//    [query getFirstObjectInBackgroundWithBlock:^(PFObject * _Nullable newestAssignment, NSError * _Nullable error) {
-//        self.assignment = (Assignment *) newestAssignment;
-////        NSLog(@"%@", newestAssignment.title);
-//    }];
-    
-    Subtask *newTask = [Subtask new];
-    newTask.text = @"Updated test task";
-    [newTask saveInBackgroundWithBlock:^(BOOL succeeded, NSError * _Nullable error) {
-        if(succeeded){
-            NSLog(@"success");
-            PFRelation *relation = [self.assignment relationForKey:@"Subtask"];
-            [relation addObject:newTask];
-            [self.assignment saveInBackgroundWithBlock:^(BOOL succeeded, NSError * _Nullable error) {
-                if(succeeded){
-                    NSLog(@"success");
-                }
-            }];
-        } else {
-            NSLog(@"subtask not updated");
-        }
-    }];
-}
 
 /*
 #pragma mark - Navigation
