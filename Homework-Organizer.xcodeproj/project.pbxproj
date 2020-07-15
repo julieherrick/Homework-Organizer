@@ -10,6 +10,7 @@
 		4484C676D0B2100F7308267F /* Pods_Homework_OrganizerTests.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 11F8A8F604EACD577B865828 /* Pods_Homework_OrganizerTests.framework */; };
 		7932F24224BF67250067241A /* CreateSubtaskViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 7932F24124BF67250067241A /* CreateSubtaskViewController.m */; };
 		7932F24524BF90620067241A /* SubtaskCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 7932F24424BF90620067241A /* SubtaskCell.m */; };
+		7932F24824BFB2910067241A /* FullImageViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 7932F24724BFB2910067241A /* FullImageViewController.m */; };
 		799F0B4F24BCCBA700FAECC6 /* AppDelegate.m in Sources */ = {isa = PBXBuildFile; fileRef = 799F0B4E24BCCBA700FAECC6 /* AppDelegate.m */; };
 		799F0B5224BCCBA700FAECC6 /* SceneDelegate.m in Sources */ = {isa = PBXBuildFile; fileRef = 799F0B5124BCCBA700FAECC6 /* SceneDelegate.m */; };
 		799F0B5824BCCBA700FAECC6 /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 799F0B5624BCCBA700FAECC6 /* Main.storyboard */; };
@@ -55,6 +56,8 @@
 		7932F24124BF67250067241A /* CreateSubtaskViewController.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = CreateSubtaskViewController.m; sourceTree = "<group>"; };
 		7932F24324BF90620067241A /* SubtaskCell.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = SubtaskCell.h; sourceTree = "<group>"; };
 		7932F24424BF90620067241A /* SubtaskCell.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = SubtaskCell.m; sourceTree = "<group>"; };
+		7932F24624BFB2910067241A /* FullImageViewController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = FullImageViewController.h; sourceTree = "<group>"; };
+		7932F24724BFB2910067241A /* FullImageViewController.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = FullImageViewController.m; sourceTree = "<group>"; };
 		799F0B4A24BCCBA700FAECC6 /* Homework-Organizer.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = "Homework-Organizer.app"; sourceTree = BUILT_PRODUCTS_DIR; };
 		799F0B4D24BCCBA700FAECC6 /* AppDelegate.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = AppDelegate.h; sourceTree = "<group>"; };
 		799F0B4E24BCCBA700FAECC6 /* AppDelegate.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = AppDelegate.m; sourceTree = "<group>"; };
@@ -197,6 +200,8 @@
 				79CF669124BCD063007729B9 /* CalendarViewController.m */,
 				7932F24024BF67250067241A /* CreateSubtaskViewController.h */,
 				7932F24124BF67250067241A /* CreateSubtaskViewController.m */,
+				7932F24624BFB2910067241A /* FullImageViewController.h */,
+				7932F24724BFB2910067241A /* FullImageViewController.m */,
 			);
 			path = "View Controllers";
 			sourceTree = "<group>";
@@ -495,6 +500,7 @@
 				799F0B9124BCCF4500FAECC6 /* CreateViewController.m in Sources */,
 				799F0B8B24BCCF2100FAECC6 /* DetailsViewController.m in Sources */,
 				799F0B5224BCCBA700FAECC6 /* SceneDelegate.m in Sources */,
+				7932F24824BFB2910067241A /* FullImageViewController.m in Sources */,
 				7932F24524BF90620067241A /* SubtaskCell.m in Sources */,
 				799F0B8824BCCF0F00FAECC6 /* LoginViewController.m in Sources */,
 			);

@@ -9,8 +9,12 @@
 #import "DetailsViewController.h"
 #import "Subtask.h"
 #import "SubtaskCell.h"
+#import "FullImageViewController.h"
+@import Parse;
 
 @interface DetailsViewController () <UITableViewDelegate, UITableViewDataSource>
+
+@property (weak, nonatomic) IBOutlet PFImageView *imageView;
 @property (weak, nonatomic) IBOutlet UILabel *titleLabel;
 @property (weak, nonatomic) IBOutlet UILabel *classLabel;
 @property (weak, nonatomic) IBOutlet UILabel *dueDateLabel;
@@ -30,6 +34,7 @@
     
     [self fetchSubtasks];
     [self loadAssignment];
+    
 }
 
 -(void)fetchSubtasks {
@@ -53,6 +58,8 @@
 -(void)loadAssignment {
     self.titleLabel.text = self.assignment.title;
     self.classLabel.text = self.assignment.classKey;
+    self.imageView.file = self.assignment.image;
+    [self.imageView loadInBackground];
     NSDateFormatter *formatter = [[NSDateFormatter alloc] init];
     [formatter setDateFormat:@"MMM d, h:mm a"];
 //    NSString *dateString = [NSString stringWithFormat: @"%@", [formatter stringFromDate:self.assignment.dueDate]];
@@ -78,6 +85,11 @@
     NSLog(@"Selected row number: %ld", (long)indexPath.row);
     [tableView deselectRowAtIndexPath:indexPath animated:YES];
 }
+
+//- (IBAction)onImageTap:(id)sender {
+//    [self performSegueWithIdentifier:@"clickImage" sender:nil];
+//}
+
 
 /*
 #pragma mark - Navigation
