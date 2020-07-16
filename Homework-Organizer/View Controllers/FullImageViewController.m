@@ -11,6 +11,8 @@
 
 @interface FullImageViewController ()
 
+@property (weak, nonatomic) IBOutlet PFImageView *imageView;
+
 @end
 
 @implementation FullImageViewController
@@ -18,6 +20,8 @@
 - (void)viewDidLoad {
     [super viewDidLoad];
     // Do any additional setup after loading the view.
+    self.imageView.file = self.assignment.image;
+    [self.imageView loadInBackground];
 }
 
 /*

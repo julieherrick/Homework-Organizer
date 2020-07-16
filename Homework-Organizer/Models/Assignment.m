@@ -21,6 +21,7 @@
 @dynamic image;
 @dynamic creationComplete;
 @dynamic totalSubtasks;
+@dynamic totalCompletedSubtasks;
 
 + (nonnull NSString *)parseClassName {
     return @"Assignment";
@@ -35,6 +36,7 @@
     newAssignment.dueDate = dueDate;
     newAssignment.progress = @(0);
     newAssignment.totalSubtasks = @(0);
+    newAssignment.totalCompletedSubtasks = @(0);
     newAssignment.completed = NO;
     newAssignment.creationComplete = NO;
     newAssignment.image = [self getPFFileFromImage:image];

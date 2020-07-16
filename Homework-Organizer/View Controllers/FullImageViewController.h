@@ -7,13 +7,14 @@
 //
 
 #import <UIKit/UIKit.h>
+#import "Assignment.h"
 @import Parse;
 
 NS_ASSUME_NONNULL_BEGIN
 
 @interface FullImageViewController : UIViewController
 
-@property (nonatomic, strong) PFImageView *image;
+@property (nonatomic, strong) Assignment *assignment;
 
 @end
 

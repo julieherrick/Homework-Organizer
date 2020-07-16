@@ -196,6 +196,11 @@
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="YmU-UO-lH5" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
+                <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" id="SLY-uu-Aia">
+                    <rect key="frame" x="0.0" y="0.0" width="46" height="30"/>
+                    <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                    <state key="normal" title="Button"/>
+                </button>
                 <tapGestureRecognizer id="4lJ-dO-cKN">
                     <connections>
                         <action selector="onTap:" destination="fgl-vY-0jj" id="gmc-BV-Z1H"/>
@@ -343,6 +348,14 @@
                                 <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                 <gestureRecognizers/>
                             </imageView>
+                            <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="c6d-gY-zGu">
+                                <rect key="frame" x="106" y="262" width="79" height="30"/>
+                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                <state key="normal" title="View Image"/>
+                                <connections>
+                                    <segue destination="HNz-bb-X3m" kind="presentation" id="uPk-t4-MFE"/>
+                                </connections>
+                            </button>
                         </subviews>
                         <color key="backgroundColor" systemColor="systemBackgroundColor" cocoaTouchSystemColor="whiteColor"/>
                         <viewLayoutGuide key="safeArea" id="k1t-PK-eUl"/>
@@ -354,7 +367,6 @@
                         <outlet property="imageView" destination="Gt8-Yr-RWU" id="I3q-td-8uH"/>
                         <outlet property="tableView" destination="1FA-Qm-eQo" id="FTE-vl-G60"/>
                         <outlet property="titleLabel" destination="Jmc-Sd-Ze9" id="YbK-H3-FFL"/>
-                        <segue destination="HNz-bb-X3m" kind="presentation" identifier="clickImage" id="n0t-hy-7zF"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="Sef-h6-Q8i" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
@@ -377,6 +389,9 @@
                         <color key="backgroundColor" systemColor="systemBackgroundColor" cocoaTouchSystemColor="whiteColor"/>
                         <viewLayoutGuide key="safeArea" id="gSR-MN-dZi"/>
                     </view>
+                    <connections>
+                        <outlet property="imageView" destination="LHE-FN-QeG" id="Z5A-Qb-oL6"/>
+                    </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="oPj-dd-A47" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
             </objects>

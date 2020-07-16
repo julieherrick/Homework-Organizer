@@ -25,6 +25,7 @@ NS_ASSUME_NONNULL_BEGIN
 @property (nonatomic, strong) PFFileObject *image;
 @property (nonatomic) BOOL creationComplete;
 @property (nonatomic, strong) NSNumber *totalSubtasks;
+@property (nonatomic, strong) NSNumber *totalCompletedSubtasks;
 
 + (void) createNewAssignment: ( NSString * _Nullable )title withClassName: ( NSString * _Nullable )className withDueDate: ( NSDate * _Nullable )dueDate withImage:( UIImage * _Nullable )image withCompletion: (PFBooleanResultBlock  _Nullable)completion;
 
