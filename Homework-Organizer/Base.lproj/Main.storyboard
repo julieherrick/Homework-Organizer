@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="16097" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES" initialViewController="BYZ-38-t0r">
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="16097.2" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES" initialViewController="BYZ-38-t0r">
     <device id="retina6_1" orientation="portrait" appearance="light"/>
     <dependencies>
         <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="16087"/>
@@ -103,7 +103,11 @@
                         <viewLayoutGuide key="safeArea" id="COZ-jh-Eh8"/>
                     </view>
                     <navigationItem key="navigationItem" title="Assignments" id="la9-Xs-zKf">
-                        <barButtonItem key="leftBarButtonItem" title="Logout" id="jRq-iE-im0"/>
+                        <barButtonItem key="leftBarButtonItem" title="Logout" id="jRq-iE-im0">
+                            <connections>
+                                <action selector="onLogout:" destination="o7b-5n-59R" id="kvO-Qi-vhR"/>
+                            </connections>
+                        </barButtonItem>
                         <barButtonItem key="rightBarButtonItem" title="Item" image="plus" catalog="system" id="WAU-cD-ZpX">
                             <connections>
                                 <segue destination="A9Q-CA-AO9" kind="presentation" id="u3I-Ao-9oL"/>

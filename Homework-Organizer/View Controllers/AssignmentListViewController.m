@@ -10,6 +10,7 @@
 #import "AssignmentListCell.h"
 #import <Parse/Parse.h>
 #import "DetailsViewController.h"
+#import "SceneDelegate.h"
 
 @interface AssignmentListViewController () <UITableViewDelegate, UITableViewDataSource>
 
@@ -45,6 +46,21 @@
         }
     }];
     
+}
+
+- (IBAction)onLogout:(id)sender {
+    FBSDKLoginManager *loginManager = [[FBSDKLoginManager alloc] init];
+    [loginManager logOut];
+    
+    if ([FBSDKAccessToken currentAccessToken] == nil) {
+        SceneDelegate *myDelegate = (SceneDelegate *)self.view.window.windowScene.delegate;
+        
+        UIStoryboard *storyboard = [UIStoryboard storyboardWithName:@"Main" bundle: nil];
+        UIViewController *loginController = [storyboard instantiateViewControllerWithIdentifier:@"LoginViewController"];
+        myDelegate.window.rootViewController = loginController;
+    } else {
+        NSLog(@"error logging out");
+    }
 }
 
 

@@ -32,7 +32,7 @@
 }
 
 - (void)loginButton:(nonnull FBSDKLoginButton *)loginButton didCompleteWithResult:(nullable FBSDKLoginManagerLoginResult *)result error:(nullable NSError *)error {
-
+    [self performSegueWithIdentifier:@"loginSegue" sender:self];
     NSAssert(error || result, @"Must have a result or an error");
 
     if (error) {
@@ -45,7 +45,7 @@
 
     NSLog(@"Success. Granted permissions: %@", result.grantedPermissions);
 
-    [self performSegueWithIdentifier:@"showGraphRequestController" sender:self];
+    [self performSegueWithIdentifier:@"loginSegue" sender:self];
 }
 
 - (void)loginButtonDidLogOut:(nonnull FBSDKLoginButton *)loginButton {

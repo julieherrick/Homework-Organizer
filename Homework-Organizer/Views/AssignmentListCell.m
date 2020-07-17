@@ -7,7 +7,6 @@
 //
 
 #import "AssignmentListCell.h"
-#import "DateTools.h"
 
 @implementation AssignmentListCell
 
