@@ -15,7 +15,7 @@ NS_ASSUME_NONNULL_BEGIN
 
 @property (nonatomic, strong) NSString *assignmentID;
 @property (nonatomic, strong) NSString *userID;
-//@property (nonatomic, strong) PFUser *author;
+@property (nonatomic, strong) PFUser *author;
 
 @property (nonatomic, strong) NSString *title;
 @property (nonatomic, strong) NSString *classKey;

@@ -9,6 +9,7 @@
 #import "SceneDelegate.h"
 #import <FBSDKCoreKit/FBSDKCoreKit.h>
 #import <FBSDKLoginKit/FBSDKLoginKit.h>
+@import Parse;
 
 @interface SceneDelegate ()
 
@@ -23,12 +24,20 @@
     // This delegate does not imply the connecting scene or session are new (see `application:configurationForConnectingSceneSession` instead).
     if ([FBSDKAccessToken currentAccessToken]) {
      // User is logged in, do work such as go to next view controller.
-        NSLog(@"Welcome back 😀");
+        [PFFacebookUtils logInInBackgroundWithAccessToken:[FBSDKAccessToken currentAccessToken]block:^(PFUser * _Nullable user, NSError * _Nullable error) {
+            
+            if (!user) {
+              NSLog(@"Uh oh. There was an error logging in.");
+            } else {
+              NSLog(@"User logged in through Facebook!");
+                NSLog(@"Welcome back 😀");
 
-        // TODO: Load Chat view controller and set as root view controller
-        UIStoryboard *storyboard = [UIStoryboard storyboardWithName:@"Main" bundle:nil];
-        UIViewController *homeNavigationController = [storyboard instantiateViewControllerWithIdentifier:@"HomeNavigationController"];
-        self.window.rootViewController = homeNavigationController;
+                // TODO: Load Chat view controller and set as root view controller
+                UIStoryboard *storyboard = [UIStoryboard storyboardWithName:@"Main" bundle:nil];
+                UIViewController *homeNavigationController = [storyboard instantiateViewControllerWithIdentifier:@"HomeNavigationController"];
+                self.window.rootViewController = homeNavigationController;
+            }
+        }];
     }
 }
 

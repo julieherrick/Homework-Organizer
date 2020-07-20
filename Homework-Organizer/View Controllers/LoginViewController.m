@@ -7,7 +7,8 @@
 //
 
 #import "LoginViewController.h"
-#import <Parse/Parse.h>
+@import Parse;
+#import "Assignment.h"
 
 @interface LoginViewController ()
 
@@ -19,6 +20,19 @@
     [super viewDidLoad];
     // Do any additional setup after loading the view.
     [self addLoginButton];
+//    [self facebookLogin];
+}
+
+-(void)facebookLogin {
+    [PFFacebookUtils logInInBackgroundWithReadPermissions:@[@"public_profile", @"email"] block:^(PFUser *user, NSError *error) {
+      if (!user) {
+        NSLog(@"Uh oh. The user cancelled the Facebook login.");
+      } else if (user.isNew) {
+        NSLog(@"User signed up and logged in through Facebook!");
+      } else {
+        NSLog(@"User logged in through Facebook!");
+      }
+    }];
 }
 
 - (void)addLoginButton {
@@ -32,20 +46,25 @@
 }
 
 - (void)loginButton:(nonnull FBSDKLoginButton *)loginButton didCompleteWithResult:(nullable FBSDKLoginManagerLoginResult *)result error:(nullable NSError *)error {
-    [self performSegueWithIdentifier:@"loginSegue" sender:self];
+    
     NSAssert(error || result, @"Must have a result or an error");
-
+    
     if (error) {
         return NSLog(@"An Error occurred: %@", error.localizedDescription);
     }
-
+    
     if (result.isCancelled) {
         return NSLog(@"Login was cancelled");
     }
-
-    NSLog(@"Success. Granted permissions: %@", result.grantedPermissions);
-
-    [self performSegueWithIdentifier:@"loginSegue" sender:self];
+    [PFFacebookUtils logInInBackgroundWithAccessToken:[FBSDKAccessToken currentAccessToken] block:^(PFUser *user, NSError *error) {
+        if (!user) {
+            NSLog(@"Uh oh. There was an error logging in.");
+        } else {
+            NSLog(@"User logged in through Facebook!");
+            NSLog(@"Success. Granted permissions: %@", result.grantedPermissions);
+            [self performSegueWithIdentifier:@"loginSegue" sender:self];
+        }
+    }];
 }
 
 - (void)loginButtonDidLogOut:(nonnull FBSDKLoginButton *)loginButton {
