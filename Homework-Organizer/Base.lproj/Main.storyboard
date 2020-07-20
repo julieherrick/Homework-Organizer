@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="16097" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES" initialViewController="BYZ-38-t0r">
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="16097.2" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES" initialViewController="BYZ-38-t0r">
     <device id="retina6_1" orientation="portrait" appearance="light"/>
     <dependencies>
         <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="16087"/>
@@ -10,7 +10,7 @@
         <!--Login View Controller-->
         <scene sceneID="tne-QT-ifu">
             <objects>
-                <viewController id="BYZ-38-t0r" customClass="LoginViewController" sceneMemberID="viewController">
+                <viewController storyboardIdentifier="LoginViewController" id="BYZ-38-t0r" customClass="LoginViewController" sceneMemberID="viewController">
                     <view key="view" contentMode="scaleToFill" id="8bC-Xf-vdC">
                         <rect key="frame" x="0.0" y="0.0" width="414" height="896"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
@@ -103,7 +103,11 @@
                         <viewLayoutGuide key="safeArea" id="COZ-jh-Eh8"/>
                     </view>
                     <navigationItem key="navigationItem" title="Assignments" id="la9-Xs-zKf">
-                        <barButtonItem key="leftBarButtonItem" title="Logout" id="jRq-iE-im0"/>
+                        <barButtonItem key="leftBarButtonItem" title="Logout" id="jRq-iE-im0">
+                            <connections>
+                                <action selector="onLogout:" destination="o7b-5n-59R" id="kvO-Qi-vhR"/>
+                            </connections>
+                        </barButtonItem>
                         <barButtonItem key="rightBarButtonItem" title="Item" image="plus" catalog="system" id="WAU-cD-ZpX">
                             <connections>
                                 <segue destination="A9Q-CA-AO9" kind="presentation" id="u3I-Ao-9oL"/>
@@ -416,7 +420,7 @@
         <!--Tab Bar Controller-->
         <scene sceneID="P18-TB-aEt">
             <objects>
-                <tabBarController modalPresentationStyle="fullScreen" id="ORk-UW-J0f" sceneMemberID="viewController">
+                <tabBarController storyboardIdentifier="HomeNavigationController" modalPresentationStyle="fullScreen" id="ORk-UW-J0f" sceneMemberID="viewController">
                     <tabBar key="tabBar" contentMode="scaleToFill" insetsLayoutMarginsFromSafeArea="NO" id="B5U-T6-iV7">
                         <rect key="frame" x="0.0" y="0.0" width="414" height="49"/>
                         <autoresizingMask key="autoresizingMask"/>
@@ -489,7 +493,7 @@
         </scene>
     </scenes>
     <inferredMetricsTieBreakers>
-        <segue reference="8X7-OR-T3Q"/>
+        <segue reference="NaP-Hb-jnh"/>
     </inferredMetricsTieBreakers>
     <resources>
         <image name="calendar" catalog="system" width="128" height="106"/>

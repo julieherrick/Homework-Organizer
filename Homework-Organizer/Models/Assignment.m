@@ -12,7 +12,7 @@
 
 @dynamic assignmentID;
 @dynamic userID;
-//@dynamic author;
+@dynamic author;
 @dynamic title;
 @dynamic classKey;
 @dynamic dueDate;
@@ -30,7 +30,7 @@
 
 + (void) createNewAssignment: ( NSString * _Nullable )title withClassName: ( NSString * _Nullable )className withDueDate: ( NSDate * _Nullable )dueDate withImage: ( UIImage * _Nullable )image withCompletion: (PFBooleanResultBlock  _Nullable)completion {
     Assignment *newAssignment = [Assignment new];
-//    newAssignment.author = [PFUser currentUser];
+    newAssignment.author = [PFUser currentUser];
     newAssignment.title = title;
     newAssignment.classKey = className;
     newAssignment.dueDate = dueDate;

@@ -7,7 +7,7 @@
 //
 
 #import "AppDelegate.h"
-#import <Parse/Parse.h>
+@import Parse;
 
 @interface AppDelegate ()
 
@@ -24,6 +24,8 @@
     }];
     
     [Parse initializeWithConfiguration:config];
+    
+     [PFFacebookUtils initializeFacebookWithApplicationLaunchOptions:launchOptions];
     
     return YES;
 }

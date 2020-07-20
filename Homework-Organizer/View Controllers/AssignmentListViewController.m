@@ -10,6 +10,7 @@
 #import "AssignmentListCell.h"
 #import <Parse/Parse.h>
 #import "DetailsViewController.h"
+#import "SceneDelegate.h"
 
 @interface AssignmentListViewController () <UITableViewDelegate, UITableViewDataSource>
 
@@ -34,6 +35,7 @@
     PFQuery *assignmentQuery = [PFQuery queryWithClassName:@"Assignment"];
     [assignmentQuery orderByAscending:@"dueDate"];
     [assignmentQuery whereKey:@"creationComplete" equalTo: @YES];
+    [assignmentQuery whereKey:@"author" equalTo: [PFUser currentUser]];
     assignmentQuery.limit = 20;
     
     [assignmentQuery findObjectsInBackgroundWithBlock:^(NSArray<Assignment *>* _Nullable assignments, NSError * _Nullable error) {
@@ -45,6 +47,29 @@
         }
     }];
     
+}
+
+- (IBAction)onLogout:(id)sender {
+    [PFUser logOutInBackgroundWithBlock:^(NSError * _Nullable error) {
+        // PFUser.current() will now be nil
+        if (error != nil) {
+            NSLog(@"User log out failed: %@", error.localizedDescription);
+        } else {
+            NSLog(@"User logged out successfully");
+            FBSDKLoginManager *loginManager = [[FBSDKLoginManager alloc] init];
+            [loginManager logOut];
+            
+            if ([FBSDKAccessToken currentAccessToken] == nil) {
+                SceneDelegate *myDelegate = (SceneDelegate *)self.view.window.windowScene.delegate;
+                
+                UIStoryboard *storyboard = [UIStoryboard storyboardWithName:@"Main" bundle: nil];
+                UIViewController *loginController = [storyboard instantiateViewControllerWithIdentifier:@"LoginViewController"];
+                myDelegate.window.rootViewController = loginController;
+            } else {
+                NSLog(@"error logging out");
+            }
+        }
+    }];
 }
 
 
