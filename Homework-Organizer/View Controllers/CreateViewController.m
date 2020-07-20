@@ -68,10 +68,30 @@
 
 - (IBAction)onPhotoSelect:(id)sender {
     NSLog(@"tapped");
+    UIAlertController *actionSheet = [UIAlertController alertControllerWithTitle:nil message:nil preferredStyle:UIAlertControllerStyleActionSheet];
+    
+    [actionSheet addAction:[UIAlertAction actionWithTitle:@"Cancel" style:UIAlertActionStyleCancel handler:^(UIAlertAction *action) {
+        // Cancel button tappped do nothing.
+    }]];
+    
+    [actionSheet addAction:[UIAlertAction actionWithTitle:@"Take photo" style:UIAlertActionStyleDefault handler:^(UIAlertAction *action) {
+        // take photo button tapped.
+        [self takePhoto];
+    }]];
+    
+    [actionSheet addAction:[UIAlertAction actionWithTitle:@"Choose photo" style:UIAlertActionStyleDefault handler:^(UIAlertAction *action) {
+        // choose photo button tapped.
+        [self choosePhoto];
+    }]];
+    
+    [self presentViewController:actionSheet animated:YES completion:nil];
+}
+
+-(void)takePhoto {
     UIImagePickerController *imagePickerVC = [UIImagePickerController new];
     imagePickerVC.delegate = self;
     imagePickerVC.allowsEditing = YES;
-
+    
     if ([UIImagePickerController isSourceTypeAvailable:UIImagePickerControllerSourceTypeCamera]) {
         imagePickerVC.sourceType = UIImagePickerControllerSourceTypeCamera;
     }
@@ -79,7 +99,16 @@
         NSLog(@"Camera 🚫 available so we will use photo library instead");
         imagePickerVC.sourceType = UIImagePickerControllerSourceTypePhotoLibrary;
     }
+    
+    [self presentViewController:imagePickerVC animated:YES completion:nil];
+}
 
+-(void)choosePhoto {
+    UIImagePickerController *imagePickerVC = [UIImagePickerController new];
+    imagePickerVC.delegate = self;
+    imagePickerVC.allowsEditing = YES;
+    imagePickerVC.sourceType = UIImagePickerControllerSourceTypePhotoLibrary;
+    
     [self presentViewController:imagePickerVC animated:YES completion:nil];
 }
 
