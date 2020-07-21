@@ -525,6 +525,67 @@
                                     <outlet property="delegate" destination="LQb-Tt-kl5" id="VIb-HY-oaE"/>
                                 </connections>
                             </view>
+                            <tableView clipsSubviews="YES" contentMode="scaleToFill" fixedFrame="YES" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" separatorStyle="default" rowHeight="-1" estimatedRowHeight="-1" sectionHeaderHeight="28" sectionFooterHeight="28" translatesAutoresizingMaskIntoConstraints="NO" id="npg-OS-Mzz">
+                                <rect key="frame" x="0.0" y="510" width="414" height="386"/>
+                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                <color key="backgroundColor" systemColor="systemBackgroundColor" cocoaTouchSystemColor="whiteColor"/>
+                                <prototypes>
+                                    <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" preservesSuperviewLayoutMargins="YES" selectionStyle="default" indentationWidth="10" reuseIdentifier="AssignmentListCell" rowHeight="106" id="5C9-Sf-7im" customClass="AssignmentListCell">
+                                        <rect key="frame" x="0.0" y="28" width="414" height="106"/>
+                                        <autoresizingMask key="autoresizingMask"/>
+                                        <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" preservesSuperviewLayoutMargins="YES" insetsLayoutMarginsFromSafeArea="NO" tableViewCell="5C9-Sf-7im" id="6mn-Np-dbA">
+                                            <rect key="frame" x="0.0" y="0.0" width="414" height="106"/>
+                                            <autoresizingMask key="autoresizingMask"/>
+                                            <subviews>
+                                                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Chapter 4 Problems" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="KuF-C0-qEX">
+                                                    <rect key="frame" x="20" y="11" width="374" height="27"/>
+                                                    <fontDescription key="fontDescription" type="boldSystem" pointSize="22"/>
+                                                    <nil key="textColor"/>
+                                                    <nil key="highlightedColor"/>
+                                                </label>
+                                                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Linear Algebra" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="O3P-Ll-Hg2">
+                                                    <rect key="frame" x="20" y="46" width="111" height="21"/>
+                                                    <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                                                    <nil key="textColor"/>
+                                                    <nil key="highlightedColor"/>
+                                                </label>
+                                                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="August 21" textAlignment="right" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="piG-8a-vMc">
+                                                    <rect key="frame" x="318" y="46" width="76" height="21"/>
+                                                    <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                                                    <nil key="textColor"/>
+                                                    <nil key="highlightedColor"/>
+                                                </label>
+                                                <progressView opaque="NO" contentMode="scaleToFill" verticalHuggingPriority="750" translatesAutoresizingMaskIntoConstraints="NO" id="3is-Mh-SKV">
+                                                    <rect key="frame" x="60" y="83" width="294" height="5"/>
+                                                    <constraints>
+                                                        <constraint firstAttribute="height" constant="5" id="pi4-Sd-2mT"/>
+                                                    </constraints>
+                                                </progressView>
+                                            </subviews>
+                                            <constraints>
+                                                <constraint firstItem="3is-Mh-SKV" firstAttribute="top" secondItem="O3P-Ll-Hg2" secondAttribute="bottom" constant="16" id="6Jx-ay-Qfq"/>
+                                                <constraint firstItem="piG-8a-vMc" firstAttribute="trailing" secondItem="6mn-Np-dbA" secondAttribute="trailingMargin" id="CaS-ER-TYl"/>
+                                                <constraint firstItem="KuF-C0-qEX" firstAttribute="leading" secondItem="6mn-Np-dbA" secondAttribute="leadingMargin" id="HJY-Ty-7zN"/>
+                                                <constraint firstItem="O3P-Ll-Hg2" firstAttribute="leading" secondItem="6mn-Np-dbA" secondAttribute="leadingMargin" id="QBQ-ok-x7Z"/>
+                                                <constraint firstAttribute="trailingMargin" secondItem="3is-Mh-SKV" secondAttribute="trailing" constant="40" id="UsD-Fc-6IM"/>
+                                                <constraint firstItem="piG-8a-vMc" firstAttribute="leading" relation="greaterThanOrEqual" secondItem="O3P-Ll-Hg2" secondAttribute="trailing" constant="8" id="ZQI-KQ-APq"/>
+                                                <constraint firstItem="KuF-C0-qEX" firstAttribute="trailing" secondItem="6mn-Np-dbA" secondAttribute="trailingMargin" id="fy5-I3-1Rx"/>
+                                                <constraint firstItem="O3P-Ll-Hg2" firstAttribute="top" secondItem="KuF-C0-qEX" secondAttribute="bottom" constant="8" id="iFc-Da-qtq"/>
+                                                <constraint firstItem="piG-8a-vMc" firstAttribute="top" secondItem="KuF-C0-qEX" secondAttribute="bottom" constant="8" id="jeI-TJ-10c"/>
+                                                <constraint firstItem="3is-Mh-SKV" firstAttribute="top" secondItem="piG-8a-vMc" secondAttribute="bottom" constant="16" id="k5T-tT-EQ7"/>
+                                                <constraint firstAttribute="bottomMargin" secondItem="3is-Mh-SKV" secondAttribute="bottom" constant="7" id="tbV-KF-Jrp"/>
+                                                <constraint firstItem="KuF-C0-qEX" firstAttribute="top" secondItem="6mn-Np-dbA" secondAttribute="topMargin" id="tc3-aT-fPz"/>
+                                                <constraint firstItem="3is-Mh-SKV" firstAttribute="leading" secondItem="6mn-Np-dbA" secondAttribute="leadingMargin" constant="40" id="tnF-VA-ZmD"/>
+                                            </constraints>
+                                        </tableViewCellContentView>
+                                        <connections>
+                                            <outlet property="classLabel" destination="O3P-Ll-Hg2" id="9gE-K4-Hme"/>
+                                            <outlet property="dueDateLabel" destination="piG-8a-vMc" id="02C-7y-7RP"/>
+                                            <outlet property="titleLabel" destination="KuF-C0-qEX" id="puk-wb-Hk8"/>
+                                        </connections>
+                                    </tableViewCell>
+                                </prototypes>
+                            </tableView>
                         </subviews>
                         <color key="backgroundColor" systemColor="systemBackgroundColor" cocoaTouchSystemColor="whiteColor"/>
                         <constraints>
@@ -537,6 +598,7 @@
                     <navigationItem key="navigationItem" title="Calendar" id="ECO-bt-5JF"/>
                     <connections>
                         <outlet property="calendar" destination="S7C-OS-Fhm" id="jwY-AK-P8i"/>
+                        <outlet property="tableView" destination="npg-OS-Mzz" id="lXs-n1-cft"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="ksR-Sr-mvR" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
