@@ -310,19 +310,19 @@
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Assignment Title" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Jmc-Sd-Ze9">
-                                <rect key="frame" x="20" y="64" width="374" height="42"/>
+                                <rect key="frame" x="20" y="108" width="374" height="42"/>
                                 <fontDescription key="fontDescription" type="system" pointSize="35"/>
                                 <nil key="textColor"/>
                                 <nil key="highlightedColor"/>
                             </label>
                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Class Name" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="TSv-bN-CZy">
-                                <rect key="frame" x="20" y="114" width="374" height="29"/>
+                                <rect key="frame" x="20" y="158" width="374" height="29"/>
                                 <fontDescription key="fontDescription" type="system" pointSize="24"/>
                                 <nil key="textColor"/>
                                 <nil key="highlightedColor"/>
                             </label>
                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Due" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="zfq-vH-c3D">
-                                <rect key="frame" x="20" y="151" width="43" height="29"/>
+                                <rect key="frame" x="20" y="195" width="43" height="29"/>
                                 <constraints>
                                     <constraint firstAttribute="width" constant="43" id="9G4-0w-pvQ"/>
                                 </constraints>
@@ -331,7 +331,7 @@
                                 <nil key="highlightedColor"/>
                             </label>
                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Jul 15, 11:59PM" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="XwT-0u-p84">
-                                <rect key="frame" x="71" y="151" width="323" height="29"/>
+                                <rect key="frame" x="71" y="195" width="323" height="29"/>
                                 <fontDescription key="fontDescription" type="system" pointSize="24"/>
                                 <nil key="textColor"/>
                                 <nil key="highlightedColor"/>
@@ -344,14 +344,14 @@
                                 <nil key="highlightedColor"/>
                             </label>
                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Tasks" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Mbv-CT-Uyw">
-                                <rect key="frame" x="47" y="293" width="320" height="29"/>
+                                <rect key="frame" x="47" y="337" width="320" height="29"/>
                                 <color key="backgroundColor" white="0.66666666669999997" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                 <fontDescription key="fontDescription" type="system" pointSize="24"/>
                                 <nil key="textColor"/>
                                 <nil key="highlightedColor"/>
                             </label>
                             <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" translatesAutoresizingMaskIntoConstraints="NO" id="Gt8-Yr-RWU" customClass="PFImageView">
-                                <rect key="frame" x="20" y="188" width="60" height="60"/>
+                                <rect key="frame" x="20" y="232" width="60" height="60"/>
                                 <gestureRecognizers/>
                                 <constraints>
                                     <constraint firstAttribute="height" constant="60" id="EMM-MH-In8"/>
@@ -359,7 +359,7 @@
                                 </constraints>
                             </imageView>
                             <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="c6d-gY-zGu">
-                                <rect key="frame" x="88" y="203" width="79" height="30"/>
+                                <rect key="frame" x="88" y="247" width="79" height="30"/>
                                 <constraints>
                                     <constraint firstAttribute="width" constant="79" id="9Xv-57-Ycr"/>
                                 </constraints>
@@ -369,13 +369,13 @@
                                 </connections>
                             </button>
                             <progressView opaque="NO" contentMode="scaleToFill" verticalHuggingPriority="750" translatesAutoresizingMaskIntoConstraints="NO" id="E8O-2a-v0C">
-                                <rect key="frame" x="47" y="268" width="320" height="5"/>
+                                <rect key="frame" x="47" y="312" width="320" height="5"/>
                                 <constraints>
                                     <constraint firstAttribute="height" constant="5" id="aXW-Hv-K4E"/>
                                 </constraints>
                             </progressView>
                             <tableView clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" separatorStyle="default" rowHeight="-1" estimatedRowHeight="-1" sectionHeaderHeight="28" sectionFooterHeight="28" translatesAutoresizingMaskIntoConstraints="NO" id="1FA-Qm-eQo">
-                                <rect key="frame" x="47" y="322" width="320" height="269"/>
+                                <rect key="frame" x="47" y="366" width="320" height="269"/>
                                 <color key="backgroundColor" systemColor="systemBackgroundColor" cocoaTouchSystemColor="whiteColor"/>
                                 <constraints>
                                     <constraint firstAttribute="height" constant="269" id="gvu-5D-scB"/>
@@ -503,14 +503,45 @@
                     <view key="view" contentMode="scaleToFill" id="bX4-En-Xyp">
                         <rect key="frame" x="0.0" y="0.0" width="414" height="896"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <subviews>
+                            <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="S7C-OS-Fhm" customClass="FSCalendar">
+                                <rect key="frame" x="0.0" y="88" width="414" height="414"/>
+                                <color key="backgroundColor" systemColor="systemBackgroundColor" cocoaTouchSystemColor="whiteColor"/>
+                                <constraints>
+                                    <constraint firstAttribute="height" constant="414" id="Yey-PD-a8l"/>
+                                </constraints>
+                                <userDefinedRuntimeAttributes>
+                                    <userDefinedRuntimeAttribute type="boolean" keyPath="scrollEnabled" value="YES"/>
+                                    <userDefinedRuntimeAttribute type="color" keyPath="todayColor">
+                                        <color key="value" white="0.66666666669999997" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                    </userDefinedRuntimeAttribute>
+                                    <userDefinedRuntimeAttribute type="boolean" keyPath="fakeSubtitles" value="NO"/>
+                                    <userDefinedRuntimeAttribute type="color" keyPath="eventSelectionColor">
+                                        <color key="value" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                    </userDefinedRuntimeAttribute>
+                                </userDefinedRuntimeAttributes>
+                                <connections>
+                                    <outlet property="dataSource" destination="LQb-Tt-kl5" id="9pQ-Ud-K3x"/>
+                                    <outlet property="delegate" destination="LQb-Tt-kl5" id="VIb-HY-oaE"/>
+                                </connections>
+                            </view>
+                        </subviews>
                         <color key="backgroundColor" systemColor="systemBackgroundColor" cocoaTouchSystemColor="whiteColor"/>
+                        <constraints>
+                            <constraint firstItem="S7C-OS-Fhm" firstAttribute="trailing" secondItem="trD-ni-hgq" secondAttribute="trailing" id="Gqs-kG-Wep"/>
+                            <constraint firstItem="S7C-OS-Fhm" firstAttribute="leading" secondItem="trD-ni-hgq" secondAttribute="leading" id="TP9-6N-wOQ"/>
+                            <constraint firstItem="S7C-OS-Fhm" firstAttribute="top" secondItem="trD-ni-hgq" secondAttribute="top" id="YA8-nP-1aA"/>
+                        </constraints>
                         <viewLayoutGuide key="safeArea" id="trD-ni-hgq"/>
                     </view>
                     <navigationItem key="navigationItem" title="Calendar" id="ECO-bt-5JF"/>
+                    <connections>
+                        <outlet property="calendar" destination="S7C-OS-Fhm" id="jwY-AK-P8i"/>
+                    </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="ksR-Sr-mvR" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="3032" y="-621"/>
+            <point key="canvasLocation" x="3031.884057971015" y="-621.42857142857144"/>
         </scene>
         <!--Tab Bar Controller-->
         <scene sceneID="P18-TB-aEt">
