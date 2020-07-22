@@ -7,8 +7,19 @@
 //
 
 #import "CalendarViewController.h"
+#import "FSCalendar/FSCalendar.h"
+@import Parse;
+#import "Assignment.h"
+#import "AssignmentListCell.h"
 
-@interface CalendarViewController ()
+@interface CalendarViewController () <UITableViewDelegate, UITableViewDataSource, FSCalendarDataSource,FSCalendarDelegate, FSCalendarDelegateAppearance>
+
+@property (weak, nonatomic) IBOutlet FSCalendar *calendar;
+@property (strong, nonatomic) NSArray<NSString *> *datesWithEvent;
+@property (strong, nonatomic) NSMutableArray *allAssignments;
+@property (strong, nonatomic) NSMutableArray *assignments;
+@property (strong, nonatomic) NSDateFormatter *myFormat;
+@property (weak, nonatomic) IBOutlet UITableView *tableView;
 
 @end
 
@@ -17,6 +28,131 @@
 - (void)viewDidLoad {
     [super viewDidLoad];
     // Do any additional setup after loading the view.
+    self.tableView.dataSource = self;
+    self.tableView.delegate = self;
+    
+    self.calendar.delegate = self;
+    self.calendar.dataSource = self;
+    self.myFormat = [[NSDateFormatter alloc] init];
+    self.myFormat.dateFormat = @"yyyy-MM-dd";
+    NSLog(@"Getting due dates...");
+    
+    [self fetchAllAssignments];
+//    self.datesWithEvent = @[@"2020-07-22",
+//                           @"2020-07-23"];
+    [self.calendar reloadData];
+    
+}
+- (void)calendar:(FSCalendar *)calendar boundingRectWillChange:(CGRect)bounds animated:(BOOL)animated {
+    calendar.frame = (CGRect){calendar.frame.origin,bounds.size};
+    // Do other updates here
+    [self.view layoutIfNeeded];
+}
+
+-(void)fetchAllAssignments {
+    NSLog(@"fetching assignments");
+    PFQuery *assignmentQuery = [PFQuery queryWithClassName:@"Assignment"];
+    [assignmentQuery orderByAscending:@"dueDate"];
+    [assignmentQuery whereKey:@"creationComplete" equalTo: @YES];
+    [assignmentQuery whereKey:@"completed" equalTo: @NO];
+    [assignmentQuery whereKey:@"author" equalTo: [PFUser currentUser]];
+//    assignmentQuery.limit = 20;
+    
+    [assignmentQuery findObjectsInBackgroundWithBlock:^(NSArray<Assignment *>* _Nullable assignments, NSError * _Nullable error) {
+        if (assignments) {
+            self.allAssignments = (NSMutableArray *) assignments;
+            [self getDueDates];
+        } else {
+            NSLog(@"%@", error.localizedDescription);
+        }
+    }];
+}
+
+-(void)getDueDates {
+    NSMutableArray *dates = [[NSMutableArray alloc] init];
+//    NSLog(@"setting @%lu due dates", [self.allAssignments count]);
+    for (Assignment *assignment in self.allAssignments) {
+        [dates addObject:[self.myFormat stringFromDate: assignment.dueDate]];
+        
+        NSLog(@"%@", [self.myFormat stringFromDate:assignment.dueDate]);
+    }
+    self.datesWithEvent = dates;
+    [self.calendar reloadData];
+}
+
+-(NSInteger)calendar:(FSCalendar *)calendar numberOfEventsForDate:(NSDate *)date {
+    if ([self.datesWithEvent containsObject:[self.myFormat stringFromDate: date]]) {
+        return 1;
+    }
+    return 0;
+}
+
+- (void)calendar:(FSCalendar *)calendar didSelectDate:(NSDate *)date atMonthPosition:(FSCalendarMonthPosition)monthPosition
+{
+    NSLog(@"did select date %@",[self.myFormat stringFromDate:date]);
+    if (monthPosition == FSCalendarMonthPositionNext || monthPosition == FSCalendarMonthPositionPrevious) {
+        [calendar setCurrentPage:date animated:YES];
+    }
+    
+    NSLog(@"fetching assignments");
+    PFQuery *assignmentQuery = [PFQuery queryWithClassName:@"Assignment"];
+    [assignmentQuery orderByAscending:@"dueDate"];
+    [assignmentQuery whereKey:@"creationComplete" equalTo: @YES];
+    [assignmentQuery whereKey:@"completed" equalTo: @NO];
+    [assignmentQuery whereKey:@"author" equalTo: [PFUser currentUser]];
+    [assignmentQuery whereKey:@"dueDate" greaterThanOrEqualTo:date];
+    NSTimeInterval oneDay = (double) 24 * 60 * 60;
+    [assignmentQuery whereKey:@"dueDate" lessThan:[date dateByAddingTimeInterval:oneDay]];
+    assignmentQuery.limit = 20;
+    
+    [assignmentQuery findObjectsInBackgroundWithBlock:^(NSArray<Assignment *>* _Nullable assignments, NSError * _Nullable error) {
+        if (assignments) {
+            self.assignments = (NSMutableArray *) assignments;
+            [self.tableView reloadData];
+        } else {
+            NSLog(@"%@", error.localizedDescription);
+        }
+    }];
+}
+
+- (CGPoint)calendar:(FSCalendar *)calendar appearance:(FSCalendarAppearance *)appearance titleOffsetForDate:(NSDate *)date
+{
+//    if ([self calendar:calendar subtitleForDate:date]) {
+//        return CGPointZero;
+//    }
+    if ([_datesWithEvent containsObject:[self.myFormat stringFromDate:date]]) {
+        return CGPointMake(0, -2);
+    }
+    return CGPointZero;
+}
+
+- (CGPoint)calendar:(FSCalendar *)calendar appearance:(FSCalendarAppearance *)appearance eventOffsetForDate:(NSDate *)date
+{
+//    if ([self calendar:calendar subtitleForDate:date]) {
+//        return CGPointZero;
+//    }
+    if ([_datesWithEvent containsObject:[self.myFormat stringFromDate:date]]) {
+        return CGPointMake(0, -10);
+    }
+    return CGPointZero;
+}
+
+- (nonnull UITableViewCell *)tableView:(nonnull UITableView *)tableView cellForRowAtIndexPath:(nonnull NSIndexPath *)indexPath {
+     AssignmentListCell *cell = [tableView dequeueReusableCellWithIdentifier:@"AssignmentListCell"];
+     Assignment *assignment = self.assignments[indexPath.row];
+     
+     cell.assignment = assignment;
+     
+     return cell;
+ }
+
+ - (NSInteger)tableView:(nonnull UITableView *)tableView numberOfRowsInSection:(NSInteger)section {
+     return self.assignments.count;
+ }
+ 
+- (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath {
+    NSLog(@"Selected row number: %ld", (long)indexPath.row);
+    [tableView deselectRowAtIndexPath:indexPath animated:YES];
 }
 
 /*

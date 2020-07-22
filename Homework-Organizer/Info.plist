@@ -6,6 +6,7 @@
 	<string>Need library access to upload images</string>
 	<key>NSCameraUsageDescription</key>
 	<string>Need camera access to take pictures</string>
+    
 	<key>CFBundleURLTypes</key>
 	<array>
 		<dict>
@@ -37,6 +38,10 @@
 		<string>fbauth2</string>
 		<string>fbshareextension</string>
 	</array>
+    <key>FacebookAutoLogAppEventsEnabled</key>
+    <false/>
+    <key>FacebookAdvertiserIDCollectionEnabled</key>
+    <false/>
 	<key>NSAppTransportSecurity</key>
 	<dict>
 		<key>NSAllowsArbitraryLoads</key>
@@ -52,6 +57,8 @@
 			</dict>
 		</dict>
 	</dict>
+    
+    
 	<key>CFBundleDevelopmentRegion</key>
 	<string>$(DEVELOPMENT_LANGUAGE)</string>
 	<key>CFBundleExecutable</key>
