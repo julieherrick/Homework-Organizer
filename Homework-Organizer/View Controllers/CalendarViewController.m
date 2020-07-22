@@ -37,7 +37,9 @@
     self.myFormat.dateFormat = @"yyyy-MM-dd";
     NSLog(@"Getting due dates...");
     
-    [self getDueDates];
+    [self fetchAllAssignments];
+//    self.datesWithEvent = @[@"2020-07-22",
+//                           @"2020-07-23"];
     [self.calendar reloadData];
     
 }
@@ -47,19 +49,19 @@
     [self.view layoutIfNeeded];
 }
 
--(void)fetchAssignments {
+-(void)fetchAllAssignments {
     NSLog(@"fetching assignments");
     PFQuery *assignmentQuery = [PFQuery queryWithClassName:@"Assignment"];
     [assignmentQuery orderByAscending:@"dueDate"];
     [assignmentQuery whereKey:@"creationComplete" equalTo: @YES];
     [assignmentQuery whereKey:@"completed" equalTo: @NO];
     [assignmentQuery whereKey:@"author" equalTo: [PFUser currentUser]];
-    assignmentQuery.limit = 20;
+//    assignmentQuery.limit = 20;
     
     [assignmentQuery findObjectsInBackgroundWithBlock:^(NSArray<Assignment *>* _Nullable assignments, NSError * _Nullable error) {
         if (assignments) {
             self.allAssignments = (NSMutableArray *) assignments;
-//            [self.tableView reloadData];
+            [self getDueDates];
         } else {
             NSLog(@"%@", error.localizedDescription);
         }
@@ -67,19 +69,18 @@
 }
 
 -(void)getDueDates {
-    [self fetchAssignments];
     NSMutableArray *dates = [[NSMutableArray alloc] init];
-    NSLog(@"setting @%lu due dates", [self.assignments count]);
+//    NSLog(@"setting @%lu due dates", [self.allAssignments count]);
     for (Assignment *assignment in self.allAssignments) {
         [dates addObject:[self.myFormat stringFromDate: assignment.dueDate]];
         
         NSLog(@"%@", [self.myFormat stringFromDate:assignment.dueDate]);
     }
     self.datesWithEvent = dates;
+    [self.calendar reloadData];
 }
 
 -(NSInteger)calendar:(FSCalendar *)calendar numberOfEventsForDate:(NSDate *)date {
-    [self getDueDates];
     if ([self.datesWithEvent containsObject:[self.myFormat stringFromDate: date]]) {
         return 1;
     }
@@ -99,7 +100,7 @@
     [assignmentQuery whereKey:@"creationComplete" equalTo: @YES];
     [assignmentQuery whereKey:@"completed" equalTo: @NO];
     [assignmentQuery whereKey:@"author" equalTo: [PFUser currentUser]];
-    [assignmentQuery whereKey:@"dueDate" greaterThan:date];
+    [assignmentQuery whereKey:@"dueDate" greaterThanOrEqualTo:date];
     NSTimeInterval oneDay = (double) 24 * 60 * 60;
     [assignmentQuery whereKey:@"dueDate" lessThan:[date dateByAddingTimeInterval:oneDay]];
     assignmentQuery.limit = 20;

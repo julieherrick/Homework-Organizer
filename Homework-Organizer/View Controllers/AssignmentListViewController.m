@@ -36,7 +36,7 @@
     [assignmentQuery orderByAscending:@"dueDate"];
     [assignmentQuery whereKey:@"creationComplete" equalTo: @YES];
     [assignmentQuery whereKey:@"author" equalTo: [PFUser currentUser]];
-    assignmentQuery.limit = 20;
+//    assignmentQuery.limit = 20;
     
     [assignmentQuery findObjectsInBackgroundWithBlock:^(NSArray<Assignment *>* _Nullable assignments, NSError * _Nullable error) {
         if (assignments) {
