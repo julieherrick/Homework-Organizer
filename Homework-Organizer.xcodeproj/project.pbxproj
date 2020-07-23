@@ -12,6 +12,7 @@
 		7932F24524BF90620067241A /* SubtaskCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 7932F24424BF90620067241A /* SubtaskCell.m */; };
 		7932F24824BFB2910067241A /* FullImageViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 7932F24724BFB2910067241A /* FullImageViewController.m */; };
 		7956465D24C89CEB0016FF26 /* CreateSubtaskCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 7956465C24C89CEB0016FF26 /* CreateSubtaskCell.m */; };
+		7956466524CA36110016FF26 /* ProgressTracking.m in Sources */ = {isa = PBXBuildFile; fileRef = 7956466424CA36110016FF26 /* ProgressTracking.m */; };
 		799F0B4F24BCCBA700FAECC6 /* AppDelegate.m in Sources */ = {isa = PBXBuildFile; fileRef = 799F0B4E24BCCBA700FAECC6 /* AppDelegate.m */; };
 		799F0B5224BCCBA700FAECC6 /* SceneDelegate.m in Sources */ = {isa = PBXBuildFile; fileRef = 799F0B5124BCCBA700FAECC6 /* SceneDelegate.m */; };
 		799F0B5824BCCBA700FAECC6 /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 799F0B5624BCCBA700FAECC6 /* Main.storyboard */; };
@@ -61,6 +62,8 @@
 		7932F24724BFB2910067241A /* FullImageViewController.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = FullImageViewController.m; sourceTree = "<group>"; };
 		7956465B24C89CEB0016FF26 /* CreateSubtaskCell.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = CreateSubtaskCell.h; sourceTree = "<group>"; };
 		7956465C24C89CEB0016FF26 /* CreateSubtaskCell.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = CreateSubtaskCell.m; sourceTree = "<group>"; };
+		7956466324CA36110016FF26 /* ProgressTracking.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = ProgressTracking.h; sourceTree = "<group>"; };
+		7956466424CA36110016FF26 /* ProgressTracking.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = ProgressTracking.m; sourceTree = "<group>"; };
 		799F0B4A24BCCBA700FAECC6 /* Homework-Organizer.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = "Homework-Organizer.app"; sourceTree = BUILT_PRODUCTS_DIR; };
 		799F0B4D24BCCBA700FAECC6 /* AppDelegate.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = AppDelegate.h; sourceTree = "<group>"; };
 		799F0B4E24BCCBA700FAECC6 /* AppDelegate.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = AppDelegate.m; sourceTree = "<group>"; };
@@ -129,6 +132,66 @@
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
+		7956465E24CA34B60016FF26 /* Create  */ = {
+			isa = PBXGroup;
+			children = (
+				799F0B8F24BCCF4500FAECC6 /* CreateViewController.h */,
+				799F0B9024BCCF4500FAECC6 /* CreateViewController.m */,
+				7932F24024BF67250067241A /* CreateSubtaskViewController.h */,
+				7932F24124BF67250067241A /* CreateSubtaskViewController.m */,
+			);
+			path = "Create ";
+			sourceTree = "<group>";
+		};
+		7956465F24CA34E20016FF26 /* Details */ = {
+			isa = PBXGroup;
+			children = (
+				7932F24624BFB2910067241A /* FullImageViewController.h */,
+				7932F24724BFB2910067241A /* FullImageViewController.m */,
+				799F0B8924BCCF2100FAECC6 /* DetailsViewController.h */,
+				799F0B8A24BCCF2100FAECC6 /* DetailsViewController.m */,
+			);
+			path = Details;
+			sourceTree = "<group>";
+		};
+		7956466024CA34F70016FF26 /* Login */ = {
+			isa = PBXGroup;
+			children = (
+				799F0B8624BCCF0F00FAECC6 /* LoginViewController.h */,
+				799F0B8724BCCF0F00FAECC6 /* LoginViewController.m */,
+			);
+			path = Login;
+			sourceTree = "<group>";
+		};
+		7956466124CA35030016FF26 /* Calendar */ = {
+			isa = PBXGroup;
+			children = (
+				79CF669024BCD063007729B9 /* CalendarViewController.h */,
+				79CF669124BCD063007729B9 /* CalendarViewController.m */,
+			);
+			path = Calendar;
+			sourceTree = "<group>";
+		};
+		7956466224CA35120016FF26 /* Assignent List */ = {
+			isa = PBXGroup;
+			children = (
+				799F0B8C24BCCF3900FAECC6 /* AssignmentListViewController.h */,
+				799F0B8D24BCCF3900FAECC6 /* AssignmentListViewController.m */,
+			);
+			path = "Assignent List";
+			sourceTree = "<group>";
+		};
+		7956466624CA40A50016FF26 /* Delegates */ = {
+			isa = PBXGroup;
+			children = (
+				799F0B4D24BCCBA700FAECC6 /* AppDelegate.h */,
+				799F0B4E24BCCBA700FAECC6 /* AppDelegate.m */,
+				799F0B5024BCCBA700FAECC6 /* SceneDelegate.h */,
+				799F0B5124BCCBA700FAECC6 /* SceneDelegate.m */,
+			);
+			path = Delegates;
+			sourceTree = "<group>";
+		};
 		799F0B4124BCCBA700FAECC6 = {
 			isa = PBXGroup;
 			children = (
@@ -154,13 +217,10 @@
 		799F0B4C24BCCBA700FAECC6 /* Homework-Organizer */ = {
 			isa = PBXGroup;
 			children = (
+				7956466624CA40A50016FF26 /* Delegates */,
 				799F0B8524BCCEEC00FAECC6 /* Models */,
 				799F0B8324BCCED400FAECC6 /* Views */,
 				799F0B8224BCCEC000FAECC6 /* View Controllers */,
-				799F0B4D24BCCBA700FAECC6 /* AppDelegate.h */,
-				799F0B4E24BCCBA700FAECC6 /* AppDelegate.m */,
-				799F0B5024BCCBA700FAECC6 /* SceneDelegate.h */,
-				799F0B5124BCCBA700FAECC6 /* SceneDelegate.m */,
 				799F0B5624BCCBA700FAECC6 /* Main.storyboard */,
 				799F0B5924BCCBA900FAECC6 /* Assets.xcassets */,
 				799F0B5B24BCCBA900FAECC6 /* LaunchScreen.storyboard */,
@@ -191,20 +251,13 @@
 		799F0B8224BCCEC000FAECC6 /* View Controllers */ = {
 			isa = PBXGroup;
 			children = (
-				799F0B8624BCCF0F00FAECC6 /* LoginViewController.h */,
-				799F0B8724BCCF0F00FAECC6 /* LoginViewController.m */,
-				799F0B8924BCCF2100FAECC6 /* DetailsViewController.h */,
-				799F0B8A24BCCF2100FAECC6 /* DetailsViewController.m */,
-				799F0B8C24BCCF3900FAECC6 /* AssignmentListViewController.h */,
-				799F0B8D24BCCF3900FAECC6 /* AssignmentListViewController.m */,
-				799F0B8F24BCCF4500FAECC6 /* CreateViewController.h */,
-				799F0B9024BCCF4500FAECC6 /* CreateViewController.m */,
-				79CF669024BCD063007729B9 /* CalendarViewController.h */,
-				79CF669124BCD063007729B9 /* CalendarViewController.m */,
-				7932F24024BF67250067241A /* CreateSubtaskViewController.h */,
-				7932F24124BF67250067241A /* CreateSubtaskViewController.m */,
-				7932F24624BFB2910067241A /* FullImageViewController.h */,
-				7932F24724BFB2910067241A /* FullImageViewController.m */,
+				7956466224CA35120016FF26 /* Assignent List */,
+				7956466124CA35030016FF26 /* Calendar */,
+				7956466024CA34F70016FF26 /* Login */,
+				7956465F24CA34E20016FF26 /* Details */,
+				7956465E24CA34B60016FF26 /* Create  */,
+				7956466324CA36110016FF26 /* ProgressTracking.h */,
+				7956466424CA36110016FF26 /* ProgressTracking.m */,
 			);
 			path = "View Controllers";
 			sourceTree = "<group>";
@@ -499,6 +552,7 @@
 				7932F24224BF67250067241A /* CreateSubtaskViewController.m in Sources */,
 				79CF669224BCD063007729B9 /* CalendarViewController.m in Sources */,
 				79CF669B24BCF7F4007729B9 /* Subtask.m in Sources */,
+				7956466524CA36110016FF26 /* ProgressTracking.m in Sources */,
 				799F0B4F24BCCBA700FAECC6 /* AppDelegate.m in Sources */,
 				799F0B8E24BCCF3900FAECC6 /* AssignmentListViewController.m in Sources */,
 				7956465D24C89CEB0016FF26 /* CreateSubtaskCell.m in Sources */,

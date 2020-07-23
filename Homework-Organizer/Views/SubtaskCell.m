@@ -35,8 +35,6 @@
 - (IBAction)onComplete:(id)sender {
     if (!self.subtask.completed) {
         self.subtask.completed = YES;
-        
-//        [self refreshData];
         [self.subtask saveInBackgroundWithBlock:^(BOOL succeeded, NSError * _Nullable error) {
             if (succeeded) {
                 NSLog(@"subtask update completed");
@@ -48,8 +46,6 @@
         }];
     } else {
         self.subtask.completed = NO;
-        
-//        [self refreshData];
         [self.subtask saveInBackgroundWithBlock:^(BOOL succeeded, NSError * _Nullable error) {
             if (succeeded) {
                 NSLog(@"subtask update completed");

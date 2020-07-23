@@ -21,6 +21,7 @@
 @property (weak, nonatomic) IBOutlet UITableView *tableView;
 
 @property (nonatomic, strong) NSMutableArray *subtasks;
+@property (weak, nonatomic) IBOutlet UIButton *completedButton;
 
 @end
 
@@ -64,7 +65,11 @@
     [formatter setDateFormat:@"MMM d, h:mm a"];
 //    NSString *dateString = [NSString stringWithFormat: @"%@", [formatter stringFromDate:self.assignment.dueDate]];
     self.dueDateLabel.text = [NSString stringWithFormat: @"%@", [formatter stringFromDate:self.assignment.dueDate]];
-    
+    if (self.assignment.completed) {
+        self.completedButton.backgroundColor = [UIColor greenColor];
+    } else {
+        self.completedButton.backgroundColor = [UIColor grayColor];
+    }
     
 }
 
@@ -84,6 +89,49 @@
 - (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath {
     NSLog(@"Selected row number: %ld", (long)indexPath.row);
     [tableView deselectRowAtIndexPath:indexPath animated:YES];
+}
+
+-(BOOL)subtasksCompleted {
+    for (Subtask *task in self.subtasks) {
+        if (task.completed == NO) {
+            return NO;
+        }
+    }
+    return YES;
+}
+
+- (IBAction)onCompleted:(id)sender {
+    if (self.assignment.completed) {
+        self.assignment.completed = NO;
+        self.completedButton.backgroundColor = [UIColor grayColor];
+    } else if (![self subtasksCompleted]){
+        [self alertError:@"Subtasks are not all completed"];
+    } else {
+        self.assignment.completed = YES;
+        self.completedButton.backgroundColor = [UIColor greenColor];
+    }
+    [self.assignment saveInBackgroundWithBlock:^(BOOL succeeded, NSError * _Nullable error) {
+        if (succeeded) {
+            NSLog(@"assignment is completed");
+        } else {
+            NSLog(@"error");
+        }
+    }];
+}
+
+- (void)alertError:(NSString *)errorMessage {
+    UIAlertController *alert = [UIAlertController alertControllerWithTitle:@"Alert" message:errorMessage preferredStyle:(UIAlertControllerStyleAlert)];
+    
+    // create an OK action
+    UIAlertAction *okAction = [UIAlertAction actionWithTitle:@"OK" style:UIAlertActionStyleDefault handler:^(UIAlertAction * _Nonnull action) {
+        // closes to let the user fill the fields
+    }];
+    // add the OK action to the alert controller
+    [alert addAction:okAction];
+    
+    [self presentViewController:alert animated:YES completion:^{
+        // optional code for what happens after the alert controller has finished presenting
+    }];
 }
 
 
