@@ -11,6 +11,7 @@
 		7932F24224BF67250067241A /* CreateSubtaskViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 7932F24124BF67250067241A /* CreateSubtaskViewController.m */; };
 		7932F24524BF90620067241A /* SubtaskCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 7932F24424BF90620067241A /* SubtaskCell.m */; };
 		7932F24824BFB2910067241A /* FullImageViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 7932F24724BFB2910067241A /* FullImageViewController.m */; };
+		7956465D24C89CEB0016FF26 /* CreateSubtaskCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 7956465C24C89CEB0016FF26 /* CreateSubtaskCell.m */; };
 		799F0B4F24BCCBA700FAECC6 /* AppDelegate.m in Sources */ = {isa = PBXBuildFile; fileRef = 799F0B4E24BCCBA700FAECC6 /* AppDelegate.m */; };
 		799F0B5224BCCBA700FAECC6 /* SceneDelegate.m in Sources */ = {isa = PBXBuildFile; fileRef = 799F0B5124BCCBA700FAECC6 /* SceneDelegate.m */; };
 		799F0B5824BCCBA700FAECC6 /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 799F0B5624BCCBA700FAECC6 /* Main.storyboard */; };
@@ -58,6 +59,8 @@
 		7932F24424BF90620067241A /* SubtaskCell.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = SubtaskCell.m; sourceTree = "<group>"; };
 		7932F24624BFB2910067241A /* FullImageViewController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = FullImageViewController.h; sourceTree = "<group>"; };
 		7932F24724BFB2910067241A /* FullImageViewController.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = FullImageViewController.m; sourceTree = "<group>"; };
+		7956465B24C89CEB0016FF26 /* CreateSubtaskCell.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = CreateSubtaskCell.h; sourceTree = "<group>"; };
+		7956465C24C89CEB0016FF26 /* CreateSubtaskCell.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = CreateSubtaskCell.m; sourceTree = "<group>"; };
 		799F0B4A24BCCBA700FAECC6 /* Homework-Organizer.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = "Homework-Organizer.app"; sourceTree = BUILT_PRODUCTS_DIR; };
 		799F0B4D24BCCBA700FAECC6 /* AppDelegate.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = AppDelegate.h; sourceTree = "<group>"; };
 		799F0B4E24BCCBA700FAECC6 /* AppDelegate.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = AppDelegate.m; sourceTree = "<group>"; };
@@ -213,6 +216,8 @@
 				79CF669424BCD52F007729B9 /* AssignmentListCell.m */,
 				7932F24324BF90620067241A /* SubtaskCell.h */,
 				7932F24424BF90620067241A /* SubtaskCell.m */,
+				7956465B24C89CEB0016FF26 /* CreateSubtaskCell.h */,
+				7956465C24C89CEB0016FF26 /* CreateSubtaskCell.m */,
 			);
 			path = Views;
 			sourceTree = "<group>";
@@ -496,6 +501,7 @@
 				79CF669B24BCF7F4007729B9 /* Subtask.m in Sources */,
 				799F0B4F24BCCBA700FAECC6 /* AppDelegate.m in Sources */,
 				799F0B8E24BCCF3900FAECC6 /* AssignmentListViewController.m in Sources */,
+				7956465D24C89CEB0016FF26 /* CreateSubtaskCell.m in Sources */,
 				799F0B6024BCCBA900FAECC6 /* main.m in Sources */,
 				799F0B9124BCCF4500FAECC6 /* CreateViewController.m in Sources */,
 				799F0B8B24BCCF2100FAECC6 /* DetailsViewController.m in Sources */,
