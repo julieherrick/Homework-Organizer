@@ -456,6 +456,7 @@
                                                     <color key="tintColor" white="0.66666666669999997" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                                     <state key="normal" image="square" catalog="system"/>
                                                     <connections>
+                                                        <action selector="onChange:" destination="k1S-oI-6a7" eventType="touchUpInside" id="Y5y-XR-WkL"/>
                                                         <action selector="onComplete:" destination="I9e-YY-SOB" eventType="touchUpInside" id="BW7-jB-RJk"/>
                                                     </connections>
                                                 </button>
@@ -489,9 +490,6 @@
                                 <state key="normal" title="Done">
                                     <color key="titleColor" white="0.0" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                 </state>
-                                <connections>
-                                    <action selector="onCompleted:" destination="k1S-oI-6a7" eventType="touchUpInside" id="LWr-o3-w6k"/>
-                                </connections>
                             </button>
                         </subviews>
                         <color key="backgroundColor" systemColor="systemBackgroundColor" cocoaTouchSystemColor="whiteColor"/>
@@ -532,6 +530,7 @@
                         <outlet property="completedButton" destination="Xll-wT-sF0" id="Ogm-Pw-FRh"/>
                         <outlet property="dueDateLabel" destination="XwT-0u-p84" id="I6F-qD-EMz"/>
                         <outlet property="imageView" destination="Gt8-Yr-RWU" id="I3q-td-8uH"/>
+                        <outlet property="progressBar" destination="E8O-2a-v0C" id="p9C-XP-Zo7"/>
                         <outlet property="tableView" destination="1FA-Qm-eQo" id="FTE-vl-G60"/>
                         <outlet property="titleLabel" destination="Jmc-Sd-Ze9" id="YbK-H3-FFL"/>
                     </connections>

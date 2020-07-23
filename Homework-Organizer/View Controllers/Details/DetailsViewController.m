@@ -10,6 +10,7 @@
 #import "Subtask.h"
 #import "SubtaskCell.h"
 #import "FullImageViewController.h"
+#import "ProgressTracking.h"
 @import Parse;
 
 @interface DetailsViewController () <UITableViewDelegate, UITableViewDataSource>
@@ -19,6 +20,7 @@
 @property (weak, nonatomic) IBOutlet UILabel *classLabel;
 @property (weak, nonatomic) IBOutlet UILabel *dueDateLabel;
 @property (weak, nonatomic) IBOutlet UITableView *tableView;
+@property (weak, nonatomic) IBOutlet UIProgressView *progressBar;
 
 @property (nonatomic, strong) NSMutableArray *subtasks;
 @property (weak, nonatomic) IBOutlet UIButton *completedButton;
@@ -36,6 +38,12 @@
     [self fetchSubtasks];
     [self loadAssignment];
     
+}
+
+- (IBAction)onChange:(id)sender {
+    ProgressTracking *progressTracking = [[ProgressTracking alloc] init];
+    [progressTracking updateProgress:self.assignment];
+    [self.progressBar setProgress:[self.assignment.progress floatValue]];
 }
 
 -(void)fetchSubtasks {
@@ -71,6 +79,7 @@
         self.completedButton.backgroundColor = [UIColor grayColor];
     }
     
+    [self.progressBar setProgress:[self.assignment.progress floatValue]];
 }
 
 - (nonnull UITableViewCell *)tableView:(nonnull UITableView *)tableView cellForRowAtIndexPath:(nonnull NSIndexPath *)indexPath {
@@ -91,33 +100,33 @@
     [tableView deselectRowAtIndexPath:indexPath animated:YES];
 }
 
--(BOOL)subtasksCompleted {
-    for (Subtask *task in self.subtasks) {
-        if (task.completed == NO) {
-            return NO;
-        }
-    }
-    return YES;
-}
-
-- (IBAction)onCompleted:(id)sender {
-    if (self.assignment.completed) {
-        self.assignment.completed = NO;
-        self.completedButton.backgroundColor = [UIColor grayColor];
-    } else if (![self subtasksCompleted]){
-        [self alertError:@"Subtasks are not all completed"];
-    } else {
-        self.assignment.completed = YES;
-        self.completedButton.backgroundColor = [UIColor greenColor];
-    }
-    [self.assignment saveInBackgroundWithBlock:^(BOOL succeeded, NSError * _Nullable error) {
-        if (succeeded) {
-            NSLog(@"assignment is completed");
-        } else {
-            NSLog(@"error");
-        }
-    }];
-}
+//-(BOOL)subtasksCompleted {
+//    for (Subtask *task in self.subtasks) {
+//        if (task.completed == NO) {
+//            return NO;
+//        }
+//    }
+//    return YES;
+//}
+//
+//- (IBAction)onCompleted:(id)sender {
+//    if (self.assignment.completed) {
+//        self.assignment.completed = NO;
+//        self.completedButton.backgroundColor = [UIColor grayColor];
+//    } else if (![self subtasksCompleted]){
+//        [self alertError:@"Subtasks are not all completed"];
+//    } else {
+//        self.assignment.completed = YES;
+//        self.completedButton.backgroundColor = [UIColor greenColor];
+//    }
+//    [self.assignment saveInBackgroundWithBlock:^(BOOL succeeded, NSError * _Nullable error) {
+//        if (succeeded) {
+//            NSLog(@"assignment is completed");
+//        } else {
+//            NSLog(@"error");
+//        }
+//    }];
+//}
 
 - (void)alertError:(NSString *)errorMessage {
     UIAlertController *alert = [UIAlertController alertControllerWithTitle:@"Alert" message:errorMessage preferredStyle:(UIAlertControllerStyleAlert)];

@@ -7,6 +7,7 @@
 //
 
 #import "SubtaskCell.h"
+#import "ProgressTracking.h"
 
 @implementation SubtaskCell
 
@@ -56,7 +57,6 @@
             }
         }];
     }
-    
 }
 
 

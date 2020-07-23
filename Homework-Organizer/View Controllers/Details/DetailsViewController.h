@@ -8,10 +8,12 @@
 
 #import <UIKit/UIKit.h>
 #import "Assignment.h"
+#import "ProgressTracking.h"
 
 NS_ASSUME_NONNULL_BEGIN
 
-@interface DetailsViewController : UIViewController
+@interface DetailsViewController : UIViewController 
+
 
 @property (nonatomic, strong) Assignment *assignment;
 

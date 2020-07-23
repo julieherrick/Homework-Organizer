@@ -16,31 +16,55 @@
 
 @implementation ProgressTracking
 
--(void)updateProgress {
-    [self fetchSubtasks];
-    int completedCount = 0;
-    for (Subtask *task in self.subtasks) {
-        if (task.completed == YES) {
-            completedCount++;
-        }
-    }
-    float progress = completedCount/[self.assignment.totalSubtasks floatValue];
-    self.assignment.progress = [NSNumber numberWithFloat:progress];
+-(void)updateProgress:(Assignment *)assignment {
+    [self fetchSubtasks:assignment];
+//    int completedCount = 0;
+//    for (Subtask *task in self.subtasks) {
+//        if (task.completed == YES) {
+//            completedCount++;
+//        }
+//    }
+//    float progress = completedCount/[assignment.totalSubtasks floatValue];
+//    assignment.progress = [NSNumber numberWithFloat:progress];
+//    NSLog(@"@%f", progress);
+//    [assignment saveInBackgroundWithBlock:^(BOOL succeeded, NSError * _Nullable error) {
+//        if (succeeded) {
+//            NSLog(@"assignment progress is updated");
+//        } else {
+//            NSLog(@"error");
+//        }
+//    }];
 }
 
--(void)fetchSubtasks {
-    PFRelation *relation = [self.assignment relationForKey:@"Subtask"];
+-(void)fetchSubtasks:(Assignment *)assignment {
+    PFRelation *relation = [assignment relationForKey:@"Subtask"];
     PFQuery *query = [relation query];
     [query orderByAscending:@"createdAt"];
     [query findObjectsInBackgroundWithBlock:^(NSArray* _Nullable subtasks, NSError * _Nullable error) {
         if (subtasks) {
-            self.subtasks = (NSMutableArray *) subtasks;;
-        } else {
-            // handle error
-            NSLog(@"%@", error.localizedDescription);
+            self.subtasks = (NSMutableArray *) subtasks;
+            int completedCount = 0;
+            for (Subtask *task in self.subtasks) {
+                if (task.completed == YES) {
+                    completedCount++;
+                }
+            }
+            float progress = completedCount/[assignment.totalSubtasks floatValue];
+            assignment.progress = [NSNumber numberWithFloat:progress];
+            NSLog(@"@%f", progress);
+            [assignment saveInBackgroundWithBlock:^(BOOL succeeded, NSError * _Nullable error) {
+                if (succeeded) {
+                    NSLog(@"assignment progress is updated");
+                } else {
+                    NSLog(@"error");
+                }
+            }];
+             } else {
+                // handle error
+                NSLog(@"%@", error.localizedDescription);
+            }
+             }];
         }
-    }];
-}
 
 
 @end

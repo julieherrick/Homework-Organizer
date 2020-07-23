@@ -15,9 +15,7 @@ NS_ASSUME_NONNULL_BEGIN
 
 @interface ProgressTracking : UIViewController
 
-@property (nonatomic, strong) Assignment *assignment;
-
--(void)updateProgress;
+-(void)updateProgress:(Assignment *) assignment;
 
 @end
 
