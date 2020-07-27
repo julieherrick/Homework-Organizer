@@ -12,7 +12,7 @@
 #import "DetailsViewController.h"
 #import "SceneDelegate.h"
 
-@interface AssignmentListViewController () <UITableViewDelegate, UITableViewDataSource>
+@interface AssignmentListViewController () <UITableViewDelegate, UITableViewDataSource, DetailsViewControllerDelegate>
 
 @property (strong, nonatomic) NSMutableArray *assignments;
 @property (weak, nonatomic) IBOutlet UITableView *tableView;
@@ -26,6 +26,10 @@
     
     self.tableView.dataSource = self;
     self.tableView.delegate = self;
+    
+//    DetailsViewController *detailsVC = [[DetailsViewController alloc] initWithNibName:@"DetailsViewController" bundle:nil];
+//    detailsVC.delegate = self;
+//    [[self navigationController] pushViewController:detailsVC animated:YES];
     
     [self fetchAssignments];
     
@@ -89,6 +93,11 @@
 - (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath {
     NSLog(@"Selected row number: %ld", (long)indexPath.row);
     [tableView deselectRowAtIndexPath:indexPath animated:YES];
+    [tableView reloadData];
+}
+
+-(void)updateProgressBar {
+    NSLog(@"delegate test");
 }
 
 
@@ -110,5 +119,11 @@
      }
 }
 
+/*
+ AsssignmentListViewController neds to be a delegate of DetailsViewController
+ DetailsVC has a protocol with method to update
+ Method willl take in progress value
+ Will make cell update
+ */
 
 @end

@@ -30,7 +30,9 @@
     [formatter setDateFormat:@"MMM d, yyyy"];
     NSString *dateString = [NSString stringWithFormat: @"%@", [formatter stringFromDate:assignment.dueDate]];
     self.dueDateLabel.text = [dateString substringToIndex:[dateString length]-6];
-    
+//    ProgressTracking *progressTracking = [[ProgressTracking alloc] init];
+//    [progressTracking updateCellBarProgress:self.assignment];
+    [self.progressBar setProgress:[self.assignment.progress floatValue]];
 }
 
 @end

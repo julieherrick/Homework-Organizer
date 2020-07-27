@@ -8,6 +8,7 @@
 
 #import <UIKit/UIKit.h>
 #import "Subtask.h"
+#import "DetailsViewController.h"
 
 NS_ASSUME_NONNULL_BEGIN
 

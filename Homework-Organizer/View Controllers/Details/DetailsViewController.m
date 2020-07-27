@@ -13,14 +13,13 @@
 #import "ProgressTracking.h"
 @import Parse;
 
-@interface DetailsViewController () <UITableViewDelegate, UITableViewDataSource>
+@interface DetailsViewController () <UITableViewDelegate, UITableViewDataSource, ProgressTrackingDelegate>
 
 @property (weak, nonatomic) IBOutlet PFImageView *imageView;
 @property (weak, nonatomic) IBOutlet UILabel *titleLabel;
 @property (weak, nonatomic) IBOutlet UILabel *classLabel;
 @property (weak, nonatomic) IBOutlet UILabel *dueDateLabel;
 @property (weak, nonatomic) IBOutlet UITableView *tableView;
-@property (weak, nonatomic) IBOutlet UIProgressView *progressBar;
 
 @property (nonatomic, strong) NSMutableArray *subtasks;
 @property (weak, nonatomic) IBOutlet UIButton *completedButton;
@@ -35,16 +34,25 @@
     self.tableView.dataSource = self;
     self.tableView.delegate = self;
     
+
+    
+    ProgressTracking *progressTracking = [[ProgressTracking alloc] init];
+    progressTracking.delegate = self;
+    [progressTracking updateProgress:self.assignment];
+    
     [self fetchSubtasks];
     [self loadAssignment];
     
 }
 
 - (IBAction)onChange:(id)sender {
+    NSLog(@"Status being changed");
     ProgressTracking *progressTracking = [[ProgressTracking alloc] init];
+    progressTracking.delegate = self;
     [progressTracking updateProgress:self.assignment];
-    [self.progressBar setProgress:[self.assignment.progress floatValue]];
+
 }
+
 
 -(void)fetchSubtasks {
     PFRelation *relation = [self.assignment relationForKey:@"Subtask"];
@@ -78,7 +86,6 @@
     } else {
         self.completedButton.backgroundColor = [UIColor grayColor];
     }
-    
     [self.progressBar setProgress:[self.assignment.progress floatValue]];
 }
 
@@ -143,6 +150,11 @@
     }];
 }
 
+-(void)didUpdate:(Assignment *)assignment {
+    NSLog(@"DETAILSVIEWCONTROLLER: @%@ progress @%@", self.assignment.title, self.assignment.progress);
+    [self.progressBar setProgress:[self.assignment.progress floatValue]];
+}
+
 
 #pragma mark - Navigation
 
@@ -150,11 +162,11 @@
 - (void)prepareForSegue:(UIStoryboardSegue *)segue sender:(id)sender {
     // Get the new view controller using [segue destinationViewController].
     // Pass the selected object to the new view controller.
-    
     Assignment *assignment = self.assignment;
     FullImageViewController *fullImageVC = [segue destinationViewController];
     fullImageVC.assignment = assignment;
 }
+
 
 
 @end

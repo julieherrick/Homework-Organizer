@@ -8,6 +8,7 @@
 
 #import <UIKit/UIKit.h>
 #import "Assignment.h"
+#import "ProgressTracking.h"
 
 NS_ASSUME_NONNULL_BEGIN
 

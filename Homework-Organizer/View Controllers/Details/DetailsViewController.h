@@ -12,9 +12,15 @@
 
 NS_ASSUME_NONNULL_BEGIN
 
-@interface DetailsViewController : UIViewController 
+@protocol DetailsViewControllerDelegate <NSObject>
 
+-(void)updateProgressBar;
 
+@end
+
+@interface DetailsViewController : UIViewController
+
+@property (strong, nonatomic) IBOutlet UIProgressView *progressBar;
 @property (nonatomic, strong) Assignment *assignment;
 
 @end

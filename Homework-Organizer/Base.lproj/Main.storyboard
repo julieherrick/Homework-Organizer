@@ -456,7 +456,7 @@
                                                     <color key="tintColor" white="0.66666666669999997" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                                     <state key="normal" image="square" catalog="system"/>
                                                     <connections>
-                                                        <action selector="onChange:" destination="k1S-oI-6a7" eventType="touchUpInside" id="Y5y-XR-WkL"/>
+                                                        <action selector="onChange:" destination="k1S-oI-6a7" eventType="touchUpInside" id="gLO-Al-fqs"/>
                                                         <action selector="onComplete:" destination="I9e-YY-SOB" eventType="touchUpInside" id="BW7-jB-RJk"/>
                                                     </connections>
                                                 </button>
@@ -547,8 +547,12 @@
                         <rect key="frame" x="0.0" y="0.0" width="414" height="842"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
-                            <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" translatesAutoresizingMaskIntoConstraints="NO" id="LHE-FN-QeG" customClass="PFImageView">
+                            <imageView clipsSubviews="YES" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" translatesAutoresizingMaskIntoConstraints="NO" id="LHE-FN-QeG" customClass="PFImageView">
                                 <rect key="frame" x="0.0" y="0.0" width="414" height="842"/>
+                                <gestureRecognizers/>
+                                <connections>
+                                    <outletCollection property="gestureRecognizers" destination="VCN-it-kyv" appends="YES" id="dhy-g8-kV8"/>
+                                </connections>
                             </imageView>
                         </subviews>
                         <color key="backgroundColor" systemColor="systemBackgroundColor" cocoaTouchSystemColor="whiteColor"/>
@@ -565,6 +569,11 @@
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="oPj-dd-A47" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
+                <pinchGestureRecognizer id="VCN-it-kyv">
+                    <connections>
+                        <action selector="scaleImage:" destination="HNz-bb-X3m" id="quB-cF-ZMu"/>
+                    </connections>
+                </pinchGestureRecognizer>
             </objects>
             <point key="canvasLocation" x="4769.5652173913049" y="126.5625"/>
         </scene>
