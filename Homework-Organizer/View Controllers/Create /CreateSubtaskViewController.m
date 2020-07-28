@@ -28,7 +28,6 @@
     // Do any additional setup after loading the view.
     self.tableView.delegate = self;
     self.tableView.dataSource = self;
-    
     PFQuery *query = [PFQuery queryWithClassName:@"Assignment"];
         [query orderByDescending:@"createdAt"];
         query.limit = 1;
@@ -39,6 +38,7 @@
             }
         }];
     [self.tableView setHidden:YES];
+    self.tableView.tableFooterView = [[UIView alloc] initWithFrame:CGRectZero];
 }
 
 - (IBAction)onNewSubtask:(id)sender {
@@ -53,6 +53,7 @@
             if(succeeded){
                 PFRelation *relation = [self.assignment relationForKey:@"Subtask"];
                 [relation addObject:newTask];
+                [self.subtasks addObject:newTask];
                 [self.assignment saveInBackgroundWithBlock:^(BOOL succeeded, NSError * _Nullable error) {
                     if(succeeded){
                         int value = 1 + [self.assignment.totalSubtasks intValue];
@@ -61,6 +62,7 @@
                         NSLog(@"success: %d %@", value, @" subtasks");
                         self.taskField.text = @"";
                         [self fetchSubtasks];
+//                        [self insertNewSubtask];
                     }
                 }];
             } else {
@@ -68,6 +70,21 @@
             }
         }];
     }
+}
+
+-(void)addItem:sender {
+    [self.tableView setEditing:YES animated:YES];
+}
+
+-(void)insertNewSubtask {
+    NSIndexPath *indexPath = [NSIndexPath indexPathForRow:[self.assignment.totalSubtasks intValue]-1 inSection:0];
+//    NSArray *indexPaths = [NSArray arrayWithObject:indexPath];
+    NSLog(@"Subtask Count @%d", ([self.assignment.totalSubtasks intValue]-1));
+    [self.tableView beginUpdates];
+    [self.tableView insertRowsAtIndexPaths:@[indexPath] withRowAnimation:UITableViewRowAnimationAutomatic];
+    [self.tableView endUpdates];
+    
+    self.taskField.text = @"";
 }
 
 

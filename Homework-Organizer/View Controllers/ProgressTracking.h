@@ -19,7 +19,7 @@ NS_ASSUME_NONNULL_BEGIN
 
 @optional
 
-- (void)didUpdate:(Assignment *)assignment;              // Default is 1 if not implemented
+- (void)didUpdate:(Assignment *)assignment;             
 
 @end
 
@@ -28,8 +28,6 @@ NS_ASSUME_NONNULL_BEGIN
 @property (weak, nonatomic) id<ProgressTrackingDelegate> delegate;
 
 -(void)updateProgress:(Assignment *) assignment;
-//-(void)updateDetailsBarProgress:(Assignment *)assignment;
-//-(void)updateCellBarProgress:(Assignment *)assignment;
 
 @end
 

@@ -38,9 +38,8 @@
     self.myFormat.dateFormat = @"yyyy-MM-dd";
     NSLog(@"Getting due dates...");
     
-    [self.tableView setHidden:YES];
+    self.tableView.tableFooterView = [[UIView alloc] initWithFrame:CGRectZero];
     [self fetchAllAssignments];
-//    [self assignmentsForDate:[NSDate date]];
     [self.calendar reloadData];
 }
 
@@ -102,11 +101,6 @@
     [assignmentQuery findObjectsInBackgroundWithBlock:^(NSArray<Assignment *>* _Nullable assignments, NSError * _Nullable error) {
         if (assignments) {
             self.assignments = (NSMutableArray *) assignments;
-            if ([self.assignments count] == 0) {
-                [self.tableView setHidden:YES];
-            } else {
-                [self.tableView setHidden:NO];
-            }
             [self.tableView reloadData];
         } else {
             NSLog(@"%@", error.localizedDescription);
