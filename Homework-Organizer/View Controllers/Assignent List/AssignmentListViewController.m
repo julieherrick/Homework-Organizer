@@ -78,8 +78,6 @@
      Assignment *assignment = self.assignments[indexPath.row];
      
      cell.assignment = assignment;
-//     cell.backgroundColor = [UIColor purpleColor];
-//     cell.contentView.backgroundColor = [UIColor blueColor];
      
      return cell;
  }
@@ -94,7 +92,7 @@
     DetailsViewController *detailsViewController = [[DetailsViewController alloc] init];
     detailsViewController.delegate = self;
     
-    [detailsViewController updateCellProgress];
+    [detailsViewController updateCellProgress:indexPath];
     [tableView reloadData];
 }
 
@@ -102,18 +100,18 @@
 //    DetailsViewController *detailsViewController= [[DetailsViewController alloc] init];
 //    detailsViewController.delegate = self;
 //
-//    [detailsViewController updateCellProgress:percentage];
+//    [detailsViewController updateCellProgress];
 //
 //}
 
 -(void)didUpdateCell:(NSIndexPath *)indexPath withValue:(NSNumber *)percentage {
-//    NSLog(@"ASSIGNMENTVC: @%@ progress @%@", self.assignment.title, self.assignment.progress);
-    NSLog(@"ASSIGNMENTVC UPDATING");
-//    [self.tableView reloadRowsAtIndexPaths:indexPath withRowAnimation:nil];
+    NSLog(@"ASSIGNMENT UPDATING IN LIST AT INDEX @%ld", (long)indexPath.row);
+    [self.tableView reloadRowsAtIndexPaths:@[indexPath] withRowAnimation:UITableViewRowAnimationAutomatic];
     AssignmentListCell *cell = [self.tableView cellForRowAtIndexPath:indexPath];
     [cell.progressBar setProgress:[percentage floatValue]];
 }
 
+// delete cells
 - (void)tableView:(UITableView *)tableView commitEditingStyle:(UITableViewCellEditingStyle)editingStyle forRowAtIndexPath:(NSIndexPath *)indexPath {
     if (editingStyle == UITableViewCellEditingStyleDelete) {
         [self.assignments removeObjectAtIndex:indexPath.row];
@@ -137,7 +135,8 @@
         Assignment *assignment = self.assignments[indexPath.row];
         DetailsViewController *detailsViewController = [segue destinationViewController];
         detailsViewController.assignment = assignment;
-        detailsViewController.indexNumber = indexPath;
+//        detailsViewController.indexNumber = indexPath;
+//        [detailsViewController updateCellProgress:indexPath];
         NSLog(@"Tapping on an assignment!");
     }
 }

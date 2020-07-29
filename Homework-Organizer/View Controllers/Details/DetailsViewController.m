@@ -54,9 +54,9 @@
     [progressTracking updateProgress:self.assignment];
 }
 
--(void)updateCellProgress {
+-(void)updateCellProgress:(NSIndexPath *)indexPath {
     NSLog(@"Updating cell progress...");
-    [self.delegate didUpdateCell:self.indexNumber withValue:self.assignment.progress];
+    [self.delegate didUpdateCell:indexPath withValue:self.assignment.progress];
 }
 
 -(void)fetchSubtasks {
