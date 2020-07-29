@@ -324,7 +324,7 @@
                                         </tableViewCellContentView>
                                         <connections>
                                             <outlet property="descriptionLabel" destination="Xt7-VS-YHa" id="A9i-aH-qOw"/>
-                                            <segue destination="Vaa-zS-CnU" kind="show" identifier="subSubtaskSegue" trigger="accessoryAction" id="ezS-pn-0gN"/>
+                                            <segue destination="Vaa-zS-CnU" kind="show" id="g14-Xu-gFP"/>
                                         </connections>
                                     </tableViewCell>
                                 </prototypes>
@@ -796,6 +796,9 @@
                                 </constraints>
                                 <fontDescription key="fontDescription" type="system" pointSize="20"/>
                                 <state key="normal" backgroundImage="plus.circle" catalog="system"/>
+                                <connections>
+                                    <action selector="onNewSubtask:" destination="Vaa-zS-CnU" eventType="touchUpInside" id="OW4-LO-rgv"/>
+                                </connections>
                             </button>
                             <tableView clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" separatorStyle="default" rowHeight="-1" estimatedRowHeight="-1" sectionHeaderHeight="28" sectionFooterHeight="28" translatesAutoresizingMaskIntoConstraints="NO" id="pp8-GX-Y9e">
                                 <rect key="frame" x="0.0" y="248.5" width="414" height="647.5"/>
@@ -849,7 +852,7 @@
                                         <nil key="highlightedColor"/>
                                     </label>
                                 </subviews>
-                                <color key="backgroundColor" systemColor="systemBackgroundColor" cocoaTouchSystemColor="whiteColor"/>
+                                <color key="backgroundColor" systemColor="systemGray3Color" red="0.78039215689999997" green="0.78039215689999997" blue="0.80000000000000004" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                 <constraints>
                                     <constraint firstAttribute="trailing" secondItem="bnh-YP-vne" secondAttribute="trailing" constant="20" id="0C3-8v-3QP"/>
                                     <constraint firstItem="bnh-YP-vne" firstAttribute="leading" secondItem="5Uf-I7-DIQ" secondAttribute="leading" constant="20" id="KAf-rQ-Rmx"/>

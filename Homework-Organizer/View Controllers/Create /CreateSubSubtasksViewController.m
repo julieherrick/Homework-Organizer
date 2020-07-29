@@ -28,8 +28,61 @@
     self.tableView.delegate = self;
     self.tableView.dataSource = self;
     
-    self.parentTaskLabel.text = self.subtask.description;
+    self.parentTaskLabel.text = self.subtask.subtaskText;
     self.tableView.tableFooterView = [[UIView alloc] initWithFrame:CGRectZero];
+}
+
+- (IBAction)onNewSubtask:(id)sender {
+    
+    Subtask *newTask = [Subtask new];
+    if ([self.taskField.text isEqual:@""])
+    {
+//        [self alertError:@"cannot create empty subtask"];
+    } else {
+        newTask.subtaskText = self.taskField.text;
+        [newTask saveInBackgroundWithBlock:^(BOOL succeeded, NSError * _Nullable error) {
+            if(succeeded){
+                PFRelation *relation = [self.subtask relationForKey:@"Subtask"];
+                [relation addObject:newTask];
+                [self.subtasks addObject:newTask];
+                [self.subtask saveInBackgroundWithBlock:^(BOOL succeeded, NSError * _Nullable error) {
+                    if(succeeded){
+                        int value = 1 + [self.subtask.totalChildTasks intValue];
+                        self.subtask.totalChildTasks = [NSNumber numberWithInt:value];
+                        
+                        NSLog(@"success: %d %@", value, @" subtasks");
+                        self.taskField.text = @"";
+                        [self fetchSubtasks];
+//                        [self insertNewSubtask];
+                    }
+                }];
+            } else {
+                NSLog(@"subtask not updated");
+            }
+        }];
+    }
+}
+
+-(void)fetchSubtasks {
+    PFRelation *relation = [self.subtask relationForKey:@"Subtask"];
+    PFQuery *query = [relation query];
+    [query orderByAscending:@"createdAt"];
+//    [query includeKey:@"author"];
+    query.limit = 20;
+    [query findObjectsInBackgroundWithBlock:^(NSArray<Subtask *>* _Nullable subtasks, NSError * _Nullable error) {
+        if (subtasks) {
+            self.subtasks = (NSMutableArray *) subtasks;
+            if ([self.subtasks count] == 0) {
+                [self.tableView setHidden:YES];
+            } else {
+                [self.tableView setHidden:NO];
+            }
+            [self.tableView reloadData];
+        } else {
+            // handle error
+            NSLog(@"%@", error.localizedDescription);
+        }
+    }];
 }
 
 - (nonnull UITableViewCell *)tableView:(nonnull UITableView *)tableView cellForRowAtIndexPath:(nonnull NSIndexPath *)indexPath {

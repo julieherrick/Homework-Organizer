@@ -12,10 +12,19 @@
 
 @dynamic subtaskText;
 @dynamic completed;
+@dynamic isChildTask;
+@dynamic totalChildTasks;
+@dynamic totalCompletedChildTasks;
 
 + (nonnull NSString *)parseClassName {
     return @"Subtask";
 }
+
+//+ (void)createNewSubtask:(NSString *)text withRelationship: (BOOL *)isChild {
+//    Subtask *newSubtask = [Subtask new];
+//    newSubtask.subtaskText = text;
+//    newSubtask.isChildTask = isChild;
+//}
 
 
 @end

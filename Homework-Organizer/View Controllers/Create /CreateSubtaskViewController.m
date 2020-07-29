@@ -138,7 +138,7 @@
  
 - (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath {
     NSLog(@"Selected row number: %ld", (long)indexPath.row);
-    [self performSegueWithIdentifier:@"subSubtaskSegue" sender:self];
+//    [self performSegueWithIdentifier:@"subSubtaskSegue" sender:self];
     [tableView deselectRowAtIndexPath:indexPath animated:YES];
     
     [tableView reloadData];
@@ -164,10 +164,10 @@
 
 // In a storyboard-based application, you will often want to do a little preparation before navigation
 - (void)prepareForSegue:(UIStoryboardSegue *)segue sender:(id)sender {
-    if([[segue identifier] isEqualToString:@"subSubtaskSegue"]) {
+    if(![[segue identifier] isEqualToString:@"create"]) {
         CreateSubtaskCell *tappedCell = sender;
         NSIndexPath *myindexPath = [self.tableView indexPathForCell:tappedCell];
-        NSLog(@"Subtask: @%@", self.subtasks[myindexPath.row].description);
+        NSLog(@"Subtask: @%@", self.subtasks[myindexPath.row].subtaskText);
         Subtask *subtask = self.subtasks[myindexPath.row];
 //        Subtask *subtask = self.subtasks[[self.tableView indexPathForCell:tappedCell].row];
         CreateSubSubtasksViewController *createSubSubtasks = [segue destinationViewController];
