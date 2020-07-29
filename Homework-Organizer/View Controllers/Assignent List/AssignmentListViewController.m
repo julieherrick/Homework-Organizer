@@ -116,6 +116,7 @@
     if (editingStyle == UITableViewCellEditingStyleDelete) {
         [self.assignments removeObjectAtIndex:indexPath.row];
         [tableView deleteRowsAtIndexPaths:@[indexPath] withRowAnimation:UITableViewRowAnimationFade];
+        // delete cell in parse
     } else {
         NSLog(@"Unhandled editing style! %ld", (long)editingStyle);
     }
