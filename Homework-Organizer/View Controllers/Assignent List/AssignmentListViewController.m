@@ -31,6 +31,14 @@
     
 }
 
+-(void)viewDidAppear:(BOOL)animated {
+    [super viewDidAppear:nil];
+//    detailsViewController.delegate = self;
+//    [detailsViewController updateCellProgress:indexPath];
+    [self fetchAssignments];
+    // can fetch/query just affected cell
+}
+
 - (void)fetchAssignments {
     PFQuery *assignmentQuery = [PFQuery queryWithClassName:@"Assignment"];
     [assignmentQuery orderByAscending:@"dueDate"];
@@ -89,10 +97,8 @@
 - (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath {
     NSLog(@"Selected row number: %ld", (long)indexPath.row);
     [tableView deselectRowAtIndexPath:indexPath animated:YES];
-    DetailsViewController *detailsViewController = [[DetailsViewController alloc] init];
-    detailsViewController.delegate = self;
     
-    [detailsViewController updateCellProgress:indexPath];
+//    [detailsViewController updateCellProgress:indexPath];
     [tableView reloadData];
 }
 
@@ -136,7 +142,8 @@
         Assignment *assignment = self.assignments[indexPath.row];
         DetailsViewController *detailsViewController = [segue destinationViewController];
         detailsViewController.assignment = assignment;
-//        detailsViewController.indexNumber = indexPath;
+        detailsViewController.indexNumber = indexPath;
+        detailsViewController.delegate = self;
 //        [detailsViewController updateCellProgress:indexPath];
         NSLog(@"Tapping on an assignment!");
     }

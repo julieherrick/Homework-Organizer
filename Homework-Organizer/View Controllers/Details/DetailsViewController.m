@@ -52,6 +52,7 @@
     ProgressTracking *progressTracking = [[ProgressTracking alloc] init];
     progressTracking.delegate = self;
     [progressTracking updateProgress:self.assignment];
+//    [self updateCellProgress:self.indexNumber];
 }
 
 -(void)updateCellProgress:(NSIndexPath *)indexPath {

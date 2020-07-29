@@ -28,7 +28,7 @@ NS_ASSUME_NONNULL_BEGIN
 
 @property (strong, nonatomic) IBOutlet UIProgressView *progressBar;
 @property (nonatomic, strong) Assignment *assignment;
-//@property (nonatomic, strong) NSIndexPath *indexNumber;
+@property (nonatomic, strong) NSIndexPath *indexNumber;
 
 @end
 

@@ -13,7 +13,8 @@
 		7932F24824BFB2910067241A /* FullImageViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 7932F24724BFB2910067241A /* FullImageViewController.m */; };
 		7956465D24C89CEB0016FF26 /* CreateSubtaskCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 7956465C24C89CEB0016FF26 /* CreateSubtaskCell.m */; };
 		7956466524CA36110016FF26 /* ProgressTracking.m in Sources */ = {isa = PBXBuildFile; fileRef = 7956466424CA36110016FF26 /* ProgressTracking.m */; };
-		799F0B4F24BCCBA700FAECC6 /* AppDelegate.m in Sources */ = {isa = PBXBuildFile; fileRef = 799F0B4E24BCCBA700FAECC6 /* AppDelegate.m */; };
+		7956466A24D1D5970016FF26 /* AppDelegate.m in Sources */ = {isa = PBXBuildFile; fileRef = 7956466924D1D5970016FF26 /* AppDelegate.m */; };
+		7956466D24D1D6E00016FF26 /* CreateSubSubtasksViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 7956466C24D1D6E00016FF26 /* CreateSubSubtasksViewController.m */; };
 		799F0B5224BCCBA700FAECC6 /* SceneDelegate.m in Sources */ = {isa = PBXBuildFile; fileRef = 799F0B5124BCCBA700FAECC6 /* SceneDelegate.m */; };
 		799F0B5824BCCBA700FAECC6 /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 799F0B5624BCCBA700FAECC6 /* Main.storyboard */; };
 		799F0B5A24BCCBA900FAECC6 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 799F0B5924BCCBA900FAECC6 /* Assets.xcassets */; };
@@ -64,9 +65,11 @@
 		7956465C24C89CEB0016FF26 /* CreateSubtaskCell.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = CreateSubtaskCell.m; sourceTree = "<group>"; };
 		7956466324CA36110016FF26 /* ProgressTracking.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = ProgressTracking.h; sourceTree = "<group>"; };
 		7956466424CA36110016FF26 /* ProgressTracking.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = ProgressTracking.m; sourceTree = "<group>"; };
+		7956466924D1D5970016FF26 /* AppDelegate.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = AppDelegate.m; sourceTree = "<group>"; };
+		7956466B24D1D6E00016FF26 /* CreateSubSubtasksViewController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = CreateSubSubtasksViewController.h; sourceTree = "<group>"; };
+		7956466C24D1D6E00016FF26 /* CreateSubSubtasksViewController.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = CreateSubSubtasksViewController.m; sourceTree = "<group>"; };
 		799F0B4A24BCCBA700FAECC6 /* Homework-Organizer.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = "Homework-Organizer.app"; sourceTree = BUILT_PRODUCTS_DIR; };
 		799F0B4D24BCCBA700FAECC6 /* AppDelegate.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = AppDelegate.h; sourceTree = "<group>"; };
-		799F0B4E24BCCBA700FAECC6 /* AppDelegate.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = AppDelegate.m; sourceTree = "<group>"; };
 		799F0B5024BCCBA700FAECC6 /* SceneDelegate.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = SceneDelegate.h; sourceTree = "<group>"; };
 		799F0B5124BCCBA700FAECC6 /* SceneDelegate.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = SceneDelegate.m; sourceTree = "<group>"; };
 		799F0B5724BCCBA700FAECC6 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/Main.storyboard; sourceTree = "<group>"; };
@@ -139,6 +142,8 @@
 				799F0B9024BCCF4500FAECC6 /* CreateViewController.m */,
 				7932F24024BF67250067241A /* CreateSubtaskViewController.h */,
 				7932F24124BF67250067241A /* CreateSubtaskViewController.m */,
+				7956466B24D1D6E00016FF26 /* CreateSubSubtasksViewController.h */,
+				7956466C24D1D6E00016FF26 /* CreateSubSubtasksViewController.m */,
 			);
 			path = "Create ";
 			sourceTree = "<group>";
@@ -185,7 +190,7 @@
 			isa = PBXGroup;
 			children = (
 				799F0B4D24BCCBA700FAECC6 /* AppDelegate.h */,
-				799F0B4E24BCCBA700FAECC6 /* AppDelegate.m */,
+				7956466924D1D5970016FF26 /* AppDelegate.m */,
 				799F0B5024BCCBA700FAECC6 /* SceneDelegate.h */,
 				799F0B5124BCCBA700FAECC6 /* SceneDelegate.m */,
 			);
@@ -548,12 +553,12 @@
 			buildActionMask = 2147483647;
 			files = (
 				79CF669824BCE4EA007729B9 /* Assignment.m in Sources */,
+				7956466D24D1D6E00016FF26 /* CreateSubSubtasksViewController.m in Sources */,
 				79CF669524BCD52F007729B9 /* AssignmentListCell.m in Sources */,
 				7932F24224BF67250067241A /* CreateSubtaskViewController.m in Sources */,
 				79CF669224BCD063007729B9 /* CalendarViewController.m in Sources */,
 				79CF669B24BCF7F4007729B9 /* Subtask.m in Sources */,
 				7956466524CA36110016FF26 /* ProgressTracking.m in Sources */,
-				799F0B4F24BCCBA700FAECC6 /* AppDelegate.m in Sources */,
 				799F0B8E24BCCF3900FAECC6 /* AssignmentListViewController.m in Sources */,
 				7956465D24C89CEB0016FF26 /* CreateSubtaskCell.m in Sources */,
 				799F0B6024BCCBA900FAECC6 /* main.m in Sources */,
@@ -561,6 +566,7 @@
 				799F0B8B24BCCF2100FAECC6 /* DetailsViewController.m in Sources */,
 				799F0B5224BCCBA700FAECC6 /* SceneDelegate.m in Sources */,
 				7932F24824BFB2910067241A /* FullImageViewController.m in Sources */,
+				7956466A24D1D5970016FF26 /* AppDelegate.m in Sources */,
 				7932F24524BF90620067241A /* SubtaskCell.m in Sources */,
 				799F0B8824BCCF0F00FAECC6 /* LoginViewController.m in Sources */,
 			);

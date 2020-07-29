@@ -11,12 +11,13 @@
 #import "Subtask.h"
 #import <Parse/Parse.h>
 #import "CreateSubtaskCell.h"
+#import "CreateSubSubtasksViewController.h"
 
 @interface CreateSubtaskViewController () <UITableViewDelegate, UITableViewDataSource>
 @property (weak, nonatomic) IBOutlet UITextField *taskField;
 
 @property (strong, nonatomic) Assignment *assignment;
-@property (strong, nonatomic) NSMutableArray *subtasks;
+@property (strong, nonatomic) NSMutableArray<Subtask *> *subtasks;
 @property (weak, nonatomic) IBOutlet UITableView *tableView;
 
 @end
@@ -72,20 +73,17 @@
     }
 }
 
--(void)addItem:sender {
-    [self.tableView setEditing:YES animated:YES];
-}
 
--(void)insertNewSubtask {
-    NSIndexPath *indexPath = [NSIndexPath indexPathForRow:[self.assignment.totalSubtasks intValue]-1 inSection:0];
-//    NSArray *indexPaths = [NSArray arrayWithObject:indexPath];
-    NSLog(@"Subtask Count @%d", ([self.assignment.totalSubtasks intValue]-1));
-    [self.tableView beginUpdates];
-    [self.tableView insertRowsAtIndexPaths:@[indexPath] withRowAnimation:UITableViewRowAnimationAutomatic];
-    [self.tableView endUpdates];
-    
-    self.taskField.text = @"";
-}
+//-(void)insertNewSubtask {
+//    NSIndexPath *indexPath = [NSIndexPath indexPathForRow:[self.assignment.totalSubtasks intValue]-1 inSection:0];
+////    NSArray *indexPaths = [NSArray arrayWithObject:indexPath];
+//    NSLog(@"Subtask Count @%d", ([self.assignment.totalSubtasks intValue]-1));
+//    [self.tableView beginUpdates];
+//    [self.tableView insertRowsAtIndexPaths:@[indexPath] withRowAnimation:UITableViewRowAnimationAutomatic];
+//    [self.tableView endUpdates];
+//
+//    self.taskField.text = @"";
+//}
 
 
 - (IBAction)onCompletion:(id)sender {
@@ -109,7 +107,7 @@
     [query orderByAscending:@"createdAt"];
 //    [query includeKey:@"author"];
     query.limit = 20;
-    [query findObjectsInBackgroundWithBlock:^(NSArray* _Nullable subtasks, NSError * _Nullable error) {
+    [query findObjectsInBackgroundWithBlock:^(NSArray<Subtask *>* _Nullable subtasks, NSError * _Nullable error) {
         if (subtasks) {
             self.subtasks = (NSMutableArray *) subtasks;
             if ([self.subtasks count] == 0) {
@@ -140,7 +138,10 @@
  
 - (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath {
     NSLog(@"Selected row number: %ld", (long)indexPath.row);
+    [self performSegueWithIdentifier:@"subSubtaskSegue" sender:self];
     [tableView deselectRowAtIndexPath:indexPath animated:YES];
+    
+    [tableView reloadData];
 }
 
 - (void)alertError:(NSString *)errorMessage {
@@ -158,16 +159,22 @@
     }];
 }
 
-/*
+
 #pragma mark - Navigation
 
 // In a storyboard-based application, you will often want to do a little preparation before navigation
 - (void)prepareForSegue:(UIStoryboardSegue *)segue sender:(id)sender {
-    // Get the new view controller using [segue destinationViewController].
-    // Pass the selected object to the new view controller.
+    if([[segue identifier] isEqualToString:@"subSubtaskSegue"]) {
+        CreateSubtaskCell *tappedCell = sender;
+        NSIndexPath *myindexPath = [self.tableView indexPathForCell:tappedCell];
+        NSLog(@"Subtask: @%@", self.subtasks[myindexPath.row].description);
+        Subtask *subtask = self.subtasks[myindexPath.row];
+//        Subtask *subtask = self.subtasks[[self.tableView indexPathForCell:tappedCell].row];
+        CreateSubSubtasksViewController *createSubSubtasks = [segue destinationViewController];
+        createSubSubtasks.subtask = subtask;
+        
+        NSLog(@"Tapping on a subtask!");
+    }
 }
-*/
-/*
- 
- */
+
 @end
