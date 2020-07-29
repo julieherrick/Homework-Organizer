@@ -483,14 +483,10 @@
                                     </tableViewCell>
                                 </prototypes>
                             </tableView>
-                            <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="Xll-wT-sF0">
-                                <rect key="frame" x="295" y="247" width="99" height="30"/>
+                            <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFit" fixedFrame="YES" image="checkmark.circle.fill" catalog="system" translatesAutoresizingMaskIntoConstraints="NO" id="iNE-fo-WGY">
+                                <rect key="frame" x="347" y="232.5" width="47" height="48"/>
                                 <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
-                                <color key="backgroundColor" systemColor="systemGray2Color" red="0.68235294120000001" green="0.68235294120000001" blue="0.69803921570000005" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
-                                <state key="normal" title="Done">
-                                    <color key="titleColor" white="0.0" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
-                                </state>
-                            </button>
+                            </imageView>
                         </subviews>
                         <color key="backgroundColor" systemColor="systemBackgroundColor" cocoaTouchSystemColor="whiteColor"/>
                         <constraints>
@@ -524,10 +520,17 @@
                         </constraints>
                         <viewLayoutGuide key="safeArea" id="k1t-PK-eUl"/>
                     </view>
-                    <navigationItem key="navigationItem" id="0tX-Ww-FCL"/>
+                    <navigationItem key="navigationItem" id="0tX-Ww-FCL">
+                        <barButtonItem key="rightBarButtonItem" title="Complete" id="av3-EO-j59">
+                            <connections>
+                                <action selector="onCompleted:" destination="k1S-oI-6a7" id="2Bv-Am-GOc"/>
+                            </connections>
+                        </barButtonItem>
+                    </navigationItem>
                     <connections>
                         <outlet property="classLabel" destination="TSv-bN-CZy" id="Ogd-HU-RpU"/>
-                        <outlet property="completedButton" destination="Xll-wT-sF0" id="Ogm-Pw-FRh"/>
+                        <outlet property="completedButton" destination="av3-EO-j59" id="3vg-ib-BKF"/>
+                        <outlet property="completedIcon" destination="iNE-fo-WGY" id="6ws-Qw-Tsq"/>
                         <outlet property="dueDateLabel" destination="XwT-0u-p84" id="I6F-qD-EMz"/>
                         <outlet property="imageView" destination="Gt8-Yr-RWU" id="I3q-td-8uH"/>
                         <outlet property="progressBar" destination="E8O-2a-v0C" id="p9C-XP-Zo7"/>
@@ -778,6 +781,7 @@
     <resources>
         <image name="calendar" catalog="system" width="128" height="106"/>
         <image name="camera.circle" catalog="system" width="128" height="121"/>
+        <image name="checkmark.circle.fill" catalog="system" width="128" height="121"/>
         <image name="list.bullet" catalog="system" width="128" height="88"/>
         <image name="plus" catalog="system" width="128" height="113"/>
         <image name="plus.circle" catalog="system" width="128" height="121"/>

@@ -27,10 +27,6 @@
     self.tableView.dataSource = self;
     self.tableView.delegate = self;
     
-//    DetailsViewController *detailsVC = [[DetailsViewController alloc] initWithNibName:@"DetailsViewController" bundle:nil];
-//    detailsVC.delegate = self;
-//    [[self navigationController] pushViewController:detailsVC animated:YES];
-    
     [self fetchAssignments];
     
 }
@@ -93,11 +89,37 @@
 - (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath {
     NSLog(@"Selected row number: %ld", (long)indexPath.row);
     [tableView deselectRowAtIndexPath:indexPath animated:YES];
+    DetailsViewController *detailsViewController = [[DetailsViewController alloc] init];
+    detailsViewController.delegate = self;
+    
+    [detailsViewController updateCellProgress:indexPath];
     [tableView reloadData];
 }
 
--(void)updateProgressBar {
-    NSLog(@"delegate test");
+//-(void)updateProgressBar:(NSNumber *)percentage {
+//    DetailsViewController *detailsViewController= [[DetailsViewController alloc] init];
+//    detailsViewController.delegate = self;
+//
+//    [detailsViewController updateCellProgress];
+//
+//}
+
+-(void)didUpdateCell:(NSIndexPath *)indexPath withValue:(NSNumber *)percentage {
+    NSLog(@"ASSIGNMENT UPDATING IN LIST AT INDEX @%ld", (long)indexPath.row);
+    [self.tableView reloadRowsAtIndexPaths:@[indexPath] withRowAnimation:UITableViewRowAnimationAutomatic];
+    AssignmentListCell *cell = [self.tableView cellForRowAtIndexPath:indexPath];
+    [cell.progressBar setProgress:[percentage floatValue]];
+}
+
+// delete cells
+- (void)tableView:(UITableView *)tableView commitEditingStyle:(UITableViewCellEditingStyle)editingStyle forRowAtIndexPath:(NSIndexPath *)indexPath {
+    if (editingStyle == UITableViewCellEditingStyleDelete) {
+        [self.assignments removeObjectAtIndex:indexPath.row];
+        [tableView deleteRowsAtIndexPaths:@[indexPath] withRowAnimation:UITableViewRowAnimationFade];
+        // delete cell in parse
+    } else {
+        NSLog(@"Unhandled editing style! %ld", (long)editingStyle);
+    }
 }
 
 
@@ -108,19 +130,20 @@
 - (void)prepareForSegue:(UIStoryboardSegue *)segue sender:(id)sender {
     // Get the new view controller using [segue destinationViewController].
     // Pass the selected object to the new view controller.
-     if(![sender isKindOfClass:[UIBarButtonItem class]]) {
+    if(![sender isKindOfClass:[UIBarButtonItem class]]) {
         AssignmentListCell *tappedCell = sender;
         NSIndexPath *indexPath = [self.tableView indexPathForCell:tappedCell];
         Assignment *assignment = self.assignments[indexPath.row];
         DetailsViewController *detailsViewController = [segue destinationViewController];
         detailsViewController.assignment = assignment;
-        
+//        detailsViewController.indexNumber = indexPath;
+//        [detailsViewController updateCellProgress:indexPath];
         NSLog(@"Tapping on an assignment!");
-     }
+    }
 }
 
 /*
- AsssignmentListViewController neds to be a delegate of DetailsViewController
+ AsssignmentListViewController needs to be a delegate of DetailsViewController
  DetailsVC has a protocol with method to update
  Method willl take in progress value
  Will make cell update

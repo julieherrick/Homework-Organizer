@@ -11,6 +11,7 @@
 #import "SubtaskCell.h"
 #import "FullImageViewController.h"
 #import "ProgressTracking.h"
+#import "AssignmentListCell.h"
 @import Parse;
 
 @interface DetailsViewController () <UITableViewDelegate, UITableViewDataSource, ProgressTrackingDelegate>
@@ -22,7 +23,8 @@
 @property (weak, nonatomic) IBOutlet UITableView *tableView;
 
 @property (nonatomic, strong) NSMutableArray *subtasks;
-@property (weak, nonatomic) IBOutlet UIButton *completedButton;
+@property (weak, nonatomic) IBOutlet UIBarButtonItem *completedButton;
+@property (weak, nonatomic) IBOutlet UIImageView *completedIcon;
 
 @end
 
@@ -34,14 +36,14 @@
     self.tableView.dataSource = self;
     self.tableView.delegate = self;
     
-
-    
-    ProgressTracking *progressTracking = [[ProgressTracking alloc] init];
-    progressTracking.delegate = self;
-    [progressTracking updateProgress:self.assignment];
-    
+    self.tableView.tableFooterView = [[UIView alloc] initWithFrame:CGRectZero];
     [self fetchSubtasks];
     [self loadAssignment];
+    if (self.assignment.completed) {
+        self.completedIcon.alpha = 1;
+    } else {
+        self.completedIcon.alpha = 0;
+    }
     
 }
 
@@ -50,9 +52,12 @@
     ProgressTracking *progressTracking = [[ProgressTracking alloc] init];
     progressTracking.delegate = self;
     [progressTracking updateProgress:self.assignment];
-
 }
 
+-(void)updateCellProgress:(NSIndexPath *)indexPath {
+    NSLog(@"Updating cell progress...");
+    [self.delegate didUpdateCell:indexPath withValue:self.assignment.progress];
+}
 
 -(void)fetchSubtasks {
     PFRelation *relation = [self.assignment relationForKey:@"Subtask"];
@@ -81,11 +86,11 @@
     [formatter setDateFormat:@"MMM d, h:mm a"];
 //    NSString *dateString = [NSString stringWithFormat: @"%@", [formatter stringFromDate:self.assignment.dueDate]];
     self.dueDateLabel.text = [NSString stringWithFormat: @"%@", [formatter stringFromDate:self.assignment.dueDate]];
+    
     if (self.assignment.completed) {
-        self.completedButton.backgroundColor = [UIColor greenColor];
-    } else {
-        self.completedButton.backgroundColor = [UIColor grayColor];
+        self.completedIcon.alpha = 1;
     }
+        
     [self.progressBar setProgress:[self.assignment.progress floatValue]];
 }
 
@@ -107,33 +112,31 @@
     [tableView deselectRowAtIndexPath:indexPath animated:YES];
 }
 
-//-(BOOL)subtasksCompleted {
-//    for (Subtask *task in self.subtasks) {
-//        if (task.completed == NO) {
-//            return NO;
-//        }
-//    }
-//    return YES;
-//}
-//
-//- (IBAction)onCompleted:(id)sender {
-//    if (self.assignment.completed) {
-//        self.assignment.completed = NO;
-//        self.completedButton.backgroundColor = [UIColor grayColor];
-//    } else if (![self subtasksCompleted]){
-//        [self alertError:@"Subtasks are not all completed"];
-//    } else {
-//        self.assignment.completed = YES;
-//        self.completedButton.backgroundColor = [UIColor greenColor];
-//    }
-//    [self.assignment saveInBackgroundWithBlock:^(BOOL succeeded, NSError * _Nullable error) {
-//        if (succeeded) {
-//            NSLog(@"assignment is completed");
-//        } else {
-//            NSLog(@"error");
-//        }
-//    }];
-//}
+-(void)completeAnimation:(double)value {
+    [UIView animateWithDuration:.5 animations:^{
+        self.completedIcon.alpha = value;
+    }];
+}
+
+
+- (IBAction)onCompleted:(id)sender {
+    if (self.assignment.completed) {
+        self.assignment.completed = NO;
+        [self completeAnimation:0];
+    } else if (![self.assignment.progress isEqualToNumber:@1]){
+        [self alertError:@"Tasks are not all completed"];
+    } else {
+        self.assignment.completed = YES;
+        [self completeAnimation:1];
+    }
+    [self.assignment saveInBackgroundWithBlock:^(BOOL succeeded, NSError * _Nullable error) {
+        if (succeeded) {
+            NSLog(@"assignment status: @%@", (self.assignment.completed ? @"Completed" : @"Not Completed"));
+        } else {
+            NSLog(@"error");
+        }
+    }];
+}
 
 - (void)alertError:(NSString *)errorMessage {
     UIAlertController *alert = [UIAlertController alertControllerWithTitle:@"Alert" message:errorMessage preferredStyle:(UIAlertControllerStyleAlert)];

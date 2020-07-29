@@ -44,26 +44,14 @@
     [assignment saveInBackgroundWithBlock:^(BOOL succeeded, NSError * _Nullable error) {
         if (succeeded) {
             NSLog(@"PROGRESSTRACKING:@%@ progress updated to @%@", assignment.title, assignment.progress);
-//            DetailsViewController *detailsViewController = [[DetailsViewController alloc] init];
-//            [detailsViewController.progressBar setProgress:progress];
             [self.delegate didUpdate:assignment];
-//            [self updateDetailsBarProgress:assignment];
+            
         } else {
             NSLog(@"error");
         }
     }];
 }
 
-//-(void)updateDetailsBarProgress:(Assignment *)assignment {
-//    DetailsViewController *detailsViewController = [[DetailsViewController alloc] init];
-//    NSLog(@"UPDATEDETAILSBAR: @%@ progress @%@", assignment.title, assignment.progress);
-//    [detailsViewController.progressBar setProgress:[assignment.progress floatValue] animated:YES];
-//}
-
--(void)updateCellBarProgress:(Assignment *)assignment {
-    AssignmentListCell *assignmentListCell = [[AssignmentListCell alloc] init];
-    [assignmentListCell.progressBar setProgress:[assignment.progress floatValue]];
-}
 
 
 @end
