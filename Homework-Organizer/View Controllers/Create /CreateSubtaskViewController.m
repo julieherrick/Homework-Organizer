@@ -19,6 +19,7 @@
 @property (strong, nonatomic) Assignment *assignment;
 @property (strong, nonatomic) NSMutableArray<Subtask *> *subtasks;
 @property (weak, nonatomic) IBOutlet UITableView *tableView;
+@property (strong, nonatomic) NSMutableArray<Subtask *> *allSubtasks;
 
 @end
 
@@ -38,8 +39,14 @@
                 self.assignment = assignments[0];
             }
         }];
-    [self.tableView setHidden:YES];
+//    [self.tableView setHidden:YES];
     self.tableView.tableFooterView = [[UIView alloc] initWithFrame:CGRectZero];
+    
+}
+-(void)viewDidAppear:(BOOL)animated {
+    [super viewDidAppear:nil];
+    self.allSubtasks = [[NSMutableArray alloc] init];
+    [self fetchAllSubtasks];
 }
 
 - (IBAction)onNewSubtask:(id)sender {
@@ -101,6 +108,30 @@
     }];
 }
 
+-(void)fetchAllSubtasks {
+    
+    for (Subtask *task in self.subtasks) {
+        [self.allSubtasks addObject:task];
+        if (task.isParentTask) {
+            PFRelation *relation = [task relationForKey:@"Subtask"];
+            PFQuery *query = [relation query];
+            [query orderByAscending:@"createdAt"];
+            [query findObjectsInBackgroundWithBlock:^(NSArray<Subtask *>* _Nullable subtasks, NSError * _Nullable error) {
+                if (subtasks) {
+//                    self.allSubtasks = (NSMutableArray *) subtasks;
+                    [self.allSubtasks addObjectsFromArray:subtasks];
+                    [self.tableView reloadData];
+                } else {
+                    // handle error
+                    NSLog(@"%@", error.localizedDescription);
+                }
+            }];
+        }
+        self.allSubtasks = self.subtasks;
+        [self.tableView reloadData];
+    }
+}
+
 -(void)fetchSubtasks {
     PFRelation *relation = [self.assignment relationForKey:@"Subtask"];
     PFQuery *query = [relation query];
@@ -115,7 +146,8 @@
             } else {
                 [self.tableView setHidden:NO];
             }
-            [self.tableView reloadData];
+//            [self.tableView reloadData];
+            [self fetchAllSubtasks];
         } else {
             // handle error
             NSLog(@"%@", error.localizedDescription);
@@ -133,7 +165,7 @@
  }
 
  - (NSInteger)tableView:(nonnull UITableView *)tableView numberOfRowsInSection:(NSInteger)section {
-     return self.subtasks.count;
+     return self.allSubtasks.count;
  }
  
 - (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath {

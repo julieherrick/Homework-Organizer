@@ -30,6 +30,7 @@
     
     self.parentTaskLabel.text = self.subtask.subtaskText;
     self.tableView.tableFooterView = [[UIView alloc] initWithFrame:CGRectZero];
+    self.subtask.totalChildTasks = @0;
 }
 
 - (IBAction)onNewSubtask:(id)sender {
@@ -40,20 +41,26 @@
 //        [self alertError:@"cannot create empty subtask"];
     } else {
         newTask.subtaskText = self.taskField.text;
+        newTask.isChildTask = YES;
         [newTask saveInBackgroundWithBlock:^(BOOL succeeded, NSError * _Nullable error) {
             if(succeeded){
                 PFRelation *relation = [self.subtask relationForKey:@"Subtask"];
                 [relation addObject:newTask];
                 [self.subtasks addObject:newTask];
+                int value = 1 + [self.subtask.totalChildTasks intValue];
+                self.subtask.totalChildTasks = [NSNumber numberWithInt:value];
+                self.subtask.isParentTask = YES;
+                
                 [self.subtask saveInBackgroundWithBlock:^(BOOL succeeded, NSError * _Nullable error) {
                     if(succeeded){
-                        int value = 1 + [self.subtask.totalChildTasks intValue];
-                        self.subtask.totalChildTasks = [NSNumber numberWithInt:value];
                         
                         NSLog(@"success: %d %@", value, @" subtasks");
                         self.taskField.text = @"";
                         [self fetchSubtasks];
 //                        [self insertNewSubtask];
+                    }else {
+                        int value = [self.subtask.totalChildTasks intValue] - 1;
+                        self.subtask.totalChildTasks = [NSNumber numberWithInt:value];
                     }
                 }];
             } else {
@@ -72,11 +79,11 @@
     [query findObjectsInBackgroundWithBlock:^(NSArray<Subtask *>* _Nullable subtasks, NSError * _Nullable error) {
         if (subtasks) {
             self.subtasks = (NSMutableArray *) subtasks;
-            if ([self.subtasks count] == 0) {
-                [self.tableView setHidden:YES];
-            } else {
-                [self.tableView setHidden:NO];
-            }
+//            if ([self.subtasks count] == 0) {
+//                [self.tableView setHidden:YES];
+//            } else {
+//                [self.tableView setHidden:NO];
+//            }
             [self.tableView reloadData];
         } else {
             // handle error

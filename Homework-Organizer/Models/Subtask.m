@@ -15,6 +15,7 @@
 @dynamic isChildTask;
 @dynamic totalChildTasks;
 @dynamic totalCompletedChildTasks;
+@dynamic isParentTask;
 
 + (nonnull NSString *)parseClassName {
     return @"Subtask";

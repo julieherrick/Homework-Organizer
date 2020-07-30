@@ -15,6 +15,7 @@ NS_ASSUME_NONNULL_BEGIN
 @property (nonatomic, strong) NSString *subtaskText; // subtask text
 @property (nonatomic) BOOL completed;
 @property (nonatomic) BOOL isChildTask;
+@property (nonatomic) BOOL isParentTask;
 @property (nonatomic) NSNumber *totalChildTasks;
 @property (nonatomic) NSNumber *totalCompletedChildTasks;
 

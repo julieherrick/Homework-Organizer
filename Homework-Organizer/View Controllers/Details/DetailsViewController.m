@@ -25,6 +25,7 @@
 @property (nonatomic, strong) NSMutableArray *subtasks;
 @property (weak, nonatomic) IBOutlet UIBarButtonItem *completedButton;
 @property (weak, nonatomic) IBOutlet UIImageView *completedIcon;
+@property (nonatomic, strong) NSMutableArray<Subtask *> *allSubtasks;
 
 @end
 
@@ -70,12 +71,38 @@
         if (subtasks) {
             self.subtasks = (NSMutableArray *) subtasks;;
 //            NSLog(@"%@", self.subtasks);
-            [self.tableView reloadData];
+//            [self.tableView reloadData];
+            self.allSubtasks = [[NSMutableArray alloc] init];
+            [self fetchAllSubtasks];
         } else {
             // handle error
             NSLog(@"%@", error.localizedDescription);
         }
     }];
+}
+
+-(void)fetchAllSubtasks {
+    for (int i= self.subtasks.count-1; i >=0; i--) {
+        Subtask *task = [self.subtasks objectAtIndex:i];
+        [self.allSubtasks addObject:task];
+        if (task.isParentTask) {
+            PFRelation *relation = [task relationForKey:@"Subtask"];
+            PFQuery *query = [relation query];
+            [query orderByAscending:@"createdAt"];
+            [query findObjectsInBackgroundWithBlock:^(NSArray<Subtask *>* _Nullable subtasks, NSError * _Nullable error) {
+                if (subtasks) {
+//                    self.allSubtasks = (NSMutableArray *) subtasks;
+                    [self.allSubtasks addObjectsFromArray:subtasks];
+                    [self.tableView reloadData];
+                } else {
+                    // handle error
+                    NSLog(@"%@", error.localizedDescription);
+                }
+            }];
+        }
+        self.allSubtasks = self.subtasks;
+        [self.tableView reloadData];
+    }
 }
 
 -(void)loadAssignment {
@@ -97,7 +124,7 @@
 
 - (nonnull UITableViewCell *)tableView:(nonnull UITableView *)tableView cellForRowAtIndexPath:(nonnull NSIndexPath *)indexPath {
      SubtaskCell *cell = [tableView dequeueReusableCellWithIdentifier:@"SubtaskCell"];
-     Subtask *subtask = self.subtasks[indexPath.row];
+     Subtask *subtask = self.allSubtasks[indexPath.row];
      
      cell.subtask = subtask;
      
