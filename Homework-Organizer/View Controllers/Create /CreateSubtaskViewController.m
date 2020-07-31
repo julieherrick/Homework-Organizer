@@ -46,7 +46,7 @@
 -(void)viewDidAppear:(BOOL)animated {
     [super viewDidAppear:nil];
     self.allSubtasks = [[NSMutableArray alloc] init];
-    [self fetchAllSubtasks];
+//    [self fetchAllSubtasks];
 }
 
 - (IBAction)onNewSubtask:(id)sender {
@@ -109,7 +109,6 @@
 }
 
 -(void)fetchAllSubtasks {
-    
     for (Subtask *task in self.subtasks) {
         [self.allSubtasks addObject:task];
         if (task.isParentTask) {
@@ -146,8 +145,8 @@
             } else {
                 [self.tableView setHidden:NO];
             }
-//            [self.tableView reloadData];
-            [self fetchAllSubtasks];
+            [self.tableView reloadData];
+//            [self fetchAllSubtasks];
         } else {
             // handle error
             NSLog(@"%@", error.localizedDescription);
@@ -165,7 +164,7 @@
  }
 
  - (NSInteger)tableView:(nonnull UITableView *)tableView numberOfRowsInSection:(NSInteger)section {
-     return self.allSubtasks.count;
+     return self.subtasks.count;
  }
  
 - (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath {

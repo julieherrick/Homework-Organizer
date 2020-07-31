@@ -22,10 +22,12 @@
 @property (weak, nonatomic) IBOutlet UILabel *dueDateLabel;
 @property (weak, nonatomic) IBOutlet UITableView *tableView;
 
-@property (nonatomic, strong) NSMutableArray *subtasks;
+@property (nonatomic, strong) NSMutableArray<Subtask *> *subtasks;
 @property (weak, nonatomic) IBOutlet UIBarButtonItem *completedButton;
 @property (weak, nonatomic) IBOutlet UIImageView *completedIcon;
 @property (nonatomic, strong) NSMutableArray<Subtask *> *allSubtasks;
+
+@property int totalSubSubtasks;
 
 @end
 
@@ -61,19 +63,60 @@
     [self.delegate didUpdateCell:indexPath withValue:self.assignment.progress];
 }
 
+-(NSUInteger)allSubtasksCapacity {
+    NSUInteger count = self.subtasks.count;
+    for (Subtask *task in self.subtasks) {
+        NSLog(@"count =@%lu", (unsigned long)count);
+        if (task.totalChildTasks != nil) {
+            NSLog(@"Number of child tasks: @%@", task.totalChildTasks);
+            count += [task.totalChildTasks intValue];
+        }
+    }
+    return count;
+}
+
 -(void)fetchSubtasks {
     PFRelation *relation = [self.assignment relationForKey:@"Subtask"];
     PFQuery *query = [relation query];
     [query orderByAscending:@"createdAt"];
-//    [query includeKey:@"author"];
+    //    [query includeKey:@"author"];
     query.limit = 20;
     [query findObjectsInBackgroundWithBlock:^(NSArray* _Nullable subtasks, NSError * _Nullable error) {
         if (subtasks) {
             self.subtasks = (NSMutableArray *) subtasks;;
-//            NSLog(@"%@", self.subtasks);
-//            [self.tableView reloadData];
-            self.allSubtasks = [[NSMutableArray alloc] init];
-            [self fetchAllSubtasks];
+            //            NSLog(@"%@", self.subtasks);
+            //            [self.tableView reloadData];
+            NSUInteger listCapacity = [self allSubtasksCapacity];
+            self.allSubtasks = [[NSMutableArray alloc] initWithCapacity: listCapacity];
+            
+            for (int i= 0; i < subtasks.count; i++) {
+                Subtask *task = [subtasks objectAtIndex:i];
+                NSLog(@"adding @%@", task.subtaskText);
+                [self.allSubtasks addObject:task];
+                if (task.isParentTask) {
+                    //                        [self queryChildTasks:i];
+                    PFRelation *subtaskRelation = [task relationForKey:@"Subtask"];
+                    PFQuery *subtaskQuery = [subtaskRelation query];
+                    [subtaskQuery orderByAscending:@"createdAt"];
+                    [subtaskQuery findObjectsInBackgroundWithBlock:^(NSArray<Subtask *>* _Nullable childSubtasks, NSError * _Nullable error) {
+                        if (childSubtasks) {
+//                            NSLog(@"adding @%@", task.subtaskText);
+//                            [self.allSubtasks addObject:task];
+                            //                    self.allSubtasks = (NSMutableArray *) subtasks;
+//                            [self.allSubtasks addObjectsFromArray:childSubtasks];
+                            for (int x = 0; x < childSubtasks.count; x++) {
+                                NSLog(@"inserting @%@", [childSubtasks objectAtIndex:x].subtaskText);
+                                [self.allSubtasks insertObject: [childSubtasks objectAtIndex:x] atIndex:i+1+self.totalSubSubtasks];
+                                self.totalSubSubtasks ++;
+                            }
+                            [self.tableView reloadData];
+                        } else {
+                            // handle error
+                            NSLog(@"%@", error.localizedDescription);
+                        }
+                    }];
+                }
+            }
         } else {
             // handle error
             NSLog(@"%@", error.localizedDescription);
@@ -82,27 +125,42 @@
 }
 
 -(void)fetchAllSubtasks {
-    for (int i= self.subtasks.count-1; i >=0; i--) {
+//    self.totalSubSubtasks = 0;
+    for (int i= 0; i < self.subtasks.count; i++) {
         Subtask *task = [self.subtasks objectAtIndex:i];
-        [self.allSubtasks addObject:task];
+        NSLog(@"adding @%@", task.subtaskText);
         if (task.isParentTask) {
-            PFRelation *relation = [task relationForKey:@"Subtask"];
-            PFQuery *query = [relation query];
-            [query orderByAscending:@"createdAt"];
-            [query findObjectsInBackgroundWithBlock:^(NSArray<Subtask *>* _Nullable subtasks, NSError * _Nullable error) {
-                if (subtasks) {
-//                    self.allSubtasks = (NSMutableArray *) subtasks;
-                    [self.allSubtasks addObjectsFromArray:subtasks];
-                    [self.tableView reloadData];
-                } else {
-                    // handle error
-                    NSLog(@"%@", error.localizedDescription);
-                }
-            }];
-        }
-        self.allSubtasks = self.subtasks;
-        [self.tableView reloadData];
+//            [self.allSubtasks addObject:task];
+            [self queryChildTasks:i];
+        } // else {
+//            [self.allSubtasks addObject:task];
+//        }
     }
+//    self.allSubtasks = self.subtasks;
+    [self.tableView reloadData];
+}
+
+-(void)queryChildTasks:(NSUInteger) i{
+    Subtask *task = [self.subtasks objectAtIndex:i];
+    PFRelation *relation = [task relationForKey:@"Subtask"];
+    PFQuery *query = [relation query];
+    [query orderByAscending:@"createdAt"];
+    [query findObjectsInBackgroundWithBlock:^(NSArray<Subtask *>* _Nullable subtasks, NSError * _Nullable error) {
+        if (subtasks) {
+            [self.allSubtasks addObject:task];
+//                    self.allSubtasks = (NSMutableArray *) subtasks;
+            [self.allSubtasks addObjectsFromArray:subtasks];
+            for (int x = 0; x < subtasks.count; x++) {
+                [self.allSubtasks insertObject: [subtasks objectAtIndex:x] atIndex:i+1+self.totalSubSubtasks];
+                self.totalSubSubtasks ++;
+            }
+//            [self.tableView reloadData];
+        } else {
+            // handle error
+            NSLog(@"%@", error.localizedDescription);
+        }
+    }];
+//    [self.tableView reloadData];
 }
 
 -(void)loadAssignment {
@@ -132,7 +190,7 @@
  }
 
  - (NSInteger)tableView:(nonnull UITableView *)tableView numberOfRowsInSection:(NSInteger)section {
-     return self.subtasks.count;
+     return self.allSubtasks.count;
  }
  
 - (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath {
