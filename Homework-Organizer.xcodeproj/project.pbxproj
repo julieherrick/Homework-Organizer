@@ -184,7 +184,6 @@
 			isa = PBXGroup;
 			children = (
 				799F0B8C24BCCF3900FAECC6 /* AssignmentListViewController.h */,
-				79CF669324BCD52F007729B9 /* AssignmentListCell.h */,
 				799F0B8D24BCCF3900FAECC6 /* AssignmentListViewController.m */,
 			);
 			path = "Assignent List";
@@ -277,6 +276,7 @@
 			isa = PBXGroup;
 			children = (
 				79CF669424BCD52F007729B9 /* AssignmentListCell.m */,
+				79CF669324BCD52F007729B9 /* AssignmentListCell.h */,
 				7932F24324BF90620067241A /* SubtaskCell.h */,
 				7932F24424BF90620067241A /* SubtaskCell.m */,
 				7956465B24C89CEB0016FF26 /* CreateSubtaskCell.h */,

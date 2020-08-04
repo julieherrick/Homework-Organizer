@@ -97,16 +97,20 @@
 - (IBAction)onCompletion:(id)sender {
     // creationComplete will be marked true on page where subtasks are added
     // assignment feed can use this to only query assignments that are complete with subtasks
-    self.assignment.creationComplete = YES;
-    NSLog(@"%@", self.assignment.creationComplete ? @"YES" : @"NO");
-    [self.assignment saveInBackgroundWithBlock:^(BOOL succeeded, NSError * _Nullable error) {
-        if (succeeded) {
-            NSLog(@"assignment creation completed");
-            [self performSegueWithIdentifier:@"create" sender:nil];
-        } else {
-            NSLog(@"error");
-        }
-    }];
+    if (self.subtasks) {
+        self.assignment.creationComplete = YES;
+        NSLog(@"%@", self.assignment.creationComplete ? @"YES" : @"NO");
+        [self.assignment saveInBackgroundWithBlock:^(BOOL succeeded, NSError * _Nullable error) {
+            if (succeeded) {
+                NSLog(@"assignment creation completed");
+                [self performSegueWithIdentifier:@"create" sender:nil];
+            } else {
+                NSLog(@"error");
+            }
+        }];
+    } else {
+        [self alertError:@"Must have at least one task"];
+    }
 }
 
 -(void)fetchAllSubtasks {
