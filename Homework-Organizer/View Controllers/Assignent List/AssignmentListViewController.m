@@ -110,7 +110,7 @@
 //
 //}
 
--(void)didUpdateCell:(NSIndexPath *)indexPath withValue:(NSNumber *)percentage {
+-(void)didUpdateAssignmentCell:(NSIndexPath *)indexPath withValue:(NSNumber *)percentage {
     NSLog(@"ASSIGNMENT UPDATING IN LIST AT INDEX @%ld", (long)indexPath.row);
     [self.tableView reloadRowsAtIndexPaths:@[indexPath] withRowAnimation:UITableViewRowAnimationAutomatic];
     AssignmentListCell *cell = [self.tableView cellForRowAtIndexPath:indexPath];

@@ -41,15 +41,10 @@
     }
     float progress = completedCount/[assignment.totalSubtasks floatValue];
     assignment.progress = [NSNumber numberWithFloat:progress];
-    [assignment saveInBackgroundWithBlock:^(BOOL succeeded, NSError * _Nullable error) {
-        if (succeeded) {
-            NSLog(@"PROGRESSTRACKING:@%@ progress updated to @%@", assignment.title, assignment.progress);
-            [self.delegate didUpdate:assignment];
-            
-        } else {
-            NSLog(@"error");
-        }
-    }];
+    [assignment saveInBackground];
+    NSLog(@"PROGRESSTRACKING:@%@ progress updated to @%@", assignment.title, assignment.progress);
+    [self.delegate didUpdate:assignment];
+
 }
 
 

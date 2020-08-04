@@ -22,6 +22,19 @@
     // Configure the view for the selected state
 }
 
+
+-(void)sendAssignment:(Assignment *)assignment {
+    self.assignment = assignment;
+}
+
+-(void)updateComplete {
+//    ProgressTracking *progressTracking = [[ProgressTracking alloc] init];
+//    progressTracking.delegate = self;
+//    [progressTracking updateProgress:self.assignment];
+//    
+    [self.delegate didUpdateTable];
+}
+
 -(void)setSubtask:(Subtask *)subtask {
     _subtask = subtask;
     self.descriptionLabel.text = subtask.subtaskText;
@@ -40,38 +53,53 @@
     }];
 }
 
+-(void)saveStatus:(Subtask *)task withStatus:(BOOL)status {
+    task.completed = status;
+    NSString *buttonImage = @"square";
+    int val = -1;
+    if (status) {
+        buttonImage = @"checkmark.square.fill";
+        val = 1;
+    }
+    [task saveInBackground];
+    [self.completionButton setImage:[UIImage systemImageNamed:buttonImage] forState:UIControlStateNormal];
+
+}
+
+
+-(void)completeChildren {
+    PFRelation *subtaskRelation = [self.subtask relationForKey:@"Subtask"];
+    PFQuery *subtaskQuery = [subtaskRelation query];
+    [subtaskQuery orderByAscending:@"createdAt"];
+    [subtaskQuery whereKey:@"completed" equalTo:@NO]; // only queries children that aren't complete
+    [subtaskQuery findObjectsInBackgroundWithBlock:^(NSArray<Subtask *>* _Nullable childSubtasks, NSError * _Nullable error) {
+        if (childSubtasks) {
+            for (Subtask *task in childSubtasks) {
+                task.completed = YES;
+                [task saveInBackground];
+                if (task.isParentTask) {
+                    [self completeChildren];
+                }
+            }
+            [self saveStatus:self.subtask withStatus:YES];
+            [self updateComplete];
+        } else {
+            NSLog(@"%@", error.localizedDescription);
+        }
+    }];
+}
 
 - (IBAction)onComplete:(id)sender {
     if (!self.subtask.completed) {
-        self.subtask.completed = YES;
-        [self.subtask saveInBackgroundWithBlock:^(BOOL succeeded, NSError * _Nullable error) {
-            if (succeeded) {
-                NSLog(@"subtask update completed");
-                NSLog(@"Subtask Status: %@", self.subtask.completed ? @"YES" : @"NO");
-                [self.completionButton setImage:[UIImage systemImageNamed:@"checkmark.square.fill"] forState:UIControlStateNormal];
-            } else {
-                NSLog(@"error");
-            }
-        }];
+        if (self.subtask.isParentTask) {
+            // complete all children
+            [self completeChildren];
+        } else {
+            [self saveStatus:self.subtask withStatus: YES];
+        }
     } else {
-        self.subtask.completed = NO;
-        [self.subtask saveInBackgroundWithBlock:^(BOOL succeeded, NSError * _Nullable error) {
-            if (succeeded) {
-                NSLog(@"subtask update completed");
-                NSLog(@"Subtask Status: %@", self.subtask.completed ? @"YES" : @"NO");
-                [self.completionButton setImage:[UIImage systemImageNamed:@"square"] forState:UIControlStateNormal];
-            } else {
-                NSLog(@"error");
-            }
-        }];
+        [self saveStatus:self.subtask withStatus:NO];
     }
-    
-//    DetailsViewController *detailsViewController = [[DetailsViewController alloc] init];
-//    ProgressTracking *progressTracking = [[ProgressTracking alloc] init];
-//    [progressTracking updateProgress:detailsViewController.assignment];
-//    NSLog(@"Progress: %@", detailsViewController.assignment.progress);
-//    [detailsViewController.progressBar setProgress:[detailsViewController.assignment.progress floatValue]];
 }
-
 
 @end

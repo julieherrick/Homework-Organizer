@@ -30,7 +30,9 @@
     
     self.parentTaskLabel.text = self.subtask.subtaskText;
     self.tableView.tableFooterView = [[UIView alloc] initWithFrame:CGRectZero];
-    self.subtask.totalChildTasks = @0;
+    self.subtask.totalChildTasks = self.subtask.totalChildTasks;
+    
+    [self fetchSubtasks];
 }
 
 - (IBAction)onNewSubtask:(id)sender {
@@ -42,6 +44,9 @@
     } else {
         newTask.subtaskText = self.taskField.text;
         newTask.isChildTask = YES;
+        newTask.parentTask = self.subtask;
+        newTask.completed = NO;
+        NSLog(@"@%@", newTask.parentTask.subtaskText);
         [newTask saveInBackgroundWithBlock:^(BOOL succeeded, NSError * _Nullable error) {
             if(succeeded){
                 PFRelation *relation = [self.subtask relationForKey:@"Subtask"];
@@ -50,6 +55,7 @@
                 int value = 1 + [self.subtask.totalChildTasks intValue];
                 self.subtask.totalChildTasks = [NSNumber numberWithInt:value];
                 self.subtask.isParentTask = YES;
+                self.subtask.totalCompletedChildTasks = @0;
                 
                 [self.subtask saveInBackgroundWithBlock:^(BOOL succeeded, NSError * _Nullable error) {
                     if(succeeded){

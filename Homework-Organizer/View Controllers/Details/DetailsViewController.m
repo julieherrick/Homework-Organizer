@@ -14,7 +14,7 @@
 #import "AssignmentListCell.h"
 @import Parse;
 
-@interface DetailsViewController () <UITableViewDelegate, UITableViewDataSource, ProgressTrackingDelegate>
+@interface DetailsViewController () <UITableViewDelegate, UITableViewDataSource, ProgressTrackingDelegate, SubtaskCellDelegate>
 
 @property (weak, nonatomic) IBOutlet PFImageView *imageView;
 @property (weak, nonatomic) IBOutlet UILabel *titleLabel;
@@ -48,19 +48,38 @@
         self.completedIcon.alpha = 0;
     }
     
+    ProgressTracking *progressTracking = [[ProgressTracking alloc] init];
+    progressTracking.delegate = self;
+    [progressTracking updateProgress:self.assignment];
+    
+    SubtaskCell *subtaskCell = [[SubtaskCell alloc] init];
+    subtaskCell.delegate = self;
+    
+}
+- (IBAction)reloadDataButton:(id)sender {
+    [self.tableView reloadData];
+}
+- (IBAction)fetchSubtasksButton:(id)sender {
+    ProgressTracking *progressTracking = [[ProgressTracking alloc] init];
+    progressTracking.delegate = self;
+    [progressTracking updateProgress:self.assignment];
+    [self fetchSubtasks];
 }
 
 - (IBAction)onChange:(id)sender {
+//    SubtaskCell *subtaskCell = [[SubtaskCell alloc] init];
+//    subtaskCell.delegate = self;
+//    [subtaskCell sendAssignment:self.assignment];
     NSLog(@"Status being changed");
     ProgressTracking *progressTracking = [[ProgressTracking alloc] init];
     progressTracking.delegate = self;
     [progressTracking updateProgress:self.assignment];
-//    [self updateCellProgress:self.indexNumber];
+//    [self fetchSubtasks];
 }
 
 -(void)updateCellProgress:(NSIndexPath *)indexPath {
     NSLog(@"Updating cell progress...");
-    [self.delegate didUpdateCell:indexPath withValue:self.assignment.progress];
+    [self.delegate didUpdateAssignmentCell:indexPath withValue:self.assignment.progress];
 }
 
 -(NSUInteger)allSubtasksCapacity {
@@ -76,10 +95,12 @@
 }
 
 -(void)fetchSubtasks {
+    self.totalSubSubtasks = 0;
     PFRelation *relation = [self.assignment relationForKey:@"Subtask"];
     PFQuery *query = [relation query];
     [query orderByAscending:@"createdAt"];
-    //    [query includeKey:@"author"];
+//    [query includeKey:@"parentTask"];
+    query.cachePolicy = kPFCachePolicyNetworkElseCache;
     query.limit = 20;
     [query findObjectsInBackgroundWithBlock:^(NSArray* _Nullable subtasks, NSError * _Nullable error) {
         if (subtasks) {
@@ -98,12 +119,9 @@
                     PFRelation *subtaskRelation = [task relationForKey:@"Subtask"];
                     PFQuery *subtaskQuery = [subtaskRelation query];
                     [subtaskQuery orderByAscending:@"createdAt"];
+                    [subtaskQuery includeKey:@"totalCompletedChildTasks"];
                     [subtaskQuery findObjectsInBackgroundWithBlock:^(NSArray<Subtask *>* _Nullable childSubtasks, NSError * _Nullable error) {
                         if (childSubtasks) {
-//                            NSLog(@"adding @%@", task.subtaskText);
-//                            [self.allSubtasks addObject:task];
-                            //                    self.allSubtasks = (NSMutableArray *) subtasks;
-//                            [self.allSubtasks addObjectsFromArray:childSubtasks];
                             for (int x = 0; x < childSubtasks.count; x++) {
                                 NSLog(@"inserting @%@", [childSubtasks objectAtIndex:x].subtaskText);
                                 [self.allSubtasks insertObject: [childSubtasks objectAtIndex:x] atIndex:i+1+self.totalSubSubtasks];
@@ -124,44 +142,39 @@
     }];
 }
 
--(void)fetchAllSubtasks {
-//    self.totalSubSubtasks = 0;
-    for (int i= 0; i < self.subtasks.count; i++) {
-        Subtask *task = [self.subtasks objectAtIndex:i];
-        NSLog(@"adding @%@", task.subtaskText);
-        if (task.isParentTask) {
-//            [self.allSubtasks addObject:task];
-            [self queryChildTasks:i];
-        } // else {
-//            [self.allSubtasks addObject:task];
+//-(void)fetchAllSubtasks {
+////    self.totalSubSubtasks = 0;
+//    for (int i= 0; i < self.subtasks.count; i++) {
+//        Subtask *task = [self.subtasks objectAtIndex:i];
+//        NSLog(@"adding @%@", task.subtaskText);
+//        if (task.isParentTask) {
+//            [self queryChildTasks:i];
 //        }
-    }
-//    self.allSubtasks = self.subtasks;
-    [self.tableView reloadData];
-}
-
--(void)queryChildTasks:(NSUInteger) i{
-    Subtask *task = [self.subtasks objectAtIndex:i];
-    PFRelation *relation = [task relationForKey:@"Subtask"];
-    PFQuery *query = [relation query];
-    [query orderByAscending:@"createdAt"];
-    [query findObjectsInBackgroundWithBlock:^(NSArray<Subtask *>* _Nullable subtasks, NSError * _Nullable error) {
-        if (subtasks) {
-            [self.allSubtasks addObject:task];
-//                    self.allSubtasks = (NSMutableArray *) subtasks;
-            [self.allSubtasks addObjectsFromArray:subtasks];
-            for (int x = 0; x < subtasks.count; x++) {
-                [self.allSubtasks insertObject: [subtasks objectAtIndex:x] atIndex:i+1+self.totalSubSubtasks];
-                self.totalSubSubtasks ++;
-            }
-//            [self.tableView reloadData];
-        } else {
-            // handle error
-            NSLog(@"%@", error.localizedDescription);
-        }
-    }];
+//    }
 //    [self.tableView reloadData];
-}
+//}
+//
+//-(void)queryChildTasks:(NSUInteger) i{
+//    Subtask *task = [self.subtasks objectAtIndex:i];
+//    PFRelation *relation = [task relationForKey:@"Subtask"];
+//    PFQuery *query = [relation query];
+//    [query orderByAscending:@"createdAt"];
+//    [query findObjectsInBackgroundWithBlock:^(NSArray<Subtask *>* _Nullable subtasks, NSError * _Nullable error) {
+//        if (subtasks) {
+//            [self.allSubtasks addObject:task];
+////                    self.allSubtasks = (NSMutableArray *) subtasks;
+//            [self.allSubtasks addObjectsFromArray:subtasks];
+//            for (int x = 0; x < subtasks.count; x++) {
+//                [self.allSubtasks insertObject: [subtasks objectAtIndex:x] atIndex:i+1+self.totalSubSubtasks];
+//                self.totalSubSubtasks ++;
+//            }
+////            [self.tableView reloadData];
+//        } else {
+//            // handle error
+//            NSLog(@"%@", error.localizedDescription);
+//        }
+//    }];
+//}
 
 -(void)loadAssignment {
     self.titleLabel.text = self.assignment.title;
@@ -170,7 +183,6 @@
     [self.imageView loadInBackground];
     NSDateFormatter *formatter = [[NSDateFormatter alloc] init];
     [formatter setDateFormat:@"MMM d, h:mm a"];
-//    NSString *dateString = [NSString stringWithFormat: @"%@", [formatter stringFromDate:self.assignment.dueDate]];
     self.dueDateLabel.text = [NSString stringWithFormat: @"%@", [formatter stringFromDate:self.assignment.dueDate]];
     
     if (self.assignment.completed) {
@@ -209,9 +221,11 @@
     if (self.assignment.completed) {
         self.assignment.completed = NO;
         [self completeAnimation:0];
-    } else if (![self.assignment.progress isEqualToNumber:@1]){
-        [self alertError:@"Tasks are not all completed"];
     } else {
+        // mark all child tasks as complete
+        if (![self.assignment.progress isEqualToNumber:@1]) {
+            [self completeChildTasks];
+        }
         self.assignment.completed = YES;
         [self completeAnimation:1];
     }
@@ -222,6 +236,41 @@
             NSLog(@"error");
         }
     }];
+}
+
+-(void)completeChildTasks {
+    PFRelation *relation = [self.assignment relationForKey:@"Subtask"];
+        PFQuery *query = [relation query];
+        [query whereKey:@"completed" equalTo:@NO];
+//        query.cachePolicy = kPFCachePolicyNetworkElseCache;
+        query.limit = 20;
+        [query findObjectsInBackgroundWithBlock:^(NSArray* _Nullable subtasks, NSError * _Nullable error) {
+            if (subtasks) {
+                for (Subtask *task in subtasks) {
+                    task.completed = YES;
+                    [task saveInBackground];
+                    if (task.isParentTask) {
+                        PFRelation *subtaskRelation = [task relationForKey:@"Subtask"];
+                        PFQuery *subtaskQuery = [subtaskRelation query];
+                        [query whereKey:@"completed" equalTo:@NO];
+                        [subtaskQuery findObjectsInBackgroundWithBlock:^(NSArray<Subtask *>* _Nullable childSubtasks, NSError * _Nullable error) {
+                            if (childSubtasks) {
+                                for (Subtask *childTask in childSubtasks) {
+                                    childTask.completed = YES;
+                                    [childTask saveInBackground];
+                                }
+                            } else {
+                                // handle error
+                                NSLog(@"%@", error.localizedDescription);
+                            }
+                        }];
+                    }
+                }
+            } else {
+                // handle error
+                NSLog(@"%@", error.localizedDescription);
+            }
+        }];
 }
 
 - (void)alertError:(NSString *)errorMessage {
@@ -242,8 +291,13 @@
 -(void)didUpdate:(Assignment *)assignment {
     NSLog(@"DETAILSVIEWCONTROLLER: @%@ progress @%@", self.assignment.title, self.assignment.progress);
     [self.progressBar setProgress:[self.assignment.progress floatValue]];
+//    [self fetchSubtasks];
+    [self.tableView reloadData];
 }
 
+-(void)didUpdateTable {
+    [self.tableView reloadData];
+}
 
 #pragma mark - Navigation
 

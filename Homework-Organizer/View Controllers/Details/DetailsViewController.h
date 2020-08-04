@@ -16,7 +16,7 @@ NS_ASSUME_NONNULL_BEGIN
 
 @optional
 
--(void)didUpdateCell:(NSIndexPath *)indexPath withValue: (NSNumber *)percentage;
+-(void)didUpdateAssignmentCell:(NSIndexPath *)indexPath withValue: (NSNumber *)percentage;
 
 @end
 
@@ -29,6 +29,8 @@ NS_ASSUME_NONNULL_BEGIN
 @property (strong, nonatomic) IBOutlet UIProgressView *progressBar;
 @property (nonatomic, strong) Assignment *assignment;
 @property (nonatomic, strong) NSIndexPath *indexNumber;
+
+- (void)alertError:(NSString *)errorMessage;
 
 @end
 

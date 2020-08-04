@@ -57,6 +57,7 @@
         [self alertError:@"cannot create empty subtask"];
     } else {
         newTask.subtaskText = self.taskField.text;
+        newTask.completed = NO;
         [newTask saveInBackgroundWithBlock:^(BOOL succeeded, NSError * _Nullable error) {
             if(succeeded){
                 PFRelation *relation = [self.assignment relationForKey:@"Subtask"];
