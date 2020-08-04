@@ -29,6 +29,14 @@
 //    } else {
 //        [self.completionButton setImage:[UIImage systemImageNamed:@"square"] forState:UIControlStateNormal];
 //    }
+    [UIView animateWithDuration:0 animations:^{
+            if (subtask.isChildTask) {
+                self.leadingConstraint.constant = 42;
+    //            [self.view layoutIfNeeded];
+            } else {
+                self.leadingConstraint.constant = 20;
+            }
+    }];
 }
 
 @end

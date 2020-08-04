@@ -8,10 +8,13 @@
 
 #import <UIKit/UIKit.h>
 #import "Assignment.h"
+#import "DetailsViewController.h"
 
 NS_ASSUME_NONNULL_BEGIN
 
 @interface AssignmentListCell : UITableViewCell
+
+//-(void)updateProgressBar:(NSNumber *)percentage;
 
 @property (weak, nonatomic) Assignment *assignment;
 @property (weak, nonatomic) IBOutlet UILabel *titleLabel;

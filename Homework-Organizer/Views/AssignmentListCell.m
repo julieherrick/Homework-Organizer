@@ -8,7 +8,7 @@
 
 #import "AssignmentListCell.h"
 
-@implementation AssignmentListCell
+@implementation AssignmentListCell 
 
 - (void)awakeFromNib {
     [super awakeFromNib];
@@ -30,7 +30,11 @@
     [formatter setDateFormat:@"MMM d, yyyy"];
     NSString *dateString = [NSString stringWithFormat: @"%@", [formatter stringFromDate:assignment.dueDate]];
     self.dueDateLabel.text = [dateString substringToIndex:[dateString length]-6];
-    
+    [self.progressBar setProgress:[assignment.progress floatValue]];
 }
+
+//-(void)updateProgressBar:(NSNumber *)percentage {
+//    [self.progressBar setProgress:[percentage floatValue]];
+//}
 
 @end

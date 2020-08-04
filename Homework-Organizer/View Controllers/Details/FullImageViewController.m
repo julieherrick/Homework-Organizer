@@ -23,6 +23,8 @@
     self.imageView.file = self.assignment.image;
     [self.imageView loadInBackground];
 }
+- (IBAction)scaleImage:(UIPinchGestureRecognizer *)sender {
+}
 
 /*
 #pragma mark - Navigation

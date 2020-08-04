@@ -34,7 +34,7 @@
     newAssignment.title = title;
     newAssignment.classKey = className;
     newAssignment.dueDate = dueDate;
-    newAssignment.progress = @(0);
+//    newAssignment.progress = @(0);
     newAssignment.totalSubtasks = @(0);
     newAssignment.totalCompletedSubtasks = @(0);
     newAssignment.completed = NO;
