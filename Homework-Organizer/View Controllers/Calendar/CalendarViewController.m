@@ -39,6 +39,7 @@
     NSLog(@"Getting due dates...");
     
     self.tableView.tableFooterView = [[UIView alloc] initWithFrame:CGRectZero];
+    [self.tableView setSeparatorStyle:UITableViewCellSeparatorStyleNone];
     [self fetchAllAssignments];
     [self.calendar reloadData];
 }
@@ -140,6 +141,11 @@
      Assignment *assignment = self.assignments[indexPath.row];
      
      cell.assignment = assignment;
+    cell.layer.cornerRadius = 10;
+    cell.layer.masksToBounds = true;
+    CGRect newFrame = UIEdgeInsetsInsetRect(cell.layer.frame, UIEdgeInsetsMake(2, 0, 2, 0));
+//    UIView testView = UIView(frame: CGRect(x:0, y:0, width:TableView1.frame.size.width , height:(cell?.contentView.frame.size.height)! - 5 ))
+    cell.layer.frame = newFrame;
      
      return cell;
  }

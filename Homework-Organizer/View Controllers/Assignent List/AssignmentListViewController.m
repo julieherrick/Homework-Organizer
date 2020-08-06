@@ -38,15 +38,14 @@
 
 - (void)viewDidLoad {
     [super viewDidLoad];
-    id<MDCColorScheming> colorScheme = [ApplicationScheme sharedInstance].colorScheme;
-    self.view.backgroundColor = colorScheme.surfaceColor;
     
     self.tableView.dataSource = self;
     self.tableView.delegate = self;
     
     [self fetchAssignments];
+    self.tableView.tableFooterView = [[UIView alloc] initWithFrame:CGRectZero];
     
-   
+    [self.tableView setSeparatorStyle:UITableViewCellSeparatorStyleNone];
     
 }
 
@@ -102,6 +101,8 @@
      Assignment *assignment = self.assignments[indexPath.row];
      
      cell.assignment = assignment;
+     cell.layer.cornerRadius = 10;
+     cell.layer.masksToBounds = true;
      
      return cell;
  }

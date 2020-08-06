@@ -69,6 +69,7 @@
     self.tableView.delegate = self;
     
     self.tableView.tableFooterView = [[UIView alloc] initWithFrame:CGRectZero];
+    self.tableView.separatorStyle = UITableViewCellSeparatorStyleNone;
     [self refreshInfo];
     [self loadAssignment];
     if (self.assignment.completed) {
@@ -81,6 +82,8 @@
     SubtaskCell *subtaskCell = [[SubtaskCell alloc] init];
     subtaskCell.delegate = self;
     
+    self.progressBar.layer.cornerRadius = 5;
+    self.progressBar.clipsToBounds = YES;
     if (self.assignment.image) {
         [UIView animateWithDuration:0.0 animations:^{
             self.progressTopConstraint.constant = 88;
@@ -308,7 +311,7 @@
     [self.progressBar setProgress:[self.assignment.progress floatValue]];
     [UIView animateWithDuration:0.3 animations:^{
         [self.progressBar setProgress:[self.assignment.progress floatValue]];
-        if ([assignment.progress isEqualToNumber:@1]) {
+        if (assignment.completed) {
             self.progressBar.tintColor = [UIColor colorWithRed:0.00 green:0.67 blue:0.47 alpha:1.0];
         } else {
             self.progressBar.tintColor = [UIColor colorWithRed:0.16 green:0.75 blue:0.87 alpha:1.0];

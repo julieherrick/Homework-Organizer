@@ -69,10 +69,10 @@
     }
     [UIView animateWithDuration:0 animations:^{
         if (subtask.isChildTask) {
-            self.leadingConstraint.constant = 42;
+            self.leadingConstraint.constant = 32;
 //            [self.view layoutIfNeeded];
         } else {
-            self.leadingConstraint.constant = 20;
+            self.leadingConstraint.constant = 10;
         }
     }];
     
