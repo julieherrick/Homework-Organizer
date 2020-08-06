@@ -27,12 +27,20 @@
     self.assignment = assignment;
 }
 
+-(Assignment *)getParentAssignment:(Subtask *)task {
+    if (!task.isParentTask) {
+        return [self getParentAssignment:task.parentTask];
+    }
+    return task.assignmentParent;
+}
+
 -(void)updateComplete {
 //    ProgressTracking *progressTracking = [[ProgressTracking alloc] init];
 //    progressTracking.delegate = self;
-//    [progressTracking updateProgress:self.assignment];
+//    Assignment *currentAssignment = [self getParentAssignment:self.subtask];
+//    [progressTracking updateProgress:currentAssignment]; 
 //    
-    [self.delegate didUpdateTable];
+//    [self.delegate didUpdateTable];
 }
 
 -(void)setSubtask:(Subtask *)subtask {

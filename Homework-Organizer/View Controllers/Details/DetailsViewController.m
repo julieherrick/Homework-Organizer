@@ -40,7 +40,8 @@
     self.tableView.delegate = self;
     
     self.tableView.tableFooterView = [[UIView alloc] initWithFrame:CGRectZero];
-    [self fetchSubtasks];
+//    [self fetchSubtasks];
+    [self refreshInfo];
     [self loadAssignment];
     if (self.assignment.completed) {
         self.completedIcon.alpha = 1;
@@ -48,9 +49,9 @@
         self.completedIcon.alpha = 0;
     }
     
-    ProgressTracking *progressTracking = [[ProgressTracking alloc] init];
-    progressTracking.delegate = self;
-    [progressTracking updateProgress:self.assignment];
+//    ProgressTracking *progressTracking = [[ProgressTracking alloc] init];
+//    progressTracking.delegate = self;
+//    [progressTracking updateProgress:self.assignment];
     
     SubtaskCell *subtaskCell = [[SubtaskCell alloc] init];
     subtaskCell.delegate = self;
@@ -66,20 +67,22 @@
     [self fetchSubtasks];
 }
 
+-(void)refreshInfo {
+    ProgressTracking *progressTracking = [[ProgressTracking alloc] init];
+    progressTracking.delegate = self;
+    [progressTracking updateProgress:self.assignment];
+    [self fetchSubtasks];
+}
+
 - (IBAction)onChange:(id)sender {
 //    SubtaskCell *subtaskCell = [[SubtaskCell alloc] init];
 //    subtaskCell.delegate = self;
 //    [subtaskCell sendAssignment:self.assignment];
-    NSLog(@"Status being changed");
+//    NSLog(@"Status being changed");
     ProgressTracking *progressTracking = [[ProgressTracking alloc] init];
     progressTracking.delegate = self;
     [progressTracking updateProgress:self.assignment];
 //    [self fetchSubtasks];
-}
-
--(void)updateCellProgress:(NSIndexPath *)indexPath {
-    NSLog(@"Updating cell progress...");
-    [self.delegate didUpdateAssignmentCell:indexPath withValue:self.assignment.progress];
 }
 
 -(NSUInteger)allSubtasksCapacity {
@@ -142,40 +145,6 @@
     }];
 }
 
-//-(void)fetchAllSubtasks {
-////    self.totalSubSubtasks = 0;
-//    for (int i= 0; i < self.subtasks.count; i++) {
-//        Subtask *task = [self.subtasks objectAtIndex:i];
-//        NSLog(@"adding @%@", task.subtaskText);
-//        if (task.isParentTask) {
-//            [self queryChildTasks:i];
-//        }
-//    }
-//    [self.tableView reloadData];
-//}
-//
-//-(void)queryChildTasks:(NSUInteger) i{
-//    Subtask *task = [self.subtasks objectAtIndex:i];
-//    PFRelation *relation = [task relationForKey:@"Subtask"];
-//    PFQuery *query = [relation query];
-//    [query orderByAscending:@"createdAt"];
-//    [query findObjectsInBackgroundWithBlock:^(NSArray<Subtask *>* _Nullable subtasks, NSError * _Nullable error) {
-//        if (subtasks) {
-//            [self.allSubtasks addObject:task];
-////                    self.allSubtasks = (NSMutableArray *) subtasks;
-//            [self.allSubtasks addObjectsFromArray:subtasks];
-//            for (int x = 0; x < subtasks.count; x++) {
-//                [self.allSubtasks insertObject: [subtasks objectAtIndex:x] atIndex:i+1+self.totalSubSubtasks];
-//                self.totalSubSubtasks ++;
-//            }
-////            [self.tableView reloadData];
-//        } else {
-//            // handle error
-//            NSLog(@"%@", error.localizedDescription);
-//        }
-//    }];
-//}
-
 -(void)loadAssignment {
     self.titleLabel.text = self.assignment.title;
     self.classLabel.text = self.assignment.classKey;
@@ -228,6 +197,7 @@
         }
         self.assignment.completed = YES;
         [self completeAnimation:1];
+//        [self refreshInfo];
     }
     [self.assignment saveInBackgroundWithBlock:^(BOOL succeeded, NSError * _Nullable error) {
         if (succeeded) {
@@ -259,6 +229,7 @@
                                     childTask.completed = YES;
                                     [childTask saveInBackground];
                                 }
+                                [self refreshInfo];
                             } else {
                                 // handle error
                                 NSLog(@"%@", error.localizedDescription);
@@ -291,11 +262,11 @@
 -(void)didUpdate:(Assignment *)assignment {
     NSLog(@"DETAILSVIEWCONTROLLER: @%@ progress @%@", self.assignment.title, self.assignment.progress);
     [self.progressBar setProgress:[self.assignment.progress floatValue]];
-//    [self fetchSubtasks];
     [self.tableView reloadData];
 }
 
 -(void)didUpdateTable {
+    [self fetchSubtasks];
     [self.tableView reloadData];
 }
 

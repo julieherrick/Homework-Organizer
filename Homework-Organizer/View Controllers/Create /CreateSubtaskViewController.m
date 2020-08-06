@@ -58,6 +58,7 @@
     } else {
         newTask.subtaskText = self.taskField.text;
         newTask.completed = NO;
+        newTask.assignmentParent = self.assignment;
         [newTask saveInBackgroundWithBlock:^(BOOL succeeded, NSError * _Nullable error) {
             if(succeeded){
                 PFRelation *relation = [self.assignment relationForKey:@"Subtask"];

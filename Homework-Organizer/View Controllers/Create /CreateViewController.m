@@ -11,13 +11,34 @@
 #import "Subtask.h"
 #import <Parse/Parse.h>
 
+// design
+#import <MaterialComponents/MaterialButtons+ColorThemer.h>
+#import <MaterialComponents/MaterialButtons+TypographyThemer.h>
+
+#import <MaterialComponents/MaterialTextFields+ColorThemer.h>
+#import <MaterialComponents/MaterialTextFields.h>
+
+#import "MaterialTextFields+Theming.h"
+#import "MaterialContainerScheme.h"
+#import "MaterialTypographyScheme.h"
+#import <MaterialComponents/MaterialButtons.h>
+#import <MaterialComponents/MaterialButtons+Theming.h>
+
+#import "ApplicationScheme.h"
+
 @interface CreateViewController ()
 
-@property (weak, nonatomic) IBOutlet UITextField *titleField;
-@property (weak, nonatomic) IBOutlet UITextField *classField;
-@property (weak, nonatomic) IBOutlet UITextField *dueDateField;
+@property(nonatomic) MDCTextInputControllerOutlined *titleController;
+@property(nonatomic) MDCTextInputControllerOutlined *classController;
+@property(nonatomic) MDCTextInputControllerOutlined *dueDateController;
+
+@property (weak, nonatomic) IBOutlet MDCTextField *titleField;
+@property (weak, nonatomic) IBOutlet MDCTextField *classField;
+@property (weak, nonatomic) IBOutlet MDCTextField *dueDateField;
 @property (weak, nonatomic) IBOutlet UIImageView *attachedImage;
 
+
+//@property (nonatomic, strong) MDCContainerScheme *containerScheme;
 
 @end
 
@@ -25,6 +46,30 @@
 
 - (void)viewDidLoad {
     [super viewDidLoad];
+    // TODO: Instantiate Controllers
+    MDCContainerScheme *containerScheme = [[MDCContainerScheme alloc] init];
+    containerScheme.colorScheme = [ApplicationScheme sharedInstance].colorScheme;
+//    containerScheme.typographyScheme = [ApplicationScheme sharedInstance].typographyScheme;
+
+
+    self.titleController = [[MDCTextInputControllerOutlined alloc] initWithTextInput:self.titleField];
+    self.titleField.placeholder = @"Title";
+    self.titleField.translatesAutoresizingMaskIntoConstraints = NO;
+//    [self styleTextInputController:self.titleController];
+    [self.titleController applyThemeWithScheme:containerScheme];
+    
+    self.classController = [[MDCTextInputControllerOutlined alloc] initWithTextInput:self.classField];
+    self.classField.placeholder = @"Class";
+    self.classField.translatesAutoresizingMaskIntoConstraints = NO;
+    [self.classController applyThemeWithScheme:containerScheme];
+    
+    
+    self.dueDateController = [[MDCTextInputControllerOutlined alloc] initWithTextInput:self.dueDateField];
+    self.dueDateField.placeholder = @"Due Date";
+    self.dueDateField.translatesAutoresizingMaskIntoConstraints = NO;
+    [self.dueDateController applyThemeWithScheme:containerScheme];
+    
+    
     // Do any additional setup after loading the view.
     self.datePicker = [[UIDatePicker alloc] init];
     self.datePicker.datePickerMode = UIDatePickerModeDateAndTime;
@@ -32,6 +77,15 @@
 //    [self showSelectedDate];
 
 }
+
+//- (void)styleTextInputController:(id<MDCTextInputController>)controller {
+//  if ([controller isKindOfClass:[MDCTextInputControllerOutlined class]]) {
+//    MDCTextInputControllerOutlined *outlinedController =
+//        (MDCTextInputControllerOutlined *)controller;
+//    [outlinedController applyThemeWithScheme:self.containerScheme];
+//  }
+//}
+
 - (IBAction)onTap:(id)sender {
     [self.view endEditing:YES];
 }

@@ -12,6 +12,9 @@
 #import "DetailsViewController.h"
 #import "SceneDelegate.h"
 
+// theme items
+#import "ApplicationScheme.h"
+
 @interface AssignmentListViewController () <UITableViewDelegate, UITableViewDataSource, DetailsViewControllerDelegate>
 
 @property (strong, nonatomic) NSMutableArray *assignments;
@@ -29,14 +32,13 @@
     
     [self fetchAssignments];
     
+   
+    
 }
 
 -(void)viewDidAppear:(BOOL)animated {
     [super viewDidAppear:nil];
-//    detailsViewController.delegate = self;
-//    [detailsViewController updateCellProgress:indexPath];
     [self fetchAssignments];
-    // can fetch/query just affected cell
 }
 
 - (void)fetchAssignments {
@@ -98,17 +100,8 @@
     NSLog(@"Selected row number: %ld", (long)indexPath.row);
     [tableView deselectRowAtIndexPath:indexPath animated:YES];
     
-//    [detailsViewController updateCellProgress:indexPath];
     [tableView reloadData];
 }
-
-//-(void)updateProgressBar:(NSNumber *)percentage {
-//    DetailsViewController *detailsViewController= [[DetailsViewController alloc] init];
-//    detailsViewController.delegate = self;
-//
-//    [detailsViewController updateCellProgress];
-//
-//}
 
 -(void)didUpdateAssignmentCell:(NSIndexPath *)indexPath withValue:(NSNumber *)percentage {
     NSLog(@"ASSIGNMENT UPDATING IN LIST AT INDEX @%ld", (long)indexPath.row);
@@ -197,7 +190,6 @@
         detailsViewController.assignment = assignment;
         detailsViewController.indexNumber = indexPath;
         detailsViewController.delegate = self;
-//        [detailsViewController updateCellProgress:indexPath];
         NSLog(@"Tapping on an assignment!");
     }
 }

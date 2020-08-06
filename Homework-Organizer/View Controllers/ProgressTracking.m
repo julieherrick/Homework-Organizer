@@ -39,6 +39,7 @@
             completedCount++;
         }
     }
+    [assignment fetchIfNeeded];
     float progress = completedCount/[assignment.totalSubtasks floatValue];
     assignment.progress = [NSNumber numberWithFloat:progress];
     [assignment saveInBackground];
