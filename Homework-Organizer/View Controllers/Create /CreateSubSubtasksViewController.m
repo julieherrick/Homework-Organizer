@@ -9,13 +9,23 @@
 #import "CreateSubSubtasksViewController.h"
 #import "CreateSubtaskCell.h"
 
+#import "MaterialTextFields+Theming.h"
+#import "MaterialContainerScheme.h"
+#import "MaterialTypographyScheme.h"
+#import <MaterialComponents/MaterialButtons.h>
+#import <MaterialComponents/MaterialButtons+Theming.h>
+
+#import "ApplicationScheme.h"
+
 @interface CreateSubSubtasksViewController () <UITableViewDelegate, UITableViewDataSource>
 
+@property(nonatomic) MDCTextInputControllerOutlined *taskController;
+@property (weak, nonatomic) IBOutlet MDCTextField *taskField;
+
 @property (weak, nonatomic) IBOutlet UITableView *tableView;
-@property (weak, nonatomic) IBOutlet UITextField *taskField;
 @property (strong, nonatomic) NSMutableArray *subtasks;
 @property (weak, nonatomic) IBOutlet UILabel *parentTaskLabel;
-
+@property (weak, nonatomic) IBOutlet MDCFloatingButton *addSubTaskButton;
 
 
 @end
@@ -24,6 +34,19 @@
 
 - (void)viewDidLoad {
     [super viewDidLoad];
+    MDCContainerScheme *containerScheme = [[MDCContainerScheme alloc] init];
+        containerScheme.colorScheme = [ApplicationScheme sharedInstance].colorScheme;
+    //    containerScheme.typographyScheme = [ApplicationScheme sharedInstance].typographyScheme;
+
+
+        self.taskController = [[MDCTextInputControllerOutlined alloc] initWithTextInput:self.taskField];
+        self.taskField.placeholder = @"New Subtask";
+        self.taskField.translatesAutoresizingMaskIntoConstraints = NO;
+    //    [self styleTextInputController:self.titleController];
+        [self.taskController applyThemeWithScheme:containerScheme];
+    
+    self.addSubTaskButton = [MDCFloatingButton floatingButtonWithShape:MDCFloatingButtonShapeDefault];
+    
     // Do any additional setup after loading the view.
     self.tableView.delegate = self;
     self.tableView.dataSource = self;
@@ -33,6 +56,10 @@
     self.subtask.totalChildTasks = self.subtask.totalChildTasks;
     
     [self fetchSubtasks];
+}
+
+- (IBAction)onTap:(id)sender {
+    [self.view endEditing:YES];
 }
 
 - (IBAction)onNewSubtask:(id)sender {

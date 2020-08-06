@@ -13,6 +13,18 @@
 #import "SceneDelegate.h"
 
 // theme items
+#import <MaterialComponents/MaterialButtons+ColorThemer.h>
+#import <MaterialComponents/MaterialButtons+TypographyThemer.h>
+
+#import <MaterialComponents/MaterialTextFields+ColorThemer.h>
+#import <MaterialComponents/MaterialTextFields.h>
+
+#import "MaterialTextFields+Theming.h"
+#import "MaterialContainerScheme.h"
+#import "MaterialTypographyScheme.h"
+#import <MaterialComponents/MaterialButtons.h>
+#import <MaterialComponents/MaterialButtons+Theming.h>
+
 #import "ApplicationScheme.h"
 
 @interface AssignmentListViewController () <UITableViewDelegate, UITableViewDataSource, DetailsViewControllerDelegate>
@@ -26,6 +38,8 @@
 
 - (void)viewDidLoad {
     [super viewDidLoad];
+    id<MDCColorScheming> colorScheme = [ApplicationScheme sharedInstance].colorScheme;
+    self.view.backgroundColor = colorScheme.surfaceColor;
     
     self.tableView.dataSource = self;
     self.tableView.delegate = self;

@@ -31,6 +31,16 @@
     NSString *dateString = [NSString stringWithFormat: @"%@", [formatter stringFromDate:assignment.dueDate]];
     self.dueDateLabel.text = [dateString substringToIndex:[dateString length]-6];
     [self.progressBar setProgress:[assignment.progress floatValue]];
+    if ([assignment.progress isEqualToNumber:@1]) {
+        self.progressBar.tintColor = [UIColor colorWithRed:0.00 green:0.67 blue:0.47 alpha:1.0];
+    } else {
+        self.progressBar.tintColor = [UIColor colorWithRed:0.16 green:0.75 blue:0.87 alpha:1.0];
+    }
+    /*
+     _colorScheme.primaryColor = [UIColor colorWithRed:0.16 green:0.75 blue:0.87 alpha:1.0];
+     _colorScheme.primaryColorVariant = [UIColor colorWithRed:0.00 green:0.56 blue:0.68 alpha:1.0];
+     _colorScheme.secondaryColor = [UIColor colorWithRed:0.16 green:0.87 blue:0.65 alpha:1.0];
+     */
 }
 
 //-(void)updateProgressBar:(NSNumber *)percentage {

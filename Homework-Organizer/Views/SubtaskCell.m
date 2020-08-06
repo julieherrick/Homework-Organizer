@@ -9,6 +9,21 @@
 #import "SubtaskCell.h"
 #import "ProgressTracking.h"
 
+// design
+#import <MaterialComponents/MaterialButtons+ColorThemer.h>
+#import <MaterialComponents/MaterialButtons+TypographyThemer.h>
+
+#import <MaterialComponents/MaterialTextFields+ColorThemer.h>
+#import <MaterialComponents/MaterialTextFields.h>
+
+#import "MaterialTextFields+Theming.h"
+#import "MaterialContainerScheme.h"
+#import "MaterialTypographyScheme.h"
+#import <MaterialComponents/MaterialButtons.h>
+#import <MaterialComponents/MaterialButtons+Theming.h>
+
+#import "ApplicationScheme.h"
+
 @implementation SubtaskCell
 
 - (void)awakeFromNib {
@@ -48,6 +63,7 @@
     self.descriptionLabel.text = subtask.subtaskText;
     if (subtask.completed) {
         [self.completionButton setImage:[UIImage systemImageNamed:@"checkmark.square.fill"] forState:UIControlStateNormal];
+        
     } else {
         [self.completionButton setImage:[UIImage systemImageNamed:@"square"] forState:UIControlStateNormal];
     }
@@ -59,6 +75,7 @@
             self.leadingConstraint.constant = 20;
         }
     }];
+    
 }
 
 -(void)saveStatus:(Subtask *)task withStatus:(BOOL)status {
@@ -70,7 +87,9 @@
         val = 1;
     }
     [task saveInBackground];
-    [self.completionButton setImage:[UIImage systemImageNamed:buttonImage] forState:UIControlStateNormal];
+    [UIView animateWithDuration:0.3 animations:^{
+        [self.completionButton setImage:[UIImage systemImageNamed:buttonImage] forState:UIControlStateNormal];
+    }];
 
 }
 

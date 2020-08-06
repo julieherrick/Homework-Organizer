@@ -13,13 +13,23 @@
 #import "CreateSubtaskCell.h"
 #import "CreateSubSubtasksViewController.h"
 
+#import "MaterialTextFields+Theming.h"
+#import "MaterialContainerScheme.h"
+#import "MaterialTypographyScheme.h"
+#import <MaterialComponents/MaterialButtons.h>
+#import <MaterialComponents/MaterialButtons+Theming.h>
+
+#import "ApplicationScheme.h"
+
 @interface CreateSubtaskViewController () <UITableViewDelegate, UITableViewDataSource>
-@property (weak, nonatomic) IBOutlet UITextField *taskField;
+@property(nonatomic) MDCTextInputControllerOutlined *taskController;
+@property (weak, nonatomic) IBOutlet MDCTextField *taskField;
 
 @property (strong, nonatomic) Assignment *assignment;
 @property (strong, nonatomic) NSMutableArray<Subtask *> *subtasks;
 @property (weak, nonatomic) IBOutlet UITableView *tableView;
 @property (strong, nonatomic) NSMutableArray<Subtask *> *allSubtasks;
+@property (weak, nonatomic) IBOutlet MDCFloatingButton *addTaskButton;
 
 @end
 
@@ -27,7 +37,22 @@
 
 - (void)viewDidLoad {
     [super viewDidLoad];
-    // Do any additional setup after loading the view.
+    // TODO: Instantiate Controllers
+        MDCContainerScheme *containerScheme = [[MDCContainerScheme alloc] init];
+        containerScheme.colorScheme = [ApplicationScheme sharedInstance].colorScheme;
+    //    containerScheme.typographyScheme = [ApplicationScheme sharedInstance].typographyScheme;
+
+
+        self.taskController = [[MDCTextInputControllerOutlined alloc] initWithTextInput:self.taskField];
+        self.taskField.placeholder = @"New Task";
+        self.taskField.translatesAutoresizingMaskIntoConstraints = NO;
+    //    [self styleTextInputController:self.titleController];
+        [self.taskController applyThemeWithScheme:containerScheme];
+    
+    self.addTaskButton = [MDCFloatingButton floatingButtonWithShape:MDCFloatingButtonShapeDefault];
+//    [self.addTaskButton applySecondaryThemeWithScheme:containerScheme];
+//    [self.addTaskButton setBackgroundColor:[UIColor colorWithRed:0.89f green:0.02f blue:0.15f alpha:1] forState:UIControlStateNormal];
+    
     self.tableView.delegate = self;
     self.tableView.dataSource = self;
     PFQuery *query = [PFQuery queryWithClassName:@"Assignment"];
@@ -47,6 +72,10 @@
     [super viewDidAppear:nil];
     self.allSubtasks = [[NSMutableArray alloc] init];
 //    [self fetchAllSubtasks];
+}
+
+- (IBAction)onTap:(id)sender {
+    [self.view endEditing:YES];
 }
 
 - (IBAction)onNewSubtask:(id)sender {

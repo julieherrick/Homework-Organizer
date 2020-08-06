@@ -13,6 +13,21 @@
 #import "ProgressTracking.h"
 #import "AssignmentListCell.h"
 @import Parse;
+// design
+#import <MaterialComponents/MaterialButtons+ColorThemer.h>
+#import <MaterialComponents/MaterialButtons+TypographyThemer.h>
+
+#import <MaterialComponents/MaterialTextFields+ColorThemer.h>
+#import <MaterialComponents/MaterialTextFields.h>
+
+#import "MaterialTextFields+Theming.h"
+#import "MaterialContainerScheme.h"
+#import "MaterialTypographyScheme.h"
+#import <MaterialComponents/MaterialButtons.h>
+#import <MaterialComponents/MaterialButtons+Theming.h>
+
+#import "ApplicationScheme.h"
+
 
 @interface DetailsViewController () <UITableViewDelegate, UITableViewDataSource, ProgressTrackingDelegate, SubtaskCellDelegate>
 
@@ -26,6 +41,12 @@
 @property (weak, nonatomic) IBOutlet UIBarButtonItem *completedButton;
 @property (weak, nonatomic) IBOutlet UIImageView *completedIcon;
 @property (nonatomic, strong) NSMutableArray<Subtask *> *allSubtasks;
+@property (weak, nonatomic) IBOutlet MDCButton *viewImageButton;
+@property (weak, nonatomic) IBOutlet NSLayoutConstraint *progressTopConstraint;
+@property (weak, nonatomic) IBOutlet NSLayoutConstraint *dueDateTopConstraint;
+@property (weak, nonatomic) IBOutlet NSLayoutConstraint *dueTopConstraint;
+
+
 
 @property int totalSubSubtasks;
 
@@ -36,11 +57,18 @@
 - (void)viewDidLoad {
     [super viewDidLoad];
     // Do any additional setup after loading the view.
+    
+    MDCContainerScheme *containerScheme = [[MDCContainerScheme alloc] init];
+        containerScheme.colorScheme = [ApplicationScheme sharedInstance].colorScheme;
+    //    containerScheme.typographyScheme = [ApplicationScheme sharedInstance].typographyScheme;
+    
+    [self.viewImageButton applyOutlinedThemeWithScheme:containerScheme];
+    
+    
     self.tableView.dataSource = self;
     self.tableView.delegate = self;
     
     self.tableView.tableFooterView = [[UIView alloc] initWithFrame:CGRectZero];
-//    [self fetchSubtasks];
     [self refreshInfo];
     [self loadAssignment];
     if (self.assignment.completed) {
@@ -48,18 +76,29 @@
     } else {
         self.completedIcon.alpha = 0;
     }
-    
-//    ProgressTracking *progressTracking = [[ProgressTracking alloc] init];
-//    progressTracking.delegate = self;
-//    [progressTracking updateProgress:self.assignment];
+
     
     SubtaskCell *subtaskCell = [[SubtaskCell alloc] init];
     subtaskCell.delegate = self;
     
+    if (self.assignment.image) {
+        [UIView animateWithDuration:0.0 animations:^{
+            self.progressTopConstraint.constant = 88;
+            [self.view layoutIfNeeded];
+            self.imageView.alpha = 1;
+            [self.viewImageButton setHidden:NO];
+        }];
+    } else {
+        [UIView animateWithDuration:0.0 animations:^{
+            self.progressTopConstraint.constant = 20;
+            [self.view layoutIfNeeded];
+            self.imageView.alpha = 0;
+            [self.viewImageButton setHidden:YES];
+        }];
+    }
+    
 }
-- (IBAction)reloadDataButton:(id)sender {
-    [self.tableView reloadData];
-}
+
 - (IBAction)fetchSubtasksButton:(id)sender {
     ProgressTracking *progressTracking = [[ProgressTracking alloc] init];
     progressTracking.delegate = self;
@@ -159,6 +198,11 @@
     }
         
     [self.progressBar setProgress:[self.assignment.progress floatValue]];
+    if ([self.assignment.progress isEqualToNumber:@1]) {
+        self.progressBar.tintColor = [UIColor colorWithRed:0.00 green:0.67 blue:0.47 alpha:1.0];
+    } else {
+        self.progressBar.tintColor = [UIColor colorWithRed:0.16 green:0.75 blue:0.87 alpha:1.0];
+    }
 }
 
 - (nonnull UITableViewCell *)tableView:(nonnull UITableView *)tableView cellForRowAtIndexPath:(nonnull NSIndexPath *)indexPath {
@@ -262,6 +306,14 @@
 -(void)didUpdate:(Assignment *)assignment {
     NSLog(@"DETAILSVIEWCONTROLLER: @%@ progress @%@", self.assignment.title, self.assignment.progress);
     [self.progressBar setProgress:[self.assignment.progress floatValue]];
+    [UIView animateWithDuration:0.3 animations:^{
+        [self.progressBar setProgress:[self.assignment.progress floatValue]];
+        if ([assignment.progress isEqualToNumber:@1]) {
+            self.progressBar.tintColor = [UIColor colorWithRed:0.00 green:0.67 blue:0.47 alpha:1.0];
+        } else {
+            self.progressBar.tintColor = [UIColor colorWithRed:0.16 green:0.75 blue:0.87 alpha:1.0];
+        }
+    }];
     [self.tableView reloadData];
 }
 
