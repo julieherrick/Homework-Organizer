@@ -13,13 +13,25 @@
 #import "CreateSubtaskCell.h"
 #import "CreateSubSubtasksViewController.h"
 
+#import "MaterialTextFields+Theming.h"
+#import "MaterialContainerScheme.h"
+#import "MaterialTypographyScheme.h"
+#import <MaterialComponents/MaterialButtons.h>
+#import <MaterialComponents/MaterialButtons+Theming.h>
+
+#import "ApplicationScheme.h"
+
 @interface CreateSubtaskViewController () <UITableViewDelegate, UITableViewDataSource>
-@property (weak, nonatomic) IBOutlet UITextField *taskField;
+@property(nonatomic) MDCTextInputControllerOutlined *taskController;
+@property (weak, nonatomic) IBOutlet MDCTextField *taskField;
 
 @property (strong, nonatomic) Assignment *assignment;
 @property (strong, nonatomic) NSMutableArray<Subtask *> *subtasks;
 @property (weak, nonatomic) IBOutlet UITableView *tableView;
 @property (strong, nonatomic) NSMutableArray<Subtask *> *allSubtasks;
+@property (weak, nonatomic) IBOutlet MDCFloatingButton *addTaskButton;
+@property (weak, nonatomic) IBOutlet UIView *topView;
+@property (weak, nonatomic) IBOutlet UIView *backgroundTaskView;
 
 @end
 
@@ -27,7 +39,21 @@
 
 - (void)viewDidLoad {
     [super viewDidLoad];
-    // Do any additional setup after loading the view.
+    // TODO: Instantiate Controllers
+        MDCContainerScheme *containerScheme = [[MDCContainerScheme alloc] init];
+        containerScheme.colorScheme = [ApplicationScheme sharedInstance].colorScheme;
+    //    containerScheme.typographyScheme = [ApplicationScheme sharedInstance].typographyScheme;
+
+
+        self.taskController = [[MDCTextInputControllerOutlined alloc] initWithTextInput:self.taskField];
+        self.taskField.placeholder = @"New Task";
+        self.taskField.translatesAutoresizingMaskIntoConstraints = NO;
+    //    [self styleTextInputController:self.titleController];
+        [self.taskController applyThemeWithScheme:containerScheme];
+    
+    self.addTaskButton = [MDCFloatingButton floatingButtonWithShape:MDCFloatingButtonShapeDefault];
+    self.addTaskButton.accessibilityLabel = @"add task";
+    
     self.tableView.delegate = self;
     self.tableView.dataSource = self;
     PFQuery *query = [PFQuery queryWithClassName:@"Assignment"];
@@ -41,6 +67,11 @@
         }];
 //    [self.tableView setHidden:YES];
     self.tableView.tableFooterView = [[UIView alloc] initWithFrame:CGRectZero];
+    [self.tableView setSeparatorStyle:UITableViewCellSeparatorStyleNone];
+    self.tableView.layer.cornerRadius = 12.0;
+    self.topView.layer.cornerRadius = 12.0;
+    [self.topView setClipsToBounds:YES];
+    self.backgroundTaskView.layer.cornerRadius = 10;
     
 }
 -(void)viewDidAppear:(BOOL)animated {
@@ -49,15 +80,22 @@
 //    [self fetchAllSubtasks];
 }
 
+- (IBAction)onTap:(id)sender {
+    [self.view endEditing:YES];
+}
+
 - (IBAction)onNewSubtask:(id)sender {
     
     Subtask *newTask = [Subtask new];
-    if ([self.taskField.text isEqual:@""])
-    {
-        [self alertError:@"cannot create empty subtask"];
+    if ([self.taskField.text isEqual:@""]) {
+        [self.taskController setErrorColor:[UIColor colorWithRed:0.87 green:0.29 blue:0.16 alpha:1.0]];
+        [self.taskController setErrorText:@"can't create empty task" errorAccessibilityValue:nil];
     } else {
         newTask.subtaskText = self.taskField.text;
         newTask.completed = NO;
+        newTask.assignmentParent = self.assignment;
+        [self.taskController setErrorColor:[UIColor colorWithRed:0.16 green:0.75 blue:0.87 alpha:1.0]];
+        [self.taskController setErrorText:@"" errorAccessibilityValue:nil];
         [newTask saveInBackgroundWithBlock:^(BOOL succeeded, NSError * _Nullable error) {
             if(succeeded){
                 PFRelation *relation = [self.assignment relationForKey:@"Subtask"];
@@ -97,16 +135,21 @@
 - (IBAction)onCompletion:(id)sender {
     // creationComplete will be marked true on page where subtasks are added
     // assignment feed can use this to only query assignments that are complete with subtasks
-    self.assignment.creationComplete = YES;
-    NSLog(@"%@", self.assignment.creationComplete ? @"YES" : @"NO");
-    [self.assignment saveInBackgroundWithBlock:^(BOOL succeeded, NSError * _Nullable error) {
-        if (succeeded) {
-            NSLog(@"assignment creation completed");
-            [self performSegueWithIdentifier:@"create" sender:nil];
-        } else {
-            NSLog(@"error");
-        }
-    }];
+    if (self.subtasks) {
+        self.assignment.creationComplete = YES;
+        NSLog(@"%@", self.assignment.creationComplete ? @"YES" : @"NO");
+        [self.assignment saveInBackgroundWithBlock:^(BOOL succeeded, NSError * _Nullable error) {
+            if (succeeded) {
+                NSLog(@"assignment creation completed");
+                [self performSegueWithIdentifier:@"create" sender:nil];
+            } else {
+                NSLog(@"error");
+            }
+        }];
+    } else {
+        [self.taskController setErrorColor:[UIColor colorWithRed:0.87 green:0.29 blue:0.16 alpha:1.0]];
+        [self.taskController setErrorText:@"must have at least one task" errorAccessibilityValue:nil];
+    }
 }
 
 -(void)fetchAllSubtasks {

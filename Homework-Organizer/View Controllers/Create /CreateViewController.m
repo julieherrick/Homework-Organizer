@@ -11,13 +11,36 @@
 #import "Subtask.h"
 #import <Parse/Parse.h>
 
+// design
+#import <MaterialComponents/MaterialButtons+ColorThemer.h>
+#import <MaterialComponents/MaterialButtons+TypographyThemer.h>
+
+#import <MaterialComponents/MaterialTextFields+ColorThemer.h>
+#import <MaterialComponents/MaterialTextFields.h>
+
+#import "MaterialTextFields+Theming.h"
+#import "MaterialContainerScheme.h"
+#import "MaterialTypographyScheme.h"
+#import <MaterialComponents/MaterialButtons.h>
+#import <MaterialComponents/MaterialButtons+Theming.h>
+
+#import "ApplicationScheme.h"
+
 @interface CreateViewController ()
 
-@property (weak, nonatomic) IBOutlet UITextField *titleField;
-@property (weak, nonatomic) IBOutlet UITextField *classField;
-@property (weak, nonatomic) IBOutlet UITextField *dueDateField;
-@property (weak, nonatomic) IBOutlet UIImageView *attachedImage;
+@property(nonatomic) MDCTextInputControllerOutlined *titleController;
+@property(nonatomic) MDCTextInputControllerOutlined *classController;
+@property(nonatomic) MDCTextInputControllerOutlined *dueDateController;
 
+@property (weak, nonatomic) IBOutlet MDCTextField *titleField;
+@property (weak, nonatomic) IBOutlet MDCTextField *classField;
+@property (weak, nonatomic) IBOutlet MDCTextField *dueDateField;
+@property (weak, nonatomic) IBOutlet UIImageView *attachedImage;
+@property (weak, nonatomic) IBOutlet UIButton *cameraButton;
+@property (weak, nonatomic) IBOutlet UIView *backgroundView;
+
+
+//@property (nonatomic, strong) MDCContainerScheme *containerScheme;
 
 @end
 
@@ -25,6 +48,32 @@
 
 - (void)viewDidLoad {
     [super viewDidLoad];
+    // TODO: Instantiate Controllers
+    MDCContainerScheme *containerScheme = [[MDCContainerScheme alloc] init];
+    containerScheme.colorScheme = [ApplicationScheme sharedInstance].colorScheme;
+//    containerScheme.typographyScheme = [ApplicationScheme sharedInstance].typographyScheme;
+
+
+    self.titleController = [[MDCTextInputControllerOutlined alloc] initWithTextInput:self.titleField];
+    self.titleField.placeholder = @"Title";
+    self.titleField.translatesAutoresizingMaskIntoConstraints = NO;
+//    [self styleTextInputController:self.titleController];
+    [self.titleController applyThemeWithScheme:containerScheme];
+    
+    self.classController = [[MDCTextInputControllerOutlined alloc] initWithTextInput:self.classField];
+    self.classField.placeholder = @"Class";
+    self.classField.translatesAutoresizingMaskIntoConstraints = NO;
+    [self.classController applyThemeWithScheme:containerScheme];
+    
+    
+    self.dueDateController = [[MDCTextInputControllerOutlined alloc] initWithTextInput:self.dueDateField];
+    self.dueDateField.placeholder = @"Due Date";
+    self.dueDateField.translatesAutoresizingMaskIntoConstraints = NO;
+    [self.dueDateController applyThemeWithScheme:containerScheme];
+    
+    self.cameraButton.layer.cornerRadius = 30;
+    self.cameraButton.accessibilityLabel = @"add photo";
+    self.backgroundView.layer.cornerRadius = 10;
     // Do any additional setup after loading the view.
     self.datePicker = [[UIDatePicker alloc] init];
     self.datePicker.datePickerMode = UIDatePickerModeDateAndTime;
@@ -32,6 +81,15 @@
 //    [self showSelectedDate];
 
 }
+
+//- (void)styleTextInputController:(id<MDCTextInputController>)controller {
+//  if ([controller isKindOfClass:[MDCTextInputControllerOutlined class]]) {
+//    MDCTextInputControllerOutlined *outlinedController =
+//        (MDCTextInputControllerOutlined *)controller;
+//    [outlinedController applyThemeWithScheme:self.containerScheme];
+//  }
+//}
+
 - (IBAction)onTap:(id)sender {
     [self.view endEditing:YES];
 }
@@ -49,9 +107,13 @@
     // test to see if assignment is created
     if ([self.titleField.text isEqual:@""] || [self.dueDateField.text  isEqual: @""]) {
         if ([self.titleField.text isEqual:@""]) {
-            [self alertError:@"Title is required"];
+//            [self alertError:@"Title is required"];
+            [self.titleController setErrorColor:[UIColor colorWithRed:0.87 green:0.29 blue:0.16 alpha:1.0]];
+            [self.titleController setErrorText:@"Must have a title" errorAccessibilityValue:nil];
         } else {
-            [self alertError:@"Due Date required"];
+//            [self alertError:@"Due Date required"];
+            [self.dueDateController setErrorColor:[UIColor colorWithRed:0.87 green:0.29 blue:0.16 alpha:1.0]];
+            [self.dueDateController setErrorText:@"Must have a due date" errorAccessibilityValue:nil];
         }
     } else {
     [Assignment  createNewAssignment:self.titleField.text withClassName:self.classField.text withDueDate:self.datePicker.date withImage:self.attachedImage.image withCompletion:^(BOOL succeeded, NSError * _Nullable error) {

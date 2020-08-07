@@ -11,6 +11,8 @@
 #import "Assignment.h"
 
 @interface LoginViewController ()
+@property (strong, nonatomic) FBSDKLoginButton *loginButton;
+@property (weak, nonatomic) IBOutlet UILabel *hwOrganizerLabel;
 
 @end
 
@@ -19,8 +21,23 @@
 - (void)viewDidLoad {
     [super viewDidLoad];
     // Do any additional setup after loading the view.
-    [self addLoginButton];
+//    [self addLoginButton];
+    self.loginButton = [[FBSDKLoginButton alloc] init];
+        self.loginButton.delegate = self;
+
+        self.loginButton.permissions = @[@"public_profile", @"email"];
+
+        self.loginButton.center = self.view.center;
+    //    loginButton.size
+        self.loginButton.center = CGPointMake(self.view.center.x,  self.hwOrganizerLabel.center.y+20);
+        [self.view addSubview:self.loginButton];
 //    [self facebookLogin];
+    
+    if ([FBSDKAccessToken currentAccessToken]) {
+        self.loginButton.alpha = 0;
+    } else {
+        self.loginButton.alpha = 1;
+    }
 }
 
 -(void)facebookLogin {
@@ -36,13 +53,15 @@
 }
 
 - (void)addLoginButton {
-    FBSDKLoginButton *loginButton = [[FBSDKLoginButton alloc] init];
-    loginButton.delegate = self;
+    self.loginButton = [[FBSDKLoginButton alloc] init];
+    self.loginButton.delegate = self;
 
-    loginButton.permissions = @[@"public_profile", @"email"];
+    self.loginButton.permissions = @[@"public_profile", @"email"];
 
-    loginButton.center = self.view.center;
-    [self.view addSubview:loginButton];
+    self.loginButton.center = self.view.center;
+//    loginButton.size
+    self.loginButton.center = CGPointMake(self.view.center.x,  self.hwOrganizerLabel.center.y+20);
+    [self.view addSubview:self.loginButton];
 }
 
 - (void)loginButton:(nonnull FBSDKLoginButton *)loginButton didCompleteWithResult:(nullable FBSDKLoginManagerLoginResult *)result error:(nullable NSError *)error {
@@ -62,6 +81,7 @@
         } else {
             NSLog(@"User logged in through Facebook!");
             NSLog(@"Success. Granted permissions: %@", result.grantedPermissions);
+            self.loginButton.alpha = 0;
             [self performSegueWithIdentifier:@"loginSegue" sender:self];
         }
     }];

@@ -7,7 +7,8 @@
 //
 
 #import <Parse/Parse.h>
-#import "Assignment.h"
+//#import "Assignment.h"
+@class Assignment;
 
 NS_ASSUME_NONNULL_BEGIN
 
@@ -20,7 +21,7 @@ NS_ASSUME_NONNULL_BEGIN
 @property (nonatomic) NSNumber *totalChildTasks;
 @property (nonatomic) NSNumber *totalCompletedChildTasks;
 @property (nonatomic) Subtask *parentTask;
-//@property (nonatomic) Assignment *assignment;
+@property (nonatomic) Assignment *assignmentParent;
 
 
 @end

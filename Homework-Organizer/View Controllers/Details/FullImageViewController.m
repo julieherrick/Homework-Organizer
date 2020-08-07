@@ -23,7 +23,30 @@
     self.imageView.file = self.assignment.image;
     [self.imageView loadInBackground];
 }
-- (IBAction)scaleImage:(UIPinchGestureRecognizer *)sender {
+- (IBAction)scaleImage:(UIPinchGestureRecognizer *)gestureRecognizer {
+    CGFloat lastScale = 0.0;
+    if([gestureRecognizer state] == UIGestureRecognizerStateBegan) {
+    // Reset the last scale, necessary if there are multiple objects with different scales.
+        lastScale = [gestureRecognizer scale];
+    }
+
+    if ([gestureRecognizer state] == UIGestureRecognizerStateBegan ||
+    [gestureRecognizer state] == UIGestureRecognizerStateChanged) {
+
+     CGFloat currentScale = [[[gestureRecognizer view].layer valueForKeyPath:@"transform.scale"] floatValue];
+
+    // Constants to adjust the max/min values of zoom.
+    const CGFloat kMaxScale = 2.0;
+    const CGFloat kMinScale = 1.0;
+
+     CGFloat newScale = 1 -  (lastScale - [gestureRecognizer scale]); // new scale is in the range (0-1)
+     newScale = MIN(newScale, kMaxScale / currentScale);
+     newScale = MAX(newScale, kMinScale / currentScale);
+     CGAffineTransform transform = CGAffineTransformScale([[gestureRecognizer view] transform], newScale, newScale);
+     [gestureRecognizer view].transform = transform;
+
+     lastScale = [gestureRecognizer scale];  // Store the previous. scale factor for the next pinch gesture call
+     }
 }
 
 /*

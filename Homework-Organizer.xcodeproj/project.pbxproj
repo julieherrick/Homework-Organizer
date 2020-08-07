@@ -16,6 +16,7 @@
 		7956466A24D1D5970016FF26 /* AppDelegate.m in Sources */ = {isa = PBXBuildFile; fileRef = 7956466924D1D5970016FF26 /* AppDelegate.m */; };
 		7956466D24D1D6E00016FF26 /* CreateSubSubtasksViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 7956466C24D1D6E00016FF26 /* CreateSubSubtasksViewController.m */; };
 		7956467824D90C650016FF26 /* ParseUpdateFunctions.m in Sources */ = {isa = PBXBuildFile; fileRef = 7956467724D90C650016FF26 /* ParseUpdateFunctions.m */; };
+		7956467B24D9FCD80016FF26 /* ApplicationScheme.m in Sources */ = {isa = PBXBuildFile; fileRef = 7956467A24D9FCD80016FF26 /* ApplicationScheme.m */; };
 		799F0B5224BCCBA700FAECC6 /* SceneDelegate.m in Sources */ = {isa = PBXBuildFile; fileRef = 799F0B5124BCCBA700FAECC6 /* SceneDelegate.m */; };
 		799F0B5824BCCBA700FAECC6 /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 799F0B5624BCCBA700FAECC6 /* Main.storyboard */; };
 		799F0B5A24BCCBA900FAECC6 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 799F0B5924BCCBA900FAECC6 /* Assets.xcassets */; };
@@ -71,6 +72,8 @@
 		7956466C24D1D6E00016FF26 /* CreateSubSubtasksViewController.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = CreateSubSubtasksViewController.m; sourceTree = "<group>"; };
 		7956467624D90C650016FF26 /* ParseUpdateFunctions.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; name = ParseUpdateFunctions.h; path = "Homework-Organizer/ParseUpdateFunctions.h"; sourceTree = SOURCE_ROOT; };
 		7956467724D90C650016FF26 /* ParseUpdateFunctions.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; name = ParseUpdateFunctions.m; path = "Homework-Organizer/ParseUpdateFunctions.m"; sourceTree = SOURCE_ROOT; };
+		7956467924D9FCD80016FF26 /* ApplicationScheme.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = ApplicationScheme.h; sourceTree = "<group>"; };
+		7956467A24D9FCD80016FF26 /* ApplicationScheme.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = ApplicationScheme.m; sourceTree = "<group>"; };
 		799F0B4A24BCCBA700FAECC6 /* Homework-Organizer.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = "Homework-Organizer.app"; sourceTree = BUILT_PRODUCTS_DIR; };
 		799F0B4D24BCCBA700FAECC6 /* AppDelegate.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = AppDelegate.h; sourceTree = "<group>"; };
 		799F0B5024BCCBA700FAECC6 /* SceneDelegate.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = SceneDelegate.h; sourceTree = "<group>"; };
@@ -184,7 +187,6 @@
 			isa = PBXGroup;
 			children = (
 				799F0B8C24BCCF3900FAECC6 /* AssignmentListViewController.h */,
-				79CF669324BCD52F007729B9 /* AssignmentListCell.h */,
 				799F0B8D24BCCF3900FAECC6 /* AssignmentListViewController.m */,
 			);
 			path = "Assignent List";
@@ -231,6 +233,8 @@
 				799F0B8324BCCED400FAECC6 /* Views */,
 				799F0B8224BCCEC000FAECC6 /* View Controllers */,
 				799F0B5624BCCBA700FAECC6 /* Main.storyboard */,
+				7956467924D9FCD80016FF26 /* ApplicationScheme.h */,
+				7956467A24D9FCD80016FF26 /* ApplicationScheme.m */,
 				799F0B5924BCCBA900FAECC6 /* Assets.xcassets */,
 				799F0B5B24BCCBA900FAECC6 /* LaunchScreen.storyboard */,
 				799F0B5E24BCCBA900FAECC6 /* Info.plist */,
@@ -277,6 +281,7 @@
 			isa = PBXGroup;
 			children = (
 				79CF669424BCD52F007729B9 /* AssignmentListCell.m */,
+				79CF669324BCD52F007729B9 /* AssignmentListCell.h */,
 				7932F24324BF90620067241A /* SubtaskCell.h */,
 				7932F24424BF90620067241A /* SubtaskCell.m */,
 				7956465B24C89CEB0016FF26 /* CreateSubtaskCell.h */,
@@ -561,6 +566,7 @@
 				7956466D24D1D6E00016FF26 /* CreateSubSubtasksViewController.m in Sources */,
 				79CF669524BCD52F007729B9 /* AssignmentListCell.m in Sources */,
 				7932F24224BF67250067241A /* CreateSubtaskViewController.m in Sources */,
+				7956467B24D9FCD80016FF26 /* ApplicationScheme.m in Sources */,
 				79CF669224BCD063007729B9 /* CalendarViewController.m in Sources */,
 				79CF669B24BCF7F4007729B9 /* Subtask.m in Sources */,
 				7956466524CA36110016FF26 /* ProgressTracking.m in Sources */,

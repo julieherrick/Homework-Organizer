@@ -9,14 +9,25 @@
 #import "CreateSubSubtasksViewController.h"
 #import "CreateSubtaskCell.h"
 
+#import "MaterialTextFields+Theming.h"
+#import "MaterialContainerScheme.h"
+#import "MaterialTypographyScheme.h"
+#import <MaterialComponents/MaterialButtons.h>
+#import <MaterialComponents/MaterialButtons+Theming.h>
+
+#import "ApplicationScheme.h"
+
 @interface CreateSubSubtasksViewController () <UITableViewDelegate, UITableViewDataSource>
 
+@property(nonatomic) MDCTextInputControllerOutlined *taskController;
+@property (weak, nonatomic) IBOutlet MDCTextField *taskField;
+
 @property (weak, nonatomic) IBOutlet UITableView *tableView;
-@property (weak, nonatomic) IBOutlet UITextField *taskField;
 @property (strong, nonatomic) NSMutableArray *subtasks;
 @property (weak, nonatomic) IBOutlet UILabel *parentTaskLabel;
-
-
+@property (weak, nonatomic) IBOutlet MDCFloatingButton *addSubTaskButton;
+@property (weak, nonatomic) IBOutlet UIView *topView;
+@property (weak, nonatomic) IBOutlet UIView *taskBackgroundView;
 
 @end
 
@@ -24,6 +35,20 @@
 
 - (void)viewDidLoad {
     [super viewDidLoad];
+    MDCContainerScheme *containerScheme = [[MDCContainerScheme alloc] init];
+        containerScheme.colorScheme = [ApplicationScheme sharedInstance].colorScheme;
+    //    containerScheme.typographyScheme = [ApplicationScheme sharedInstance].typographyScheme;
+
+
+        self.taskController = [[MDCTextInputControllerOutlined alloc] initWithTextInput:self.taskField];
+        self.taskField.placeholder = @"New Subtask";
+        self.taskField.translatesAutoresizingMaskIntoConstraints = NO;
+    //    [self styleTextInputController:self.titleController];
+        [self.taskController applyThemeWithScheme:containerScheme];
+    
+    self.addSubTaskButton = [MDCFloatingButton floatingButtonWithShape:MDCFloatingButtonShapeDefault];
+    self.addSubTaskButton.accessibilityLabel = @"add subtask";
+    
     // Do any additional setup after loading the view.
     self.tableView.delegate = self;
     self.tableView.dataSource = self;
@@ -32,20 +57,31 @@
     self.tableView.tableFooterView = [[UIView alloc] initWithFrame:CGRectZero];
     self.subtask.totalChildTasks = self.subtask.totalChildTasks;
     
+    self.tableView.layer.cornerRadius = 12.0;
+    [self.tableView setSeparatorStyle:UITableViewCellSeparatorStyleNone];
+    self.topView.layer.cornerRadius = 12.0;
+    self.taskBackgroundView.layer.cornerRadius = 10;
+    
     [self fetchSubtasks];
+}
+
+- (IBAction)onTap:(id)sender {
+    [self.view endEditing:YES];
 }
 
 - (IBAction)onNewSubtask:(id)sender {
     
     Subtask *newTask = [Subtask new];
-    if ([self.taskField.text isEqual:@""])
-    {
-//        [self alertError:@"cannot create empty subtask"];
+    if ([self.taskField.text isEqual:@""]) {
+        [self.taskController setErrorColor:[UIColor colorWithRed:0.87 green:0.29 blue:0.16 alpha:1.0]];
+        [self.taskController setErrorText:@"can't create empty task" errorAccessibilityValue:nil];
     } else {
         newTask.subtaskText = self.taskField.text;
         newTask.isChildTask = YES;
         newTask.parentTask = self.subtask;
         newTask.completed = NO;
+        [self.taskController setErrorColor:[UIColor colorWithRed:0.16 green:0.75 blue:0.87 alpha:1.0]];
+        [self.taskController setErrorText:@"" errorAccessibilityValue:nil];
         NSLog(@"@%@", newTask.parentTask.subtaskText);
         [newTask saveInBackgroundWithBlock:^(BOOL succeeded, NSError * _Nullable error) {
             if(succeeded){

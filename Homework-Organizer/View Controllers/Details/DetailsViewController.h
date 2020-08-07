@@ -24,7 +24,6 @@ NS_ASSUME_NONNULL_BEGIN
 
 @property (weak, nonatomic) id<DetailsViewControllerDelegate> delegate;
 
--(void)updateCellProgress:(NSIndexPath *)indexPath;
 
 @property (strong, nonatomic) IBOutlet UIProgressView *progressBar;
 @property (nonatomic, strong) Assignment *assignment;
