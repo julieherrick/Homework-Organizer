@@ -45,6 +45,8 @@
 @property (weak, nonatomic) IBOutlet NSLayoutConstraint *progressTopConstraint;
 @property (weak, nonatomic) IBOutlet NSLayoutConstraint *dueDateTopConstraint;
 @property (weak, nonatomic) IBOutlet NSLayoutConstraint *dueTopConstraint;
+@property (weak, nonatomic) IBOutlet UILabel *taskLabel;
+@property (weak, nonatomic) IBOutlet UIView *topView;
 
 
 
@@ -99,6 +101,11 @@
             [self.viewImageButton setHidden:YES];
         }];
     }
+    
+    self.tableView.layer.cornerRadius = 12.0;
+    self.topView.layer.cornerRadius = 12.0;
+    
+    [self.topView setClipsToBounds:YES];
     
 }
 
@@ -201,10 +208,10 @@
     }
         
     [self.progressBar setProgress:[self.assignment.progress floatValue]];
-    if ([self.assignment.progress isEqualToNumber:@1]) {
-        self.progressBar.tintColor = [UIColor colorWithRed:0.00 green:0.67 blue:0.47 alpha:1.0];
+    if (self.assignment.completed && [self.assignment.progress isEqualToNumber:@1]) {
+        self.progressBar.tintColor = [UIColor colorWithRed:0.16 green:0.87 blue:0.65 alpha:1.0];
     } else {
-        self.progressBar.tintColor = [UIColor colorWithRed:0.16 green:0.75 blue:0.87 alpha:1.0];
+        self.progressBar.tintColor = [UIColor colorWithRed:0.16 green:0.74 blue:0.87 alpha:1.0];
     }
 }
 
@@ -237,6 +244,7 @@
     if (self.assignment.completed) {
         self.assignment.completed = NO;
         [self completeAnimation:0];
+        self.progressBar.tintColor = [UIColor colorWithRed:0.16 green:0.74 blue:0.87 alpha:1.0];
     } else {
         // mark all child tasks as complete
         if (![self.assignment.progress isEqualToNumber:@1]) {
@@ -244,7 +252,7 @@
         }
         self.assignment.completed = YES;
         [self completeAnimation:1];
-//        [self refreshInfo];
+        self.progressBar.tintColor = [UIColor colorWithRed:0.16 green:0.87 blue:0.65 alpha:1.0];
     }
     [self.assignment saveInBackgroundWithBlock:^(BOOL succeeded, NSError * _Nullable error) {
         if (succeeded) {
@@ -309,14 +317,11 @@
 -(void)didUpdate:(Assignment *)assignment {
     NSLog(@"DETAILSVIEWCONTROLLER: @%@ progress @%@", self.assignment.title, self.assignment.progress);
     [self.progressBar setProgress:[self.assignment.progress floatValue]];
-    [UIView animateWithDuration:0.3 animations:^{
-        [self.progressBar setProgress:[self.assignment.progress floatValue]];
-        if (assignment.completed) {
-            self.progressBar.tintColor = [UIColor colorWithRed:0.00 green:0.67 blue:0.47 alpha:1.0];
-        } else {
-            self.progressBar.tintColor = [UIColor colorWithRed:0.16 green:0.75 blue:0.87 alpha:1.0];
-        }
-    }];
+    if (assignment.completed && [assignment.progress isEqualToNumber:@1]) {
+        self.progressBar.tintColor = [UIColor colorWithRed:0.16 green:0.87 blue:0.65 alpha:1.0];
+    } else {
+        self.progressBar.tintColor = [UIColor colorWithRed:0.16 green:0.74 blue:0.87 alpha:1.0];
+    }
     [self.tableView reloadData];
 }
 

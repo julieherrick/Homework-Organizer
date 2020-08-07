@@ -30,6 +30,8 @@
 @property (weak, nonatomic) IBOutlet UITableView *tableView;
 @property (strong, nonatomic) NSMutableArray<Subtask *> *allSubtasks;
 @property (weak, nonatomic) IBOutlet MDCFloatingButton *addTaskButton;
+@property (weak, nonatomic) IBOutlet UIView *topView;
+@property (weak, nonatomic) IBOutlet UIView *backgroundTaskView;
 
 @end
 
@@ -50,8 +52,7 @@
         [self.taskController applyThemeWithScheme:containerScheme];
     
     self.addTaskButton = [MDCFloatingButton floatingButtonWithShape:MDCFloatingButtonShapeDefault];
-//    [self.addTaskButton applySecondaryThemeWithScheme:containerScheme];
-//    [self.addTaskButton setBackgroundColor:[UIColor colorWithRed:0.89f green:0.02f blue:0.15f alpha:1] forState:UIControlStateNormal];
+    self.addTaskButton.accessibilityLabel = @"add task";
     
     self.tableView.delegate = self;
     self.tableView.dataSource = self;
@@ -66,6 +67,11 @@
         }];
 //    [self.tableView setHidden:YES];
     self.tableView.tableFooterView = [[UIView alloc] initWithFrame:CGRectZero];
+    [self.tableView setSeparatorStyle:UITableViewCellSeparatorStyleNone];
+    self.tableView.layer.cornerRadius = 12.0;
+    self.topView.layer.cornerRadius = 12.0;
+    [self.topView setClipsToBounds:YES];
+    self.backgroundTaskView.layer.cornerRadius = 10;
     
 }
 -(void)viewDidAppear:(BOOL)animated {
@@ -81,13 +87,15 @@
 - (IBAction)onNewSubtask:(id)sender {
     
     Subtask *newTask = [Subtask new];
-    if ([self.taskField.text isEqual:@""])
-    {
-        [self alertError:@"cannot create empty subtask"];
+    if ([self.taskField.text isEqual:@""]) {
+        [self.taskController setErrorColor:[UIColor colorWithRed:0.87 green:0.29 blue:0.16 alpha:1.0]];
+        [self.taskController setErrorText:@"can't create empty task" errorAccessibilityValue:nil];
     } else {
         newTask.subtaskText = self.taskField.text;
         newTask.completed = NO;
         newTask.assignmentParent = self.assignment;
+        [self.taskController setErrorColor:[UIColor colorWithRed:0.16 green:0.75 blue:0.87 alpha:1.0]];
+        [self.taskController setErrorText:@"" errorAccessibilityValue:nil];
         [newTask saveInBackgroundWithBlock:^(BOOL succeeded, NSError * _Nullable error) {
             if(succeeded){
                 PFRelation *relation = [self.assignment relationForKey:@"Subtask"];
@@ -139,7 +147,8 @@
             }
         }];
     } else {
-        [self alertError:@"Must have at least one task"];
+        [self.taskController setErrorColor:[UIColor colorWithRed:0.87 green:0.29 blue:0.16 alpha:1.0]];
+        [self.taskController setErrorText:@"must have at least one task" errorAccessibilityValue:nil];
     }
 }
 

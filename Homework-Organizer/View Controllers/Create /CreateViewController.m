@@ -36,6 +36,8 @@
 @property (weak, nonatomic) IBOutlet MDCTextField *classField;
 @property (weak, nonatomic) IBOutlet MDCTextField *dueDateField;
 @property (weak, nonatomic) IBOutlet UIImageView *attachedImage;
+@property (weak, nonatomic) IBOutlet UIButton *cameraButton;
+@property (weak, nonatomic) IBOutlet UIView *backgroundView;
 
 
 //@property (nonatomic, strong) MDCContainerScheme *containerScheme;
@@ -69,7 +71,9 @@
     self.dueDateField.translatesAutoresizingMaskIntoConstraints = NO;
     [self.dueDateController applyThemeWithScheme:containerScheme];
     
-    
+    self.cameraButton.layer.cornerRadius = 30;
+    self.cameraButton.accessibilityLabel = @"add photo";
+    self.backgroundView.layer.cornerRadius = 10;
     // Do any additional setup after loading the view.
     self.datePicker = [[UIDatePicker alloc] init];
     self.datePicker.datePickerMode = UIDatePickerModeDateAndTime;
@@ -103,9 +107,13 @@
     // test to see if assignment is created
     if ([self.titleField.text isEqual:@""] || [self.dueDateField.text  isEqual: @""]) {
         if ([self.titleField.text isEqual:@""]) {
-            [self alertError:@"Title is required"];
+//            [self alertError:@"Title is required"];
+            [self.titleController setErrorColor:[UIColor colorWithRed:0.87 green:0.29 blue:0.16 alpha:1.0]];
+            [self.titleController setErrorText:@"Must have a title" errorAccessibilityValue:nil];
         } else {
-            [self alertError:@"Due Date required"];
+//            [self alertError:@"Due Date required"];
+            [self.dueDateController setErrorColor:[UIColor colorWithRed:0.87 green:0.29 blue:0.16 alpha:1.0]];
+            [self.dueDateController setErrorText:@"Must have a due date" errorAccessibilityValue:nil];
         }
     } else {
     [Assignment  createNewAssignment:self.titleField.text withClassName:self.classField.text withDueDate:self.datePicker.date withImage:self.attachedImage.image withCompletion:^(BOOL succeeded, NSError * _Nullable error) {

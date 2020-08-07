@@ -42,7 +42,7 @@
     self.progressBar.layer.cornerRadius = 5;
     self.progressBar.clipsToBounds = YES;
     if (assignment.completed) {
-        self.progressBar.tintColor = [UIColor colorWithRed:0.00 green:0.67 blue:0.47 alpha:1.0];
+        self.progressBar.tintColor = [UIColor colorWithRed:0.16 green:0.87 blue:0.65 alpha:1.0];
     } else {
         self.progressBar.tintColor = [UIColor colorWithRed:0.16 green:0.75 blue:0.87 alpha:1.0];
     }

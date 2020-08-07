@@ -46,22 +46,22 @@
 //                                                    green:44.0 / 255.0
 //                                                     blue:46.0 / 255.0
 //                                                    alpha:1.0];
-//    _colorScheme.surfaceColor = [UIColor colorWithRed:255.0 / 255.0
-//                                                green:251.0 / 255.0
-//                                                 blue:250.0 / 255.0
-//                                                alpha:1.0];
-//    _colorScheme.onSurfaceColor = [UIColor colorWithRed:68.0 / 255.0
-//                                                  green:44.0 / 255.0
-//                                                   blue:46.0 / 255.0
-//                                                  alpha:1.0];
-//    _colorScheme.backgroundColor = [UIColor colorWithRed:255.0 / 255.0
-//                                                   green:255.0 / 255.0
-//                                                    blue:255.0 / 255.0
-//                                                   alpha:1.0];
-//    _colorScheme.onBackgroundColor = [UIColor colorWithRed:68.0 / 255.0
-//                                                     green:44.0 / 255.0
-//                                                      blue:46.0 / 255.0
-//                                                     alpha:1.0];
+    _colorScheme.surfaceColor = [UIColor colorWithRed:255.0 / 255.0
+                                                green:251.0 / 255.0
+                                                 blue:250.0 / 255.0
+                                                alpha:1.0];
+    _colorScheme.onSurfaceColor = [UIColor colorWithRed:68.0 / 255.0
+                                                  green:44.0 / 255.0
+                                                   blue:46.0 / 255.0
+                                                  alpha:1.0];
+    _colorScheme.backgroundColor = [UIColor colorWithRed:255.0 / 255.0
+                                                   green:255.0 / 255.0
+                                                    blue:255.0 / 255.0
+                                                   alpha:1.0];
+    _colorScheme.onBackgroundColor = [UIColor colorWithRed:68.0 / 255.0
+                                                     green:44.0 / 255.0
+                                                      blue:46.0 / 255.0
+                                                     alpha:1.0];
 //    _colorScheme.errorColor = [UIColor colorWithRed:197.0 / 255.0
 //                                              green:3.0 / 255.0
 //                                               blue:43.0 / 255.0
