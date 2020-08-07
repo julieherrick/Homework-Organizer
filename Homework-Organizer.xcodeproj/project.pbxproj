@@ -28,6 +28,7 @@
 		799F0B8B24BCCF2100FAECC6 /* DetailsViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 799F0B8A24BCCF2100FAECC6 /* DetailsViewController.m */; };
 		799F0B8E24BCCF3900FAECC6 /* AssignmentListViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 799F0B8D24BCCF3900FAECC6 /* AssignmentListViewController.m */; };
 		799F0B9124BCCF4500FAECC6 /* CreateViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 799F0B9024BCCF4500FAECC6 /* CreateViewController.m */; };
+		79A98FC824DE032C0098760D /* SettingsViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 79A98FC724DE032C0098760D /* SettingsViewController.m */; };
 		79CF669224BCD063007729B9 /* CalendarViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 79CF669124BCD063007729B9 /* CalendarViewController.m */; };
 		79CF669524BCD52F007729B9 /* AssignmentListCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 79CF669424BCD52F007729B9 /* AssignmentListCell.m */; };
 		79CF669824BCE4EA007729B9 /* Assignment.m in Sources */ = {isa = PBXBuildFile; fileRef = 79CF669724BCE4EA007729B9 /* Assignment.m */; };
@@ -97,6 +98,8 @@
 		799F0B8D24BCCF3900FAECC6 /* AssignmentListViewController.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = AssignmentListViewController.m; sourceTree = "<group>"; };
 		799F0B8F24BCCF4500FAECC6 /* CreateViewController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = CreateViewController.h; sourceTree = "<group>"; };
 		799F0B9024BCCF4500FAECC6 /* CreateViewController.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = CreateViewController.m; sourceTree = "<group>"; };
+		79A98FC624DE032C0098760D /* SettingsViewController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = SettingsViewController.h; sourceTree = "<group>"; };
+		79A98FC724DE032C0098760D /* SettingsViewController.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = SettingsViewController.m; sourceTree = "<group>"; };
 		79CF669024BCD063007729B9 /* CalendarViewController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = CalendarViewController.h; sourceTree = "<group>"; };
 		79CF669124BCD063007729B9 /* CalendarViewController.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = CalendarViewController.m; sourceTree = "<group>"; };
 		79CF669324BCD52F007729B9 /* AssignmentListCell.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = AssignmentListCell.h; sourceTree = "<group>"; };
@@ -264,6 +267,7 @@
 		799F0B8224BCCEC000FAECC6 /* View Controllers */ = {
 			isa = PBXGroup;
 			children = (
+				79A98FC524DE02F60098760D /* Settings */,
 				7956466224CA35120016FF26 /* Assignent List */,
 				7956466124CA35030016FF26 /* Calendar */,
 				7956466024CA34F70016FF26 /* Login */,
@@ -299,6 +303,15 @@
 				79CF669A24BCF7F4007729B9 /* Subtask.m */,
 			);
 			path = Models;
+			sourceTree = "<group>";
+		};
+		79A98FC524DE02F60098760D /* Settings */ = {
+			isa = PBXGroup;
+			children = (
+				79A98FC624DE032C0098760D /* SettingsViewController.h */,
+				79A98FC724DE032C0098760D /* SettingsViewController.m */,
+			);
+			path = Settings;
 			sourceTree = "<group>";
 		};
 		9774F8B46C173028FA5612B3 /* Frameworks */ = {
@@ -569,6 +582,7 @@
 				7956467B24D9FCD80016FF26 /* ApplicationScheme.m in Sources */,
 				79CF669224BCD063007729B9 /* CalendarViewController.m in Sources */,
 				79CF669B24BCF7F4007729B9 /* Subtask.m in Sources */,
+				79A98FC824DE032C0098760D /* SettingsViewController.m in Sources */,
 				7956466524CA36110016FF26 /* ProgressTracking.m in Sources */,
 				799F0B8E24BCCF3900FAECC6 /* AssignmentListViewController.m in Sources */,
 				7956465D24C89CEB0016FF26 /* CreateSubtaskCell.m in Sources */,

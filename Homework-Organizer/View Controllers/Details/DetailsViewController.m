@@ -115,6 +115,9 @@
     [progressTracking updateProgress:self.assignment];
     [self fetchSubtasks];
 }
+- (IBAction)onDoubleTap:(id)sender {
+    [self refreshInfo];
+}
 
 -(void)refreshInfo {
     ProgressTracking *progressTracking = [[ProgressTracking alloc] init];
