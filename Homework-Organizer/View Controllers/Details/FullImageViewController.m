@@ -24,16 +24,9 @@
     self.imageView.file = self.assignment.image;
 //    [self.imageView loadInBackground];
     
-    self.scrollView.delegate=self;
-    self.scrollView.minimumZoomScale=01.0;
-    self.scrollView.maximumZoomScale=5.0;
-//    self.scrollView.contentSize=CGSizeMake(self.vi, 960);
 
 }
 
-- (UIView *)viewForZoomingInScrollView:(UIScrollView *)scrollView {
-    return self.imageView;
-}
 
 
 //- (IBAction)scaleImage:(UIPinchGestureRecognizer *)gestureRecognizer {

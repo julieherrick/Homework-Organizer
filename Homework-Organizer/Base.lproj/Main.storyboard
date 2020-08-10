@@ -679,38 +679,22 @@
                         <rect key="frame" x="0.0" y="0.0" width="414" height="842"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
-                            <scrollView clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" alwaysBounceHorizontal="YES" maximumZoomScale="5" translatesAutoresizingMaskIntoConstraints="NO" id="oPs-2O-YGd">
+                            <imageView clipsSubviews="YES" contentMode="scaleAspectFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" translatesAutoresizingMaskIntoConstraints="NO" id="LHE-FN-QeG" customClass="PFImageView">
                                 <rect key="frame" x="0.0" y="0.0" width="414" height="842"/>
-                                <subviews>
-                                    <imageView clipsSubviews="YES" contentMode="scaleAspectFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" translatesAutoresizingMaskIntoConstraints="NO" id="LHE-FN-QeG" customClass="PFImageView">
-                                        <rect key="frame" x="0.0" y="0.0" width="414" height="842"/>
-                                        <gestureRecognizers/>
-                                    </imageView>
-                                </subviews>
-                                <constraints>
-                                    <constraint firstItem="LHE-FN-QeG" firstAttribute="leading" secondItem="HVB-NY-NX1" secondAttribute="leading" id="15X-Xr-31z"/>
-                                    <constraint firstItem="LHE-FN-QeG" firstAttribute="top" secondItem="HVB-NY-NX1" secondAttribute="top" id="2zW-Qa-ndb"/>
-                                    <constraint firstAttribute="trailing" secondItem="LHE-FN-QeG" secondAttribute="trailing" id="IQe-HS-1AA"/>
-                                    <constraint firstItem="LHE-FN-QeG" firstAttribute="bottom" secondItem="HVB-NY-NX1" secondAttribute="bottom" id="T1h-m9-wgR"/>
-                                    <constraint firstAttribute="bottom" secondItem="LHE-FN-QeG" secondAttribute="bottom" id="WIT-5A-JA9"/>
-                                    <constraint firstItem="LHE-FN-QeG" firstAttribute="trailing" secondItem="HVB-NY-NX1" secondAttribute="trailing" id="q34-vK-Hvh"/>
-                                </constraints>
-                                <viewLayoutGuide key="contentLayoutGuide" id="J7T-aV-1Ad"/>
-                                <viewLayoutGuide key="frameLayoutGuide" id="HVB-NY-NX1"/>
-                            </scrollView>
+                                <gestureRecognizers/>
+                            </imageView>
                         </subviews>
                         <color key="backgroundColor" systemColor="systemBackgroundColor" cocoaTouchSystemColor="whiteColor"/>
                         <constraints>
-                            <constraint firstItem="oPs-2O-YGd" firstAttribute="leading" secondItem="gSR-MN-dZi" secondAttribute="leading" id="ITt-Rt-hnr"/>
-                            <constraint firstItem="oPs-2O-YGd" firstAttribute="centerY" secondItem="EpH-Di-aPb" secondAttribute="centerY" id="Pdd-Xs-E1l"/>
-                            <constraint firstItem="oPs-2O-YGd" firstAttribute="top" secondItem="gSR-MN-dZi" secondAttribute="top" id="YfP-sZ-rNw"/>
-                            <constraint firstItem="oPs-2O-YGd" firstAttribute="centerX" secondItem="EpH-Di-aPb" secondAttribute="centerX" id="xMM-WY-nOW"/>
+                            <constraint firstItem="LHE-FN-QeG" firstAttribute="top" secondItem="gSR-MN-dZi" secondAttribute="top" id="5wK-S6-rBp"/>
+                            <constraint firstItem="LHE-FN-QeG" firstAttribute="leading" secondItem="gSR-MN-dZi" secondAttribute="leading" id="HH0-KJ-HTM"/>
+                            <constraint firstAttribute="bottom" secondItem="LHE-FN-QeG" secondAttribute="bottom" id="RkK-jO-U8I"/>
+                            <constraint firstItem="LHE-FN-QeG" firstAttribute="trailing" secondItem="gSR-MN-dZi" secondAttribute="trailing" id="nOc-0Y-yNr"/>
                         </constraints>
                         <viewLayoutGuide key="safeArea" id="gSR-MN-dZi"/>
                     </view>
                     <connections>
                         <outlet property="imageView" destination="LHE-FN-QeG" id="Z5A-Qb-oL6"/>
-                        <outlet property="scrollView" destination="oPs-2O-YGd" id="dXI-K1-uON"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="oPj-dd-A47" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
