@@ -66,7 +66,7 @@
 
 - (void)fetchAssignments {
     PFQuery *assignmentQuery = [PFQuery queryWithClassName:@"Assignment"];
-    [assignmentQuery orderByAscending:@"dueDate"];
+    [assignmentQuery orderByDescending:@"dueDate"];
     [assignmentQuery whereKey:@"completed" equalTo: @YES];
     [assignmentQuery whereKey:@"author" equalTo: [PFUser currentUser]];
 //    assignmentQuery.limit = 20;
