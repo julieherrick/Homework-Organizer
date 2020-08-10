@@ -181,7 +181,7 @@
     UIImage *editedImage = info[UIImagePickerControllerEditedImage];
 
     // Do something with the images (based on your use case)
-    [self.attachedImage setImage:[self resizeImage:editedImage withSize:CGSizeMake(414, 414)]];
+    [self.attachedImage setImage:[self resizeImage:editedImage withSize:CGSizeMake(500, 500)]];
     
     
     // Dismiss UIImagePickerController to go back to your original view controller

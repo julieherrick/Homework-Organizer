@@ -20,8 +20,7 @@
     // Override point for customization after application launch.
     
     ParseClientConfiguration *config = [ParseClientConfiguration   configurationWithBlock:^(id<ParseMutableClientConfiguration> configuration) {
-        configuration.applicationId = @"hw_organizer";
-        configuration.server = @"https://hw-organizer.herokuapp.com/parse";
+
     }];
     
     [Parse initializeWithConfiguration:config];
@@ -30,6 +29,7 @@
     
     return YES;
 }
+
 
 
 #pragma mark - UISceneSession lifecycle

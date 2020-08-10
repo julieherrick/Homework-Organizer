@@ -1,67 +1,75 @@
 //
-//  AssignmentListViewController.m
+//  SettingsViewController.m
 //  Homework-Organizer
 //
-//  Created by Julie Herrick on 7/13/20.
+//  Created by Julie Herrick on 8/7/20.
 //  Copyright © 2020 Julie Herrick. All rights reserved.
 //
 
-#import "AssignmentListViewController.h"
-#import "AssignmentListCell.h"
-#import <Parse/Parse.h>
-#import "DetailsViewController.h"
+#import "SettingsViewController.h"
 #import "SceneDelegate.h"
+#import "Assignment.h"
+#import "AssignmentListCell.h"
 
-// theme items
-#import <MaterialComponents/MaterialButtons+ColorThemer.h>
-#import <MaterialComponents/MaterialButtons+TypographyThemer.h>
+@interface SettingsViewController () <UITableViewDelegate, UITableViewDataSource>
 
-#import <MaterialComponents/MaterialTextFields+ColorThemer.h>
-#import <MaterialComponents/MaterialTextFields.h>
-
-#import "MaterialTextFields+Theming.h"
-#import "MaterialContainerScheme.h"
-#import "MaterialTypographyScheme.h"
-#import <MaterialComponents/MaterialButtons.h>
-#import <MaterialComponents/MaterialButtons+Theming.h>
-
-#import "ApplicationScheme.h"
-
-@interface AssignmentListViewController () <UITableViewDelegate, UITableViewDataSource, DetailsViewControllerDelegate>
-
+@property (strong, nonatomic) FBSDKLoginButton *loginButton;
 @property (strong, nonatomic) NSMutableArray *assignments;
 @property (weak, nonatomic) IBOutlet UITableView *tableView;
+@property (weak, nonatomic) IBOutlet UIView *topView;
 
 @end
 
-@implementation AssignmentListViewController
+@implementation SettingsViewController
 
 - (void)viewDidLoad {
     [super viewDidLoad];
+    // Do any additional setup after loading the view.
     
-    self.tableView.dataSource = self;
+    self.loginButton = [[FBSDKLoginButton alloc] init];
+        self.loginButton.delegate = self;
+
+        self.loginButton.permissions = @[@"public_profile", @"email"];
+
+        self.loginButton.center = self.view.center;
+    //    loginButton.size
+    [self.loginButton setFrame:CGRectMake(self.view.center.x, 130, 250, 28)];
+    self.loginButton.center = CGPointMake(self.view.center.x, 130);
+    [self.view addSubview:self.loginButton];
+    
     self.tableView.delegate = self;
-    
-    [self fetchAssignments];
+    self.tableView.dataSource = self;
     self.tableView.tableFooterView = [[UIView alloc] initWithFrame:CGRectZero];
     
-    [self.tableView setSeparatorStyle:UITableViewCellSeparatorStyleNone];
-    [self.tableView setShowsVerticalScrollIndicator:NO];
+    self.tableView.layer.cornerRadius = 12.0;
+    self.topView.layer.cornerRadius = 12.0;
+    [self.topView setClipsToBounds:YES];
     
+    UITapGestureRecognizer* doubleTap = [[UITapGestureRecognizer alloc] initWithTarget:self action:@selector(doubleTap:)];
+    doubleTap.numberOfTapsRequired = 2;
+    doubleTap.numberOfTouchesRequired = 1;
+    [self.tableView addGestureRecognizer:doubleTap];
+    
+    [self fetchAssignments];
 }
 
--(void)viewDidAppear:(BOOL)animated {
-    [super viewDidAppear:nil];
-    [self fetchAssignments];
+-(void)doubleTap:(UITapGestureRecognizer *)tap {
+    if (UIGestureRecognizerStateEnded == tap.state) {
+        CGPoint p = [tap locationInView:tap.view];
+        NSIndexPath* indexPath = [self.tableView indexPathForRowAtPoint:p];
+
+        Assignment *current = [self.assignments objectAtIndex:indexPath.row];
+        current.completed = NO;
+        [current saveInBackground];
+    }
 }
 
 - (void)fetchAssignments {
     PFQuery *assignmentQuery = [PFQuery queryWithClassName:@"Assignment"];
-    [assignmentQuery orderByAscending:@"dueDate"];
-    [assignmentQuery whereKey:@"creationComplete" equalTo: @YES];
-    [assignmentQuery whereKey:@"completed" equalTo:@NO];
+    [assignmentQuery orderByDescending:@"dueDate"];
+    [assignmentQuery whereKey:@"completed" equalTo: @YES];
     [assignmentQuery whereKey:@"author" equalTo: [PFUser currentUser]];
-    assignmentQuery.limit = 10;
+//    assignmentQuery.limit = 20;
     
     [assignmentQuery findObjectsInBackgroundWithBlock:^(NSArray<Assignment *>* _Nullable assignments, NSError * _Nullable error) {
         if (assignments) {
@@ -74,19 +82,20 @@
     
 }
 
-- (IBAction)onLogout:(id)sender {
+-(void)onLogout {
     [PFUser logOutInBackgroundWithBlock:^(NSError * _Nullable error) {
         // PFUser.current() will now be nil
         if (error != nil) {
             NSLog(@"User log out failed: %@", error.localizedDescription);
         } else {
             NSLog(@"User logged out successfully");
+            self.loginButton.hidden = YES;
             FBSDKLoginManager *loginManager = [[FBSDKLoginManager alloc] init];
             [loginManager logOut];
-            
+
             if ([FBSDKAccessToken currentAccessToken] == nil) {
                 SceneDelegate *myDelegate = (SceneDelegate *)self.view.window.windowScene.delegate;
-                
+
                 UIStoryboard *storyboard = [UIStoryboard storyboardWithName:@"Main" bundle: nil];
                 UIViewController *loginController = [storyboard instantiateViewControllerWithIdentifier:@"LoginViewController"];
                 myDelegate.window.rootViewController = loginController;
@@ -97,8 +106,7 @@
     }];
 }
 
-
- - (nonnull UITableViewCell *)tableView:(nonnull UITableView *)tableView cellForRowAtIndexPath:(nonnull NSIndexPath *)indexPath {
+- (nonnull UITableViewCell *)tableView:(nonnull UITableView *)tableView cellForRowAtIndexPath:(nonnull NSIndexPath *)indexPath {
      AssignmentListCell *cell = [tableView dequeueReusableCellWithIdentifier:@"AssignmentListCell"];
      Assignment *assignment = self.assignments[indexPath.row];
      
@@ -116,15 +124,7 @@
 - (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath {
     NSLog(@"Selected row number: %ld", (long)indexPath.row);
     [tableView deselectRowAtIndexPath:indexPath animated:YES];
-    
     [tableView reloadData];
-}
-
--(void)didUpdateAssignmentCell:(NSIndexPath *)indexPath withValue:(NSNumber *)percentage {
-    NSLog(@"ASSIGNMENT UPDATING IN LIST AT INDEX @%ld", (long)indexPath.row);
-    [self.tableView reloadRowsAtIndexPaths:@[indexPath] withRowAnimation:UITableViewRowAnimationAutomatic];
-    AssignmentListCell *cell = [self.tableView cellForRowAtIndexPath:indexPath];
-    [cell.progressBar setProgress:[percentage floatValue]];
 }
 
 // delete cells
@@ -193,29 +193,28 @@
 }
 
 
+- (void)loginButton:(nonnull FBSDKLoginButton *)loginButton didCompleteWithResult:(nullable FBSDKLoginManagerLoginResult *)result error:(nullable NSError *)error {
+    NSAssert(error || result, @"Must have a result or an error");
+    
+    if (error) {
+        return NSLog(@"An Error occurred: %@", error.localizedDescription);
+    }
+}
+
+- (void)loginButtonDidLogOut:(nonnull FBSDKLoginButton *)loginButton {
+    [[FBSDKLoginManager new] logOut ];
+    [self onLogout];
+    NSLog(@"Logged out");
+}
+
+/*
 #pragma mark - Navigation
 
 // In a storyboard-based application, you will often want to do a little preparation before navigation
 - (void)prepareForSegue:(UIStoryboardSegue *)segue sender:(id)sender {
     // Get the new view controller using [segue destinationViewController].
     // Pass the selected object to the new view controller.
-    if(![sender isKindOfClass:[UIBarButtonItem class]]) {
-        AssignmentListCell *tappedCell = sender;
-        NSIndexPath *indexPath = [self.tableView indexPathForCell:tappedCell];
-        Assignment *assignment = self.assignments[indexPath.row];
-        DetailsViewController *detailsViewController = [segue destinationViewController];
-        detailsViewController.assignment = assignment;
-        detailsViewController.indexNumber = indexPath;
-        detailsViewController.delegate = self;
-        NSLog(@"Tapping on an assignment!");
-    }
 }
-
-/*
- AsssignmentListViewController needs to be a delegate of DetailsViewController
- DetailsVC has a protocol with method to update
- Method willl take in progress value
- Will make cell update
- */
+*/
 
 @end

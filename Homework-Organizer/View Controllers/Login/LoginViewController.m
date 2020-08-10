@@ -29,14 +29,14 @@
 
         self.loginButton.center = self.view.center;
     //    loginButton.size
-        self.loginButton.center = CGPointMake(self.view.center.x,  self.hwOrganizerLabel.center.y+20);
+    self.loginButton.center = CGPointMake(self.view.center.x,  self.view.center.y+60);
         [self.view addSubview:self.loginButton];
 //    [self facebookLogin];
     
     if ([FBSDKAccessToken currentAccessToken]) {
-        self.loginButton.alpha = 0;
+        self.loginButton.hidden = YES;
     } else {
-        self.loginButton.alpha = 1;
+        self.loginButton.hidden = NO;
     }
 }
 
@@ -52,17 +52,17 @@
     }];
 }
 
-- (void)addLoginButton {
-    self.loginButton = [[FBSDKLoginButton alloc] init];
-    self.loginButton.delegate = self;
-
-    self.loginButton.permissions = @[@"public_profile", @"email"];
-
-    self.loginButton.center = self.view.center;
-//    loginButton.size
-    self.loginButton.center = CGPointMake(self.view.center.x,  self.hwOrganizerLabel.center.y+20);
-    [self.view addSubview:self.loginButton];
-}
+//- (void)addLoginButton {
+//    self.loginButton = [[FBSDKLoginButton alloc] init];
+//    self.loginButton.delegate = self;
+//
+//    self.loginButton.permissions = @[@"public_profile", @"email"];
+//
+//    self.loginButton.center = self.view.center;
+////    loginButton.size
+//    self.loginButton.center = CGPointMake(self.view.center.x,  self.hwOrganizerLabel.center.y+20);
+//    [self.view addSubview:self.loginButton];
+//}
 
 - (void)loginButton:(nonnull FBSDKLoginButton *)loginButton didCompleteWithResult:(nullable FBSDKLoginManagerLoginResult *)result error:(nullable NSError *)error {
     
@@ -81,7 +81,7 @@
         } else {
             NSLog(@"User logged in through Facebook!");
             NSLog(@"Success. Granted permissions: %@", result.grantedPermissions);
-            self.loginButton.alpha = 0;
+            self.loginButton.hidden = YES;
             [self performSegueWithIdentifier:@"loginSegue" sender:self];
         }
     }];
