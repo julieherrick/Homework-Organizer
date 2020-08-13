@@ -21,6 +21,7 @@ Upload your assignments, the estimated time you think it will take to complete t
 - **Market:** Students
 - **Habit:** Homework is very frequent so I think it would be habit forming to check when your assignments are due
 - **Scope:** User can store an organized list of their assignments to have a single location to keep track of their school work
+<img src="https://i.postimg.cc/J0tVG27m/IMG-3684.jpg" width=600>
 
 ## Product Spec
 
