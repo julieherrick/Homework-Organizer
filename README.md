@@ -67,7 +67,8 @@ Upload your assignments, the estimated time you think it will take to complete t
    * User can add tasks to the assignment
    * User can add subtasks to the task
    <img src="https://i.postimg.cc/6QsvckFj/IMG-3690.png" width=300>
-   <img src="https://i.postimg.cc/rFryjDcT/IMG-3691.png" width=300>
+   <img src="https://i.postimg.cc/ryvRqXw8/IMG-3692.png" width=300>
+   <img src="https://i.postimg.cc/L8SqZtPw/IMG-3694.png" width=300>
 * Assignment Detail
    * user can view the details of the assignment
    <img src="https://i.postimg.cc/rmMtXSV5/IMG-3688.png" width=300>
