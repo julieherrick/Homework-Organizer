@@ -75,6 +75,11 @@ Upload your assignments, the estimated time you think it will take to complete t
 * Calendar
     * User can view assignment due dates on calendar
     <img src="https://i.postimg.cc/1tBV9fX2/IMG-3689.png" width=300>
+* Settings
+    * User can logout
+    * User can view completed assignments
+    * User can double tap an assignment to make it uncompleted
+    <img src="https://i.postimg.cc/vHtYkp12/IMG-3695.png" width=300>
 
 ### 3. Navigation
 
@@ -90,6 +95,7 @@ Upload your assignments, the estimated time you think it will take to complete t
 * Assignment List
     => Add Assignment
     => Assignment details
+    => Settings
 * Assignment Details
     => Assignment List
 * Create Assignment
@@ -110,22 +116,31 @@ Upload your assignments, the estimated time you think it will take to complete t
 #### Assignment
  | Property      | Type     | Description |
  | ------------- | -------- | ------------|
- | objectId      | String   | Unique id for the user assignment (default field) |
+ | objectId      | NSString   | Unique id for the user assignment (default field) |
+ | userID        | NSString | unique ID for user |
  | author        | Pointer to User | Author of assignment |
- | title         | String   | Name of the assignment |
- | class         | String   | The name of the class the assignment is for |
- | due_date      | DateTime | The date the assignment is due |
- | tasks         | Array    | An array of subtasks |
- | Progress      | Number   | Based on the number of subtasks stores the proportion completed |
- | completed     | Boolean  | Stores if the task is completed |
+ | title         | NSString   | Name of the assignment |
+ | classKey      | NSString   | The name of the class the assignment is for |
+ | due_date      | NSDate | The date the assignment is due |
+ | Progress      | NSNumber   | Based on the number of subtasks stores the proportion completed |
+ | completed     | BOOL  | Stores if the task is completed |
  | image         | File     | User can attach image |
+ | creationComplete | BOOL     | checks if assignment was fully created with subtasks |
+ | totalSubtasks | NSNumber  | Number of subtasks associated with the assignment |
+  | totalCompletedSubtasks | NSNumber  | Number of subtasks associated with the assignment that are complete |
  
  #### Subtask
   | Property      | Type     | Description |
   | ------------- | -------- | ------------|
-  | objectId      | String   | Unique id for the user subtask (default field) |
-  | description   | String   | Description of subtask |
-  | completed     | Boolean  | Stores if the task has been completed |
+  | objectId      | NSString   | Unique id for the user subtask (default field) |
+  | description   | NSString   | Description of subtask |
+  | completed     | BOOL  | Stores if the task has been completed |
+  | isChildTask   | BOOL  | Stores if it is a child subtask |
+  | isParentTask  | BOOL  | Stores if it is a parent subtask |
+  | totalChildTasks | NSNumber   | The total number of child tasks a parent subtask has |
+  | totalCompletedChildTasks | NSNumber   | The total number of child tasks a parent subtask has that are completed |
+  | parentTask    | Pointer to Subtask | The parent task of a child subtask |
+  | assignment    | Pointer to Assignment | The Assignment a parent subtask is related to |
   
    
  #### User
