@@ -29,27 +29,24 @@ Upload your assignments, the estimated time you think it will take to complete t
 
 **Required Must-have Stories**
 
-* User can log in/out using facebook [use facebook SDK]
-* User can create a new account
-* User can add a new assignment
-* User can view a list of all assignments
-* Users can view assignment due dates on calendar
-* User can switch between tabs of a list of assignments and a calendar
-* User can swipe to delete assignments
-* User can add subtasks to their assignments
-* User can check off subtasks and progress bar will reflect completion status
-* User can attatch photograph to assignments
-* ...
+- [x] User can log in/out using facebook [use facebook SDK]
+- [x] User can add a new assignment
+- [x] User can attach a photo to an assignent
+- [x] User can view a list of all assignments
+- [x] Users can view assignment due dates on calendar
+- [x] User can switch between tabs of a list of assignments and a calendar
+- [x] User can swipe to delete assignments
+- [x] User can add subtasks to their assignments
+- [x] User can check off subtasks and progress bar will reflect completion status
+- [x] User can attatch photograph to assignments
 
 **Optional Nice-to-have Stories**
 
-* User can view what assignments are due when they click the day on the calendar
-* User can view their profile
-* User can input their classes on their profile
-* User can group assignments by class 
-* User can get notifications
-* User can customize notification time/frequency 
-* Assignment will automatically disappear after due date has passed
+- [x] User can view what assignments are due when they click the day on the calendar
+- [ ] User can get notifications
+- [ ] User can customize notification time/frequency 
+- [x] User can view past assignment on setting page
+- [x] User can un-complete an assignment
 * ...
 
 ### 2. Screen Archetypes
