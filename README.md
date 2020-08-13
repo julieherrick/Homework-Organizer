@@ -56,7 +56,6 @@ Upload your assignments, the estimated time you think it will take to complete t
 
 * Login
    * User can log in/out using facebook 
-   * User can create a new account
    <img src="https://i.postimg.cc/MKDPhDzm/IMG-3685.png" width=300>
 * Assignments List
    * User can view a list of assignments
@@ -64,9 +63,11 @@ Upload your assignments, the estimated time you think it will take to complete t
    * User can swipe to delete an assignment
   <img src="https://i.postimg.cc/SK8WpSW-b/IMG-3687.png" width=300>
 * Add Assignment
-   * User can add new assignment
-   * User can add due date
+   * User can add new assignment with class and due date
+   * User can add tasks to the assignment
+   * User can add subtasks to the task
    <img src="https://i.postimg.cc/6QsvckFj/IMG-3690.png" width=300>
+   <img src="https://i.postimg.cc/rFryjDcT/IMG-3691.png" width=300>
 * Assignment Detail
    * user can view the details of the assignment
    <img src="https://i.postimg.cc/rmMtXSV5/IMG-3688.png" width=300>
